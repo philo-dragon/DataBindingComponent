@@ -1,6 +1,9 @@
 package com.pfl.module_user;
 
 
+import android.graphics.Color;
+import android.view.View;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
@@ -43,7 +46,19 @@ public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLogi
 
     @Override
     protected void initViews() {
-        mBinding.inToolbarLayout.toolbar.setTitle("登录界面");
+        mBinding.inToolbarLayout.titleBar.setLeftTextColor(Color.WHITE);
+        mBinding.inToolbarLayout.titleBar.setLeftText("返回");
+        mBinding.inToolbarLayout.titleBar.setLeftTextColor(Color.WHITE);
+        mBinding.inToolbarLayout.titleBar.setTitleColor(Color.WHITE);
+        mBinding.inToolbarLayout.titleBar.setTitle("登录界面");
+        mBinding.inToolbarLayout.titleBar.setLeftImageResource(R.drawable.ic_arrow_back_white_24dp);
+        mBinding.inToolbarLayout.titleBar.setLeftClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         imageLoader.loadImage(this, ImageConfigImpl.
                 builder().url("http://g.hiphotos.baidu.com/image/pic/item/c8ea15ce36d3d539f09733493187e950342ab095.jpg").
                 imageView(mBinding.imgUser).

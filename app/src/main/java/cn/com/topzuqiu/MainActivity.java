@@ -1,5 +1,6 @@
 package cn.com.topzuqiu;
 
+import android.graphics.Color;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -24,7 +25,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     protected void initViews() {
-        mBinding.inToolbarLayout.toolbar.setTitle("主界面");
+        mBinding.inToolbarLayout.titleBar.setTitleColor(Color.WHITE);
+        mBinding.inToolbarLayout.titleBar.setTitle("主界面");
         mBinding.tvGoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
