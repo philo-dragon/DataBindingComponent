@@ -1,8 +1,8 @@
 package com.pfl.module_user;
 
 
-import android.graphics.Color;
 import android.view.View;
+import android.widget.Toolbar;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.pfl.common.base.BaseActivity;
@@ -46,13 +46,10 @@ public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLogi
 
     @Override
     protected void initViews() {
-        mBinding.inToolbarLayout.titleBar.setLeftTextColor(Color.WHITE);
-        mBinding.inToolbarLayout.titleBar.setLeftText("返回");
-        mBinding.inToolbarLayout.titleBar.setLeftTextColor(Color.WHITE);
-        mBinding.inToolbarLayout.titleBar.setTitleColor(Color.WHITE);
-        mBinding.inToolbarLayout.titleBar.setTitle("登录界面");
-        mBinding.inToolbarLayout.titleBar.setLeftImageResource(R.drawable.ic_arrow_back_white_24dp);
-        mBinding.inToolbarLayout.titleBar.setLeftClickListener(new View.OnClickListener() {
+        setSupportActionBar(mBinding.inToolbarLayout.toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("登录界面");
+        mBinding.inToolbarLayout.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -72,4 +69,5 @@ public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLogi
     public void onSuccess(String token) {
         mBinding.tvToken.setText(token);
     }
+
 }

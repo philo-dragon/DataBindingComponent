@@ -10,17 +10,11 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="144px"
+            android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
-            app:contentInsetStart="0px"
-            app:title="">
-
-            <com.pfl.common.weidget.TitleBar
-                android:id="@+id/title_bar"
-                android:layout_width="match_parent"
-                android:layout_height="96px" />
-
-        </android.support.v7.widget.Toolbar>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:titleTextColor="@android:color/white" />
 
     </android.support.design.widget.AppBarLayout>
 

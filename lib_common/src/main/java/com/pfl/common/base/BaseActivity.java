@@ -2,10 +2,13 @@ package com.pfl.common.base;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.multidex.MultiDex;
+import android.view.View;
 
+import com.pfl.common.R;
 import com.pfl.common.di.AppComponent;
 import com.pfl.common.utils.App;
 import com.pfl.common.utils.StatusBarUtil;
@@ -29,7 +32,6 @@ public abstract class BaseActivity<T> extends RxAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView();
-        //StatusBarUtil.immersive(this);
         componentInject(App.getInstance(BaseApplication.class).getAppComponent());
         initViews();
     }

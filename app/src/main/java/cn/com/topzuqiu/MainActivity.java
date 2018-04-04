@@ -25,8 +25,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     protected void initViews() {
-        mBinding.inToolbarLayout.titleBar.setTitleColor(Color.WHITE);
-        mBinding.inToolbarLayout.titleBar.setTitle("主界面");
+        setSupportActionBar(mBinding.inToolbarLayout.toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setTitle("主界面");
+
         mBinding.tvGoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
