@@ -13,63 +13,50 @@ import com.pfl.common.entity.base.BaseEntyty;
 
 public class User extends BaseEntyty {
 
-    private String account = "";
-    private String password = "";
+    private String name;
+    private String nickName;
+    private String type;
+    private String photo;
 
-    private String confirmPassword = "";
-    private String checkCode = "";
-
-    @Bindable
-    public void setAccount(String account) {
-        this.account = account;
-        notifyPropertyChanged(BR.account);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Bindable
-    public void setPassword(String password) {
-        this.password = password;
-        notifyPropertyChanged(BR.password);
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    @Bindable
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-        notifyPropertyChanged(BR.confirmPassword);
+    public void setType(String type) {
+        this.type = type;
     }
 
-    @Bindable
-    public void setCheckCode(String checkCode) {
-        this.checkCode = checkCode;
-        notifyPropertyChanged(BR.checkCode);
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
-    @Bindable
-    public String getAccount() {
-        return account;
+    public String getName() {
+        return name;
     }
 
-    @Bindable
-    public String getPassword() {
-        return password;
+    public String getNickName() {
+        return nickName;
     }
 
-    @Bindable
-    public String getConfirmPassword() {
-        return confirmPassword;
+    public String getType() {
+        return type;
     }
 
-    @Bindable
-    public String getCheckCode() {
-        return checkCode;
+    public String getPhoto() {
+        return photo;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "account='" + account + '\'' +
-                ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
-                ", checkCode='" + checkCode + '\'' +
+                "name='" + name + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", type='" + type + '\'' +
+                ", photo='" + photo + '\'' +
                 '}';
     }
 }

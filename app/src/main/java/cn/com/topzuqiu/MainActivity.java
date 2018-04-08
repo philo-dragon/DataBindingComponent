@@ -5,6 +5,8 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
+import com.pfl.common.entity.module_user.User;
+import com.pfl.common.service.ModuleUserRouteService;
 import com.pfl.common.utils.RouteUtils;
 
 import cn.com.topzuqiu.databinding.ActivityMainBinding;
@@ -25,6 +27,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public void initView() {
+
+        User userInfo = ModuleUserRouteService.getUserInfo();
+        mBinding.tvGoLogin.setText(userInfo == null ? "1111111111" : userInfo.toString());
         mBinding.tvGoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

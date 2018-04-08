@@ -26,6 +26,9 @@ public class RouteUtils {
     public static final String MODULE_USER_REGIST_ACTIVITY = "/module_user/retist";
 
 
+    public static final String MODULE_USER_LISTENER_USER_INFO = "/module_user/listener_user_info";
+
+
     /** ===================================================================================================================================  **/
 
 

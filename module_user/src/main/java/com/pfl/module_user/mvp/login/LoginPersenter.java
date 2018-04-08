@@ -5,7 +5,6 @@ import com.pfl.common.http.RetrofitFactory;
 import com.pfl.common.http.RetrofitService;
 import com.pfl.common.http.RxSchedulers;
 import com.pfl.common.utils.BaseObserver;
-import com.pfl.module_user.mvp.regist.Module2View;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
