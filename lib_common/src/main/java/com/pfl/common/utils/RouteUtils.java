@@ -23,6 +23,7 @@ public class RouteUtils {
      * module_user 模块
      */
     public static final String MODULE_USER_LOGIN_ACTIVITY = "/module_user/login";
+    public static final String MODULE_USER_REGIST_ACTIVITY = "/module_user/retist";
 
 
     /** ===================================================================================================================================  **/

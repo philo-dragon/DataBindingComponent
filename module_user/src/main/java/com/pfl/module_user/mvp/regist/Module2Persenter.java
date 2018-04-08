@@ -1,22 +1,14 @@
-package com.pfl.module_user.mvp.module2;
+package com.pfl.module_user.mvp.regist;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.pfl.common.entity.base.AccessToken;
-import com.pfl.common.entity.base.HttpResponse;
-import com.pfl.common.exception.ApiException;
 import com.pfl.common.http.RetrofitFactory;
 import com.pfl.common.http.RetrofitService;
 import com.pfl.common.http.RxSchedulers;
 import com.pfl.common.utils.BaseObserver;
 import com.trello.rxlifecycle2.LifecycleProvider;
-import com.trello.rxlifecycle2.RxLifecycle;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import javax.inject.Inject;
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 
 /**
  * Created by rocky on 2018/1/2.

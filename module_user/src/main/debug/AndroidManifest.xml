@@ -17,6 +17,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ModuleUserLoginActivity"
+            android:label="@string/module_user_login" />
+        <activity
+            android:name=".ModuleUserRegistActivity"
+            android:label="@string/module_user_regist" />
+
     </application>
 
 </manifest>

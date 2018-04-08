@@ -7,27 +7,27 @@ import android.widget.Toast;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
-import com.pfl.common.entity.module_user.User;
 import com.pfl.common.imageloader.ImageLoader;
 import com.pfl.common.utils.RouteUtils;
 import com.pfl.module_user.databinding.ModuleUserActivityLoginBinding;
-import com.pfl.module_user.di.module2.DaggerModule2Component;
-import com.pfl.module_user.di.module2.Module2Module;
-import com.pfl.module_user.mvp.module2.Module2Persenter;
-import com.pfl.module_user.mvp.module2.Module2View;
+import com.pfl.module_user.di.module_login.DaggerLoginComponent;
+import com.pfl.module_user.di.module_login.LoginModule;
+import com.pfl.module_user.mvp.login.LoginPersenter;
+import com.pfl.module_user.mvp.login.LoginView;
+import com.pfl.module_user.po.ModuleUserPoUser;
 
 import javax.inject.Inject;
 
 
 @Route(path = RouteUtils.MODULE_USER_LOGIN_ACTIVITY)
-public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLoginBinding> implements Module2View {
+public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLoginBinding> implements LoginView {
 
     @Inject
     ImageLoader imageLoader;
     @Inject
-    Module2Persenter persenter;
+    LoginPersenter persenter;
     @Inject
-    User user;
+    ModuleUserPoUser user;
 
     @Override
     public int getContentView() {
@@ -37,10 +37,10 @@ public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLogi
     @Override
     public void componentInject(AppComponent appComponent) {
 
-        DaggerModule2Component
+        DaggerLoginComponent
                 .builder()
                 .appComponent(appComponent)
-                .module2Module(new Module2Module(this, this))
+                .loginModule(new LoginModule(this, this))
                 .build()
                 .inject(this);
 
@@ -48,22 +48,13 @@ public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLogi
 
     @Override
     public void initView() {
-        /*imageLoader.loadImage(this, ImageConfigImpl.
-                builder().url("http://g.hiphotos.baidu.com/image/pic/item/c8ea15ce36d3d539f09733493187e950342ab095.jpg").
-                imageView(mBinding.imgUser).
-                build());*/
 
         mBinding.setUser(user);
-        mBinding.btnCheckCode.setOnClickListener(new View.OnClickListener() {
+        mBinding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mBinding.btnCheckCode.onStart();
-            }
-        });
-        mBinding.btnRegist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mBinding.btnRegist.onStart();
+                mBinding.btnLogin.onStart();
+                RouteUtils.actionStart(RouteUtils.MODULE_USER_REGIST_ACTIVITY);
                 Toast.makeText(ModuleUserLoginActivity.this.getApplicationContext(), user.toString(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -71,7 +62,7 @@ public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLogi
 
     @Override
     public void setToolBar() {
-        setToolBarHasBack(mBinding.inToolbarLayout.titleBar, "注册");
+        setToolBarHasBack(mBinding.inToolbarLayout.titleBar);
     }
 
     @Override
@@ -87,9 +78,6 @@ public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLogi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        mBinding.btnRegist.onStop();
-        mBinding.btnCheckCode.onStop();
-
+        mBinding.btnLogin.onStop();
     }
 }

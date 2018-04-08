@@ -1,4 +1,4 @@
-package com.pfl.module_user.di.module2;
+package com.pfl.module_user.di.module_login;
 
 import com.pfl.common.di.AppComponent;
 import com.pfl.common.di.scope.ActivityScope;
@@ -11,8 +11,8 @@ import dagger.Component;
  */
 
 @ActivityScope
-@Component(dependencies = AppComponent.class, modules = Module2Module.class)
-public interface Module2Component {
+@Component(dependencies = AppComponent.class, modules = LoginModule.class)
+public interface LoginComponent {
 
     void inject(ModuleUserLoginActivity activity);
 }

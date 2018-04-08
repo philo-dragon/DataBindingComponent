@@ -3,7 +3,12 @@
     package="com.pfl.module_user">
 
     <application>
-        <activity android:name=".ModuleUserLoginActivity" />
+        <activity
+            android:name=".ModuleUserLoginActivity"
+            android:label="@string/module_user_login" />
+        <activity
+            android:name=".ModuleUserRegistActivity"
+            android:label="@string/module_user_regist" />
     </application>
 
 </manifest>

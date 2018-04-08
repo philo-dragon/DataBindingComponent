@@ -59,8 +59,8 @@ public abstract class BaseActivity<T> extends RxAppCompatActivity implements IAc
         return true;
     }
 
-    protected void setToolBarHasBack(TitleBar titleBar, String title) {
-        titleBar.setTitle(title);
+    protected void setToolBarHasBack(TitleBar titleBar) {
+        titleBar.setTitle(getTitle());
         titleBar.setTitleColor(getResources().getColor(R.color.title_color));
         titleBar.setLeftText("返回");
         titleBar.setLeftImageResource(R.drawable.common_left_back_arror_selector);
@@ -75,7 +75,7 @@ public abstract class BaseActivity<T> extends RxAppCompatActivity implements IAc
     }
 
     protected void setToolBarNoBack(TitleBar titleBar) {
-        titleBar.setTitle("主界面");
+        titleBar.setTitle(getTitle());
         titleBar.setDividerColor(getResources().getColor(R.color.title_divider_color));
         titleBar.setTitleColor(getResources().getColor(R.color.title_color));
     }

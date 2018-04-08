@@ -55,6 +55,7 @@ dependencies {
     api project(':lib_common')
 
     // ARouter 配置 3
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor rootProject.ext.deps.arouter_compiler
     annotationProcessor rootProject.ext.deps.dagger_compiler
     annotationProcessor rootProject.ext.deps.inflaterauto_compiler
