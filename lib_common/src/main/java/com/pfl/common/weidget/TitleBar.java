@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -28,11 +29,11 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
     private static final String STATUS_BAR_HEIGHT_RES_NAME = "status_bar_height";
 
-    private TextView mLeftText;
+    private AppCompatTextView mLeftText;
     private LinearLayout mRightLayout;
     private LinearLayout mCenterLayout;
-    private TextView mCenterText;
-    private TextView mSubTitleText;
+    private AppCompatTextView mCenterText;
+    private AppCompatTextView mSubTitleText;
     private View mCustomCenterView;
     private View mDividerView;
 
@@ -71,7 +72,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
     }
 
     private void initView(Context context) {
-        mLeftText = new TextView(context);
+        mLeftText = new AppCompatTextView(context);
         mCenterLayout = new LinearLayout(context);
         mRightLayout = new LinearLayout(context);
         mDividerView = new View(context);
@@ -83,8 +84,8 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
         mLeftText.setGravity(Gravity.CENTER_VERTICAL);
         mLeftText.setPadding(mOutPadding + mActionPadding, 0, mOutPadding, 0);
 
-        mCenterText = new TextView(context);
-        mSubTitleText = new TextView(context);
+        mCenterText = new AppCompatTextView(context);
+        mSubTitleText = new AppCompatTextView(context);
         mCenterLayout.addView(mCenterText);
         mCenterLayout.addView(mSubTitleText);
 

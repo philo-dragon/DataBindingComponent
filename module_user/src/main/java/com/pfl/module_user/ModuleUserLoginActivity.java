@@ -2,13 +2,13 @@ package com.pfl.module_user;
 
 
 import android.view.View;
-import android.widget.Toolbar;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
+import com.pfl.common.entity.module_user.User;
 import com.pfl.common.imageloader.ImageLoader;
-import com.pfl.common.imageloader.glide.ImageConfigImpl;
 import com.pfl.common.utils.RouteUtils;
 import com.pfl.module_user.databinding.ModuleUserActivityLoginBinding;
 import com.pfl.module_user.di.module2.DaggerModule2Component;
@@ -26,14 +26,16 @@ public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLogi
     ImageLoader imageLoader;
     @Inject
     Module2Persenter persenter;
+    @Inject
+    User user;
 
     @Override
-    protected int getContentView() {
+    public int getContentView() {
         return R.layout.module_user_activity_login;
     }
 
     @Override
-    protected void componentInject(AppComponent appComponent) {
+    public void componentInject(AppComponent appComponent) {
 
         DaggerModule2Component
                 .builder()
@@ -45,29 +47,49 @@ public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLogi
     }
 
     @Override
-    protected void initViews() {
-        setSupportActionBar(mBinding.inToolbarLayout.toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("登录界面");
-        mBinding.inToolbarLayout.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        imageLoader.loadImage(this, ImageConfigImpl.
+    public void initView() {
+        /*imageLoader.loadImage(this, ImageConfigImpl.
                 builder().url("http://g.hiphotos.baidu.com/image/pic/item/c8ea15ce36d3d539f09733493187e950342ab095.jpg").
                 imageView(mBinding.imgUser).
-                build());
+                build());*/
 
+        mBinding.setUser(user);
+        mBinding.btnCheckCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBinding.btnCheckCode.onStart();
+            }
+        });
+        mBinding.btnRegist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBinding.btnRegist.onStart();
+                Toast.makeText(ModuleUserLoginActivity.this.getApplicationContext(), user.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void setToolBar() {
+        setToolBarHasBack(mBinding.inToolbarLayout.titleBar, "注册");
+    }
+
+    @Override
+    public void initData() {
         persenter.requestData();
-
     }
 
     @Override
     public void onSuccess(String token) {
-        mBinding.tvToken.setText(token);
+        Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mBinding.btnRegist.onStop();
+        mBinding.btnCheckCode.onStop();
+
+    }
 }

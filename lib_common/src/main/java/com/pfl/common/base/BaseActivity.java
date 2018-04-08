@@ -5,13 +5,13 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.multidex.MultiDex;
 import android.view.View;
 
 import com.pfl.common.R;
-import com.pfl.common.di.AppComponent;
+import com.pfl.common.listener.IActivity;
 import com.pfl.common.utils.App;
 import com.pfl.common.utils.StatusBarUtil;
+import com.pfl.common.weidget.TitleBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yan.inflaterauto.InflaterAuto;
 
@@ -19,7 +19,7 @@ import com.yan.inflaterauto.InflaterAuto;
  * Created by rocky on 2018/4/2.
  */
 
-public abstract class BaseActivity<T> extends RxAppCompatActivity {
+public abstract class BaseActivity<T> extends RxAppCompatActivity implements IActivity {
 
     protected T mBinding;
 
@@ -32,8 +32,11 @@ public abstract class BaseActivity<T> extends RxAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView();
+        drakMode();
         componentInject(App.getInstance(BaseApplication.class).getAppComponent());
-        initViews();
+        initView();
+        setToolBar();
+        initData();
     }
 
     private void setContentView() {
@@ -44,14 +47,41 @@ public abstract class BaseActivity<T> extends RxAppCompatActivity {
         }
     }
 
-    private boolean isSupportDataBinding() {
+    private void drakMode() {
+        if (isDrakMode()) {
+            StatusBarUtil.darkMode(this, true);
+        } else {
+            StatusBarUtil.darkMode(this, false);
+        }
+    }
+
+    private boolean isDrakMode() {
         return true;
     }
 
-    protected abstract int getContentView();
+    protected void setToolBarHasBack(TitleBar titleBar, String title) {
+        titleBar.setTitle(title);
+        titleBar.setTitleColor(getResources().getColor(R.color.title_color));
+        titleBar.setLeftText("返回");
+        titleBar.setLeftImageResource(R.drawable.common_left_back_arror_selector);
+        titleBar.setLeftTextColor(getResources().getColor(R.color.title_color));
+        titleBar.setDividerColor(getResources().getColor(R.color.title_divider_color));
+        titleBar.setLeftClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
-    protected abstract void componentInject(AppComponent appComponent);
+    protected void setToolBarNoBack(TitleBar titleBar) {
+        titleBar.setTitle("主界面");
+        titleBar.setDividerColor(getResources().getColor(R.color.title_divider_color));
+        titleBar.setTitleColor(getResources().getColor(R.color.title_color));
+    }
 
-    protected abstract void initViews();
+    private boolean isSupportDataBinding() {
+        return true;
+    }
 
 }

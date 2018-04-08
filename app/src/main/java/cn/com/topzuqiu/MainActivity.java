@@ -1,6 +1,5 @@
 package cn.com.topzuqiu;
 
-import android.graphics.Color;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -13,22 +12,19 @@ import cn.com.topzuqiu.databinding.ActivityMainBinding;
 @Route(path = RouteUtils.APP_MAIN_ACTIVITY)
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
+
     @Override
-    protected int getContentView() {
+    public int getContentView() {
         return R.layout.activity_main;
     }
 
     @Override
-    protected void componentInject(AppComponent appComponent) {
+    public void componentInject(AppComponent appComponent) {
 
     }
 
     @Override
-    protected void initViews() {
-        setSupportActionBar(mBinding.inToolbarLayout.toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setTitle("主界面");
-
+    public void initView() {
         mBinding.tvGoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,4 +32,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             }
         });
     }
+
+    @Override
+    public void setToolBar() {
+        setToolBarNoBack(mBinding.inToolbarLayout.titleBar);
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
 }

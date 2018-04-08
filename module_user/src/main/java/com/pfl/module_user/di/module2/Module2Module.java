@@ -1,5 +1,6 @@
 package com.pfl.module_user.di.module2;
 
+import com.pfl.common.entity.module_user.User;
 import com.pfl.common.http.RetrofitService;
 import com.pfl.module_user.mvp.module2.Module2Persenter;
 import com.pfl.module_user.mvp.module2.Module2View;
@@ -37,6 +38,11 @@ public class Module2Module {
     Module2Persenter provideModule2Persenter(LifecycleProvider lifecycle, RetrofitService service, Module2View view) {
 
         return new Module2Persenter(lifecycle, service, view);
+    }
+
+    @Provides
+    User provideUser() {
+        return new User();
     }
 
 }
