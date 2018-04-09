@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         mBinding.tvGoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouteUtils.actionStart(RouteUtils.MODULE_USER_LOGIN_ACTIVITY);
+                RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_LOGIN);
             }
         });
     }

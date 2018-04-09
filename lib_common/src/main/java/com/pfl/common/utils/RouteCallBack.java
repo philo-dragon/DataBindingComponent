@@ -27,7 +27,7 @@ public class RouteCallBack implements NavigationCallback {
      * @param postcard meta
      */
     public void onLost(Postcard postcard) {
-        RouteUtils.actionStart(RouteUtils.MODULE_USER_LOGIN_ACTIVITY);
+        RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_LOGIN);
     }
 
 

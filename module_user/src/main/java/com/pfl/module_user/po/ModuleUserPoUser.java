@@ -15,6 +15,7 @@ public class ModuleUserPoUser extends BaseEntyty {
     private String password = "";
 
     private String confirmPassword = "";
+    private String oldPassword = "";
     private String checkCode = "";
 
     @Bindable
@@ -27,6 +28,12 @@ public class ModuleUserPoUser extends BaseEntyty {
     public void setPassword(String password) {
         this.password = password;
         notifyPropertyChanged(BR.password);
+    }
+
+    @Bindable
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+        notifyPropertyChanged(BR.oldPassword);
     }
 
     @Bindable
@@ -54,6 +61,11 @@ public class ModuleUserPoUser extends BaseEntyty {
     @Bindable
     public String getConfirmPassword() {
         return confirmPassword;
+    }
+
+    @Bindable
+    public String getOldPassword() {
+        return oldPassword;
     }
 
     @Bindable

@@ -18,7 +18,7 @@ import com.pfl.module_user.viewmodel.RegistViewModel;
 
 import javax.inject.Inject;
 
-@Route(path = RouteUtils.MODULE_USER_REGIST_ACTIVITY)
+@Route(path = RouteUtils.MODULE_USER_ACTIVITY_REGIST)
 public class ModuleUserRegistActivity extends BaseActivity<ModuleUserActivityRegistBinding> implements RegistView {
 
     @Inject
@@ -65,7 +65,7 @@ public class ModuleUserRegistActivity extends BaseActivity<ModuleUserActivityReg
             public void onClick(View v) {
                 mBinding.btnRegist.onStart();
                 Toast.makeText(ModuleUserRegistActivity.this.getApplicationContext(), user.toString(), Toast.LENGTH_SHORT).show();
-                RouteUtils.actionStart(RouteUtils.MODULE_USER_SETTING_ACTIVITY);
+                RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_SETTING);
             }
         });
     }

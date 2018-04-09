@@ -6,8 +6,6 @@ import android.widget.Toast;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
-import com.pfl.common.imageloader.ImageLoader;
-import com.pfl.common.utils.App;
 import com.pfl.common.utils.RouteUtils;
 import com.pfl.module_user.R;
 import com.pfl.module_user.constant.UserInfoManager;
@@ -19,7 +17,7 @@ import com.pfl.module_user.viewmodel.SettingViewModel;
 
 import javax.inject.Inject;
 
-@Route(path = RouteUtils.MODULE_USER_SETTING_ACTIVITY)
+@Route(path = RouteUtils.MODULE_USER_ACTIVITY_SETTING)
 public class ModuleUserSettingActivity extends BaseActivity<ModuleUserActivitySettingBinding> implements SettingView, View.OnClickListener {
 
     @Inject
@@ -68,6 +66,6 @@ public class ModuleUserSettingActivity extends BaseActivity<ModuleUserActivitySe
 
     @Override
     public void onClick(View v) {
-        RouteUtils.actionStart(RouteUtils.MODULE_USER_ACCOUNT_INFO_ACTIVITY);
+        RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_ACCOUNT_INFO);
     }
 }

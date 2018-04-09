@@ -23,7 +23,7 @@ import com.pfl.module_user.viewmodel.LoginViewModel;
 import javax.inject.Inject;
 
 
-@Route(path = RouteUtils.MODULE_USER_LOGIN_ACTIVITY)
+@Route(path = RouteUtils.MODULE_USER_ACTIVITY_LOGIN)
 public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLoginBinding> implements LoginView {
 
     @Inject
@@ -67,7 +67,7 @@ public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLogi
 
                 mBinding.btnLogin.onStart();
                 Toast.makeText(ModuleUserLoginActivity.this.getApplicationContext(), user.toString(), Toast.LENGTH_SHORT).show();
-                RouteUtils.actionStart(RouteUtils.MODULE_USER_REGIST_ACTIVITY);
+                RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_REGIST);
 
             }
         });

@@ -22,13 +22,14 @@ public class RouteUtils {
     /**
      * module_user 模块
      */
-    public static final String MODULE_USER_LOGIN_ACTIVITY = "/module_user/login";
-    public static final String MODULE_USER_REGIST_ACTIVITY = "/module_user/retist";
-    public static final String MODULE_USER_SETTING_ACTIVITY = "/module_user/setting";
-    public static final String MODULE_USER_ACCOUNT_INFO_ACTIVITY = "/module_user/account_user";
+    public static final String MODULE_USER_ACTIVITY_LOGIN = "/module_user/login";
+    public static final String MODULE_USER_ACTIVITY_REGIST = "/module_user/retist";
+    public static final String MODULE_USER_ACTIVITY_SETTING = "/module_user/setting";
+    public static final String MODULE_USER_ACTIVITY_ACCOUNT_INFO = "/module_user/account_user";
+    public static final String MODULE_USER_ACTIVITY_UPDATE_PASSWORD = "/module_user/update_password";
 
 
-    public static final String MODULE_USER_LISTENER_USER_INFO = "/module_user/listener_user_info";
+    public static final String MODULE_USER_FRAGMENT_MINE = "/module_user/listener_user_info";
 
 
     /** ===================================================================================================================================  **/
