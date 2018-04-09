@@ -1,4 +1,4 @@
-package com.pfl.module_user;
+package com.pfl.module_user.activity;
 
 import android.view.View;
 import android.widget.Toast;
@@ -8,12 +8,13 @@ import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
 import com.pfl.common.imageloader.ImageLoader;
 import com.pfl.common.utils.RouteUtils;
+import com.pfl.module_user.R;
 import com.pfl.module_user.databinding.ModuleUserActivityRegistBinding;
 import com.pfl.module_user.di.module_regist.DaggerRegistComponent;
 import com.pfl.module_user.di.module_regist.RegistModule;
-import com.pfl.module_user.mvp.regist.RegistPersenter;
-import com.pfl.module_user.mvp.regist.RegistView;
 import com.pfl.module_user.po.ModuleUserPoUser;
+import com.pfl.module_user.view.RegistView;
+import com.pfl.module_user.viewmodel.RegistViewModel;
 
 import javax.inject.Inject;
 
@@ -23,7 +24,7 @@ public class ModuleUserRegistActivity extends BaseActivity<ModuleUserActivityReg
     @Inject
     ImageLoader imageLoader;
     @Inject
-    RegistPersenter persenter;
+    RegistViewModel registViewModel;
     @Inject
     ModuleUserPoUser user;
 
@@ -64,6 +65,7 @@ public class ModuleUserRegistActivity extends BaseActivity<ModuleUserActivityReg
             public void onClick(View v) {
                 mBinding.btnRegist.onStart();
                 Toast.makeText(ModuleUserRegistActivity.this.getApplicationContext(), user.toString(), Toast.LENGTH_SHORT).show();
+                RouteUtils.actionStart(RouteUtils.MODULE_USER_SETTING_ACTIVITY);
             }
         });
     }
@@ -75,7 +77,7 @@ public class ModuleUserRegistActivity extends BaseActivity<ModuleUserActivityReg
 
     @Override
     public void initData() {
-        persenter.requestData();
+        registViewModel.requestData();
     }
 
     @Override

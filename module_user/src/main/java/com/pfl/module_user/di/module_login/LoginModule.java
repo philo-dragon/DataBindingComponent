@@ -1,9 +1,9 @@
 package com.pfl.module_user.di.module_login;
 
 import com.pfl.common.http.RetrofitService;
-import com.pfl.module_user.mvp.login.LoginPersenter;
-import com.pfl.module_user.mvp.login.LoginView;
 import com.pfl.module_user.po.ModuleUserPoUser;
+import com.pfl.module_user.view.LoginView;
+import com.pfl.module_user.viewmodel.LoginViewModel;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
 import dagger.Module;
@@ -19,9 +19,9 @@ public class LoginModule {
     private LifecycleProvider lifecycle;
     private LoginView view;
 
-    public LoginModule(LifecycleProvider lifecycle, LoginView module2View) {
+    public LoginModule(LifecycleProvider lifecycle, LoginView loginView) {
         this.lifecycle = lifecycle;
-        this.view = module2View;
+        this.view = loginView;
     }
 
     @Provides
@@ -35,9 +35,9 @@ public class LoginModule {
     }
 
     @Provides
-    LoginPersenter provideLoginPersenter(LifecycleProvider lifecycle, RetrofitService service, LoginView view) {
+    LoginViewModel provideLoginViewModel(LifecycleProvider lifecycle, RetrofitService service, LoginView view) {
 
-        return new LoginPersenter(lifecycle, service, view);
+        return new LoginViewModel(lifecycle, service, view);
     }
 
     @Provides

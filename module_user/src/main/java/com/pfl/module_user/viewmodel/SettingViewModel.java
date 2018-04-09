@@ -1,28 +1,25 @@
-package com.pfl.module_user.mvp.regist;
+package com.pfl.module_user.viewmodel;
 
 import com.pfl.common.entity.base.AccessToken;
 import com.pfl.common.http.RetrofitFactory;
 import com.pfl.common.http.RetrofitService;
 import com.pfl.common.http.RxSchedulers;
 import com.pfl.common.utils.BaseObserver;
-import com.pfl.module_user.mvp.regist.Module2View;
+import com.pfl.module_user.view.SettingView;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
-import javax.inject.Inject;
-
 /**
- * Created by rocky on 2018/1/2.
+ * Created by rocky on 2018/4/9.
  */
 
-public class RegistPersenter {
+public class SettingViewModel {
 
     private LifecycleProvider lifecycle;
     private RetrofitService service;
-    private RegistView view;
+    private SettingView view;
 
-    @Inject
-    public RegistPersenter(LifecycleProvider lifecycle, RetrofitService service, RegistView view) {
+    public SettingViewModel(LifecycleProvider lifecycle, RetrofitService service, SettingView view) {
         this.lifecycle = lifecycle;
         this.service = service;
         this.view = view;

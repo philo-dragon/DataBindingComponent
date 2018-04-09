@@ -4,11 +4,21 @@
 
     <application>
         <activity
-            android:name=".ModuleUserLoginActivity"
+            android:name=".activity.ModuleUserLoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/module_user_login" />
         <activity
-            android:name=".ModuleUserRegistActivity"
+            android:name=".activity.ModuleUserRegistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/module_user_regist" />
+        <activity
+            android:name=".activity.ModuleUserSettingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_setting" />
+        <activity
+            android:label="@string/module_user_account_info"
+            android:name=".activity.ModuleUserAccountInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
     </application>
 
 </manifest>

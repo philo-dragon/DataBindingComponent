@@ -2,7 +2,7 @@ package com.pfl.module_user.di.module_login;
 
 import com.pfl.common.di.AppComponent;
 import com.pfl.common.di.scope.ActivityScope;
-import com.pfl.module_user.ModuleUserLoginActivity;
+import com.pfl.module_user.activity.ModuleUserLoginActivity;
 
 import dagger.Component;
 

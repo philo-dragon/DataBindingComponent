@@ -1,9 +1,11 @@
-package com.pfl.module_user.di.module_regist;
+package com.pfl.module_user.di.module_setting;
 
 import com.pfl.common.http.RetrofitService;
 import com.pfl.module_user.po.ModuleUserPoUser;
 import com.pfl.module_user.view.RegistView;
+import com.pfl.module_user.view.SettingView;
 import com.pfl.module_user.viewmodel.RegistViewModel;
+import com.pfl.module_user.viewmodel.SettingViewModel;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
 import dagger.Module;
@@ -14,18 +16,18 @@ import dagger.Provides;
  */
 
 @Module
-public class RegistModule {
+public class SettingModule {
 
     private LifecycleProvider lifecycle;
-    private RegistView view;
+    private SettingView view;
 
-    public RegistModule(LifecycleProvider lifecycle, RegistView registView) {
+    public SettingModule(LifecycleProvider lifecycle, SettingView registView) {
         this.lifecycle = lifecycle;
         this.view = registView;
     }
 
     @Provides
-    RegistView provideRegistView() {
+    SettingView provideSettingView() {
         return view;
     }
 
@@ -35,9 +37,9 @@ public class RegistModule {
     }
 
     @Provides
-    RegistViewModel provideRegistViewModel(LifecycleProvider lifecycle, RetrofitService service, RegistView view) {
+    SettingViewModel provideRegistViewModel(LifecycleProvider lifecycle, RetrofitService service, SettingView view) {
 
-        return new RegistViewModel(lifecycle, service, view);
+        return new SettingViewModel(lifecycle, service, view);
     }
 
     @Provides

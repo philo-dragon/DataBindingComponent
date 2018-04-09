@@ -33,13 +33,6 @@ public class UserInfoManager {
     }
 
     public User getUser() {
-        if (user == null) {
-            user = new User();
-            user.setName("潘飞龙");
-            user.setNickName("philo");
-            user.setPhoto("http://g.hiphotos.baidu.com/image/pic/item/c8ea15ce36d3d539f09733493187e950342ab095.jpg");
-            user.setType("1");
-        }
         return user;
     }
 }

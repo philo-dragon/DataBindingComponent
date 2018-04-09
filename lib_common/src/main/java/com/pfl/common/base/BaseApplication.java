@@ -18,6 +18,7 @@ import com.pfl.common.utils.App;
 import com.pfl.common.utils.AppManager;
 import com.pfl.common.utils.BaseUrlManager;
 import com.pfl.common.utils.CallBacks;
+import com.pfl.common.utils.CrashHandler;
 import com.pfl.common.weidget.InfAutoInflaterConvert;
 import com.yan.inflaterauto.AutoBaseOn;
 import com.yan.inflaterauto.InflaterAuto;
@@ -44,6 +45,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        CrashHandler.getInstance().init(this);
         initBaseUrl();
         initRouter();//初始化Router
         registerLifecycleCallbacks();//注册Activity生命周期监听

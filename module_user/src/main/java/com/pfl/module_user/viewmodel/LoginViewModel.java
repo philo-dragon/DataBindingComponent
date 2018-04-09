@@ -1,27 +1,25 @@
-package com.pfl.module_user.mvp.login;
+package com.pfl.module_user.viewmodel;
 
 import com.pfl.common.entity.base.AccessToken;
 import com.pfl.common.http.RetrofitFactory;
 import com.pfl.common.http.RetrofitService;
 import com.pfl.common.http.RxSchedulers;
 import com.pfl.common.utils.BaseObserver;
+import com.pfl.module_user.view.LoginView;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
-import javax.inject.Inject;
-
 /**
- * Created by rocky on 2018/1/2.
+ * Created by rocky on 2018/4/9.
  */
 
-public class LoginPersenter {
+public class LoginViewModel {
 
     private LifecycleProvider lifecycle;
     private RetrofitService service;
     private LoginView view;
 
-    @Inject
-    public LoginPersenter(LifecycleProvider lifecycle, RetrofitService service, LoginView view) {
+    public LoginViewModel(LifecycleProvider lifecycle, RetrofitService service, LoginView view) {
         this.lifecycle = lifecycle;
         this.service = service;
         this.view = view;

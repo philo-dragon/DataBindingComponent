@@ -27,15 +27,23 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public void initView() {
-
-        User userInfo = ModuleUserRouteService.getUserInfo();
-        mBinding.tvGoLogin.setText(userInfo == null ? "1111111111" : userInfo.toString());
         mBinding.tvGoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RouteUtils.actionStart(RouteUtils.MODULE_USER_LOGIN_ACTIVITY);
             }
         });
+    }
+
+    private void setUserInfo() {
+        User userInfo = ModuleUserRouteService.getUserInfo();
+        mBinding.tvGoLogin.setText(userInfo == null ? "1111111111" : userInfo.toString());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUserInfo();
     }
 
     @Override

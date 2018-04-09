@@ -2,7 +2,7 @@ package com.pfl.module_user.di.module_regist;
 
 import com.pfl.common.di.AppComponent;
 import com.pfl.common.di.scope.ActivityScope;
-import com.pfl.module_user.ModuleUserRegistActivity;
+import com.pfl.module_user.activity.ModuleUserRegistActivity;
 
 import dagger.Component;
 

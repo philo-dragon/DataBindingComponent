@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.pfl.module_user.activity.ModuleUserSettingActivity">
+
+        <include
+            android:id="@+id/in_toolbar_layout"
+            layout="@layout/common_databinding_toolbar_layout" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="20px">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/withe"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_account_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="88px"
+                        android:background="@drawable/common_item_pressed_selector"
+                        android:gravity="center_vertical"
+                        android:onClick="onClick"
+                        android:paddingLeft="@dimen/module_user_setting_margin_left"
+                        android:text="账户信息"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/size_30" />
+
+                    <include
+                        android:id="@+id/line"
+                        layout="@layout/common_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="30px"
+                        android:layout_marginRight="30px" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_clear_cache"
+                        android:layout_width="match_parent"
+                        android:layout_height="88px"
+                        android:background="@drawable/common_item_pressed_selector"
+                        android:onClick="onClick">
+
+                        <TextView
+                            android:id="@+id/tv_clear_cache"
+                            android:layout_width="wrap_content"
+                            android:layout_height="88px"
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/module_user_setting_margin_left"
+                            android:text="清空缓存"
+                            android:textColor="#000000"
+                            android:textSize="30px" />
+
+                        <TextView
+                            android:id="@+id/tv_total_cache"
+                            android:layout_width="wrap_content"
+                            android:layout_height="88px"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="30px"
+                            android:gravity="center_vertical"
+                            android:text="0K"
+                            android:textColor="#999999"
+                            android:textSize="@dimen/size_30" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/module_user_setting_margin_top"
+                    android:background="@color/withe"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_pf"
+                        android:layout_width="match_parent"
+                        android:layout_height="88px"
+                        android:background="@drawable/common_item_pressed_selector"
+                        android:gravity="center_vertical"
+                        android:onClick="onClick"
+                        android:paddingLeft="@dimen/module_user_setting_margin_left"
+                        android:text="去APP Store评分"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/size_30" />
+
+                    <include
+                        layout="@layout/common_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/module_user_setting_margin_left"
+                        android:layout_marginRight="@dimen/module_user_setting_margin_right" />
+
+                    <TextView
+                        android:id="@+id/tv_tkys"
+                        android:layout_width="match_parent"
+                        android:layout_height="88px"
+                        android:background="@drawable/common_item_pressed_selector"
+                        android:gravity="center_vertical"
+                        android:onClick="onClick"
+                        android:paddingLeft="@dimen/module_user_setting_margin_left"
+                        android:text="使用条款与隐私政策"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/size_30" />
+
+                    <include
+                        layout="@layout/common_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/module_user_setting_margin_left"
+                        android:layout_marginRight="@dimen/module_user_setting_margin_right" />
+
+                    <TextView
+                        android:id="@+id/tv_mzsm"
+                        android:layout_width="match_parent"
+                        android:layout_height="88px"
+                        android:background="@drawable/common_item_pressed_selector"
+                        android:gravity="center_vertical"
+                        android:onClick="onClick"
+                        android:paddingLeft="@dimen/module_user_setting_margin_left"
+                        android:text="免责声明"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/size_30" />
+
+                    <include
+                        layout="@layout/common_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/module_user_setting_margin_left"
+                        android:layout_marginRight="@dimen/module_user_setting_margin_right" />
+
+                    <TextView
+                        android:id="@+id/tv_about"
+                        android:layout_width="match_parent"
+                        android:layout_height="88px"
+                        android:background="@drawable/common_item_pressed_selector"
+                        android:gravity="center_vertical"
+                        android:onClick="onClick"
+                        android:paddingLeft="@dimen/module_user_setting_margin_left"
+                        android:text="关于TOP足球"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/size_30" />
+
+                    <include
+                        layout="@layout/common_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/module_user_setting_margin_left"
+                        android:layout_marginRight="@dimen/module_user_setting_margin_right" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_history_version"
+                        android:layout_width="match_parent"
+                        android:layout_height="88px"
+                        android:background="@drawable/common_item_pressed_selector"
+                        android:onClick="onClick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="88px"
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/module_user_setting_margin_left"
+                            android:text="版本更新"
+                            android:textColor="#000000"
+                            android:textSize="30px" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="88px"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="30px"
+                            android:gravity="center_vertical"
+                            android:text="V1.0.0"
+                            android:textColor="#999999"
+                            android:textSize="@dimen/size_30" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+                <com.knifestone.hyena.view.button.CountDownButton
+                    android:id="@+id/btn_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="88px"
+                    android:layout_marginBottom="300px"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginRight="30px"
+                    android:layout_marginTop="150px"
+                    android:background="@drawable/module_user_btn_bg"
+                    android:gravity="center"
+                    android:text="退出登录"
+                    android:textColor="#FFFFFF"
+                    android:textSize="32px" />
+
+            </LinearLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </LinearLayout>
+
+</layout>

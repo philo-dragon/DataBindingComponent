@@ -23,64 +23,79 @@
             layout="@layout/common_databinding_toolbar_layout"
             app:layout_constraintTop_toBottomOf="parent" />
 
-        <com.knifestone.hyena.view.edittext.ClearEditText
-            android:id="@+id/tv_account"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="88px"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px"
-            android:layout_marginTop="40px"
-            android:background="@null"
-            android:gravity="center_vertical"
-            android:hint="手机号"
-            android:maxLines="1"
-            android:text="@={user.account}"
-            android:textColor="@color/title_color"
-            android:textSize="28px" />
+            android:layout_height="wrap_content">
 
-        <include
-            layout="@layout/common_line"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
+                <com.knifestone.hyena.view.edittext.ClearEditText
+                    android:id="@+id/tv_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="88px"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginRight="30px"
+                    android:layout_marginTop="40px"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="手机号"
+                    android:maxLines="1"
+                    android:text="@={user.account}"
+                    android:textColor="@color/title_color"
+                    android:textSize="28px" />
 
-        <com.knifestone.hyena.view.edittext.EyesEditText
-            android:id="@+id/tv_password"
-            android:layout_width="match_parent"
-            android:layout_height="88px"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px"
-            android:background="@null"
-            android:gravity="center_vertical"
-            android:hint="密码"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:text="@={user.password}"
-            android:textColor="@color/title_color"
-            android:textSize="28px" />
-
-        <include
-            layout="@layout/common_line"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px" />
+                <include
+                    layout="@layout/common_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginRight="30px" />
 
 
-        <com.knifestone.hyena.view.button.CountDownButton
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="88px"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px"
-            android:layout_marginTop="100px"
-            android:background="@drawable/module_user_btn_bg"
-            android:gravity="center"
-            android:text="登录"
-            android:textColor="#FFFFFF"
-            android:textSize="32px" />
+                <com.knifestone.hyena.view.edittext.EyesEditText
+                    android:id="@+id/tv_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="88px"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginRight="30px"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="密码"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:text="@={user.password}"
+                    android:textColor="@color/title_color"
+                    android:textSize="28px" />
+
+                <include
+                    layout="@layout/common_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginRight="30px" />
+
+
+                <com.knifestone.hyena.view.button.CountDownButton
+                    android:id="@+id/btn_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="88px"
+                    android:layout_marginBottom="300px"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginRight="30px"
+                    android:layout_marginTop="100px"
+                    android:background="@drawable/module_user_btn_bg"
+                    android:gravity="center"
+                    android:text="登录"
+                    android:textColor="#FFFFFF"
+                    android:textSize="32px" />
+
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
 

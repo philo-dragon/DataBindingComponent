@@ -10,5 +10,5 @@
 
     <color name="toolbar_color">@color/withe</color>
     <color name="title_color">@color/black</color>
-    <color name="title_divider_color">#66FFFFFF</color>
+    <color name="title_divider_color">#E9E9E9</color>
 </resources>

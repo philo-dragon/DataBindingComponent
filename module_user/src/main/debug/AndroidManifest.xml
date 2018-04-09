@@ -10,7 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ModuleUserLoginActivity">
+        <activity
+            android:name=".activity.ModuleUserLoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,12 +22,17 @@
         </activity>
 
         <activity
-            android:name=".ModuleUserLoginActivity"
-            android:label="@string/module_user_login" />
-        <activity
-            android:name=".ModuleUserRegistActivity"
+            android:name=".activity.ModuleUserRegistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/module_user_regist" />
-
+        <activity
+            android:name=".activity.ModuleUserSettingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_setting" />
+        <activity
+            android:name=".activity.ModuleUserAccountInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_account_info" />
     </application>
 
 </manifest>
