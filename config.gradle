@@ -41,12 +41,14 @@ ext {
 
             inflaterauto       : "2.0.17",
             hyena              : "1.6.1",
-            UtilCode    : "1.9.12",
+            UtilCode           : "1.9.12",
             SmartRefreshLayout : "1.0.4",
 
             calligraphy        : "2.3.0",
 
             swipebackhelper    : "3.1.2",
+
+            circleimageview    : "2.2.0",
 
 
     ]
@@ -90,12 +92,14 @@ ext {
             inflaterauto         : "com.yan:inflaterauto:${depsVersion.inflaterauto}",// UI适配库
             inflaterauto_compiler: "com.yan:inflaterauto-compiler:${depsVersion.inflaterauto}",// UI适配库
             hyena                : "com.github.KnifeStone:Hyena:${depsVersion.hyena}",//鬣狗快速开发库
-            UtilCode      : "com.blankj:utilcode:${depsVersion.UtilCode}",//工具类 http://www.jianshu.com/p/72494773aace
+            UtilCode             : "com.blankj:utilcode:${depsVersion.UtilCode}",//工具类 http://www.jianshu.com/p/72494773aace
             SmartRefreshLayout   : "com.scwang.smartrefresh:SmartRefreshLayout:${depsVersion.SmartRefreshLayout}",//下拉刷新库
 
             calligraphy          : "uk.co.chrisjenx:calligraphy:${depsVersion.calligraphy}",//更改全局字体库
 
             swipebackhelper      : "com.jude:swipebackhelper:${depsVersion.swipebackhelper}",//滑动返回库
+
+            circleimageview      : "de.hdodenhof:circleimageview:${depsVersion.circleimageview}",//圆形图片
 
     ]
 

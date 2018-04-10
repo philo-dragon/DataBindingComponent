@@ -86,4 +86,6 @@ dependencies {
 
     // 滑动返回库
     api rootProject.ext.deps.swipebackhelper
+
+    api rootProject.ext.deps.circleimageview
 }

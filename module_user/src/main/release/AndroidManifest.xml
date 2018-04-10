@@ -20,9 +20,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/module_user_account_info" />
         <activity
-            android:label="@string/module_user_update_password"
+            android:name=".activity.ModuleUserUpdatePasswordActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:name=".activity.ModuleUserUpdatePasswordActivity"/>
+            android:label="@string/module_user_update_password" />
+        <activity android:name=".activity.ModuleUserTestActivity"></activity>
     </application>
 
 </manifest>

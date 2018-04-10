@@ -31,6 +31,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             @Override
             public void onClick(View v) {
                 RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_LOGIN);
+                //RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_TEST);
             }
         });
     }
