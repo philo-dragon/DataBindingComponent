@@ -12,43 +12,45 @@ ext {
 
     depsVersion = [
 
-            support            : "27.0.2",
-            constraint         : "1.0.2",
-            retrofit           : "2.10",
-            arouter            : "1.2.4",
-            arouter_compiler   : "1.1.4",
-            arouterAnnotation  : "1.0.4",
-            bottomNavigationBar: "1.4.1",
+            support               : "27.0.2",
+            constraint            : "1.0.2",
+            retrofit              : "2.10",
+            arouter               : "1.2.4",
+            arouter_compiler      : "1.1.4",
+            arouterAnnotation     : "1.0.4",
+            bottomNavigationBar   : "1.4.1",
 
-            multidex           : "1.0.0",
+            multidex              : "1.0.0",
 
-            dagger             : "2.14.1",
-            dagger_compiler    : "2.14.1",
+            dagger                : "2.14.1",
+            dagger_compiler       : "2.14.1",
 
-            rxjava             : "2.1.6",
-            rxandroid          : "2.0.1",
-            retrofit           : "2.3.0",
-            converter_gson     : "2.3.0",
-            converter_scalars  : "2.3.0",
-            adapter_rxjava2    : "2.3.0",
-            rxlifecycle        : "2.1.0",
+            rxjava                : "2.1.6",
+            rxandroid             : "2.0.1",
+            retrofit              : "2.3.0",
+            converter_gson        : "2.3.0",
+            converter_scalars     : "2.3.0",
+            adapter_rxjava2       : "2.3.0",
+            rxlifecycle           : "2.1.0",
 
-            okhttp             : "3.9.0",
-            okio               : "1.13.0",
-            logging_interceptor: "3.8.1",
+            okhttp                : "3.9.0",
+            okio                  : "1.13.0",
+            logging_interceptor   : "3.8.1",
 
-            glide              : "4.5.0",
+            glide                 : "4.5.0",
 
-            inflaterauto       : "2.0.17",
-            hyena              : "1.6.1",
-            UtilCode           : "1.9.12",
-            SmartRefreshLayout : "1.0.4",
+            inflaterauto          : "2.0.17",
+            hyena                 : "1.6.1",
+            UtilCode              : "1.9.12",
+            SmartRefreshLayout    : "1.0.4",
 
-            calligraphy        : "2.3.0",
+            calligraphy           : "2.3.0",
 
-            swipebackhelper    : "3.1.2",
+            swipebackhelper       : "3.1.2",
 
-            circleimageview    : "2.2.0",
+            circleimageview       : "2.2.0",
+
+            BottomNavigationViewEx: "1.2.4",
 
 
     ]
@@ -56,50 +58,52 @@ ext {
     deps = [
 
             // Android Support
-            design               : "com.android.support:design:${depsVersion.support}",
-            supportV4            : "com.android.support:support-v4:${depsVersion.support}",
-            appcompatV7          : "com.android.support:appcompat-v7:${depsVersion.support}",
-            recyclerviewV7       : "com.android.support:recyclerview-v7:${depsVersion.support}",
-            constraint           : "com.android.support.constraint:constraint-layout:${depsVersion.constraint}",
+            design                : "com.android.support:design:${depsVersion.support}",
+            supportV4             : "com.android.support:support-v4:${depsVersion.support}",
+            appcompatV7           : "com.android.support:appcompat-v7:${depsVersion.support}",
+            recyclerviewV7        : "com.android.support:recyclerview-v7:${depsVersion.support}",
+            constraint            : "com.android.support.constraint:constraint-layout:${depsVersion.constraint}",
 
-            multidex             : "com.android.support:multidex:${depsVersion.multidex}",
+            multidex              : "com.android.support:multidex:${depsVersion.multidex}",
 
             // Dagger2
-            dagger               : "com.google.dagger:dagger:${depsVersion.dagger}",
-            dagger_compiler      : "com.google.dagger:dagger-compiler:${depsVersion.dagger_compiler}",
+            dagger                : "com.google.dagger:dagger:${depsVersion.dagger}",
+            dagger_compiler       : "com.google.dagger:dagger-compiler:${depsVersion.dagger_compiler}",
 
             // 第三方开源库
-            arouter              : "com.alibaba:arouter-api:${depsVersion.arouter}",
-            arouter_compiler     : "com.alibaba:arouter-compiler:${depsVersion.arouter_compiler}",
-            annotation           : "com.alibaba:arouter-annotation:${depsVersion.arouterAnnotation}",
-            bottomNavigationBar  : "com.ashokvarma.android:bottom-navigation-bar:${depsVersion.bottomNavigationBar}",
+            arouter               : "com.alibaba:arouter-api:${depsVersion.arouter}",
+            arouter_compiler      : "com.alibaba:arouter-compiler:${depsVersion.arouter_compiler}",
+            annotation            : "com.alibaba:arouter-annotation:${depsVersion.arouterAnnotation}",
+            bottomNavigationBar   : "com.ashokvarma.android:bottom-navigation-bar:${depsVersion.bottomNavigationBar}",
 
-            rxjava               : "io.reactivex.rxjava2:rxjava:${depsVersion.rxjava}",
-            rxandroid            : "io.reactivex.rxjava2:rxandroid:${depsVersion.rxandroid}",
-            retrofit             : "com.squareup.retrofit2:retrofit:${depsVersion.retrofit}",
-            converter_gson       : "com.squareup.retrofit2:converter-gson:${depsVersion.converter_gson}",
-            converter_scalars    : "com.squareup.retrofit2:converter-scalars:${depsVersion.converter_scalars}",
-            adapter_rxjava2      : "com.squareup.retrofit2:adapter-rxjava2:${depsVersion.adapter_rxjava2}",
-            rxlifecycle          : "com.trello.rxlifecycle2:rxlifecycle-components:${depsVersion.rxlifecycle}",
+            rxjava                : "io.reactivex.rxjava2:rxjava:${depsVersion.rxjava}",
+            rxandroid             : "io.reactivex.rxjava2:rxandroid:${depsVersion.rxandroid}",
+            retrofit              : "com.squareup.retrofit2:retrofit:${depsVersion.retrofit}",
+            converter_gson        : "com.squareup.retrofit2:converter-gson:${depsVersion.converter_gson}",
+            converter_scalars     : "com.squareup.retrofit2:converter-scalars:${depsVersion.converter_scalars}",
+            adapter_rxjava2       : "com.squareup.retrofit2:adapter-rxjava2:${depsVersion.adapter_rxjava2}",
+            rxlifecycle           : "com.trello.rxlifecycle2:rxlifecycle-components:${depsVersion.rxlifecycle}",
 
-            okhttp               : "com.squareup.okhttp3:okhttp:${depsVersion.okhttp}",
-            okio                 : "com.squareup.okio:okio:${depsVersion.okio}",
-            logging_interceptor  : "com.squareup.okhttp3:logging-interceptor:${depsVersion.logging_interceptor}",
+            okhttp                : "com.squareup.okhttp3:okhttp:${depsVersion.okhttp}",
+            okio                  : "com.squareup.okio:okio:${depsVersion.okio}",
+            logging_interceptor   : "com.squareup.okhttp3:logging-interceptor:${depsVersion.logging_interceptor}",
 
-            glide                : "com.github.bumptech.glide:glide:${depsVersion.glide}",
-            glide_processor      : "com.github.bumptech.glide:compiler:${depsVersion.glide}",
+            glide                 : "com.github.bumptech.glide:glide:${depsVersion.glide}",
+            glide_processor       : "com.github.bumptech.glide:compiler:${depsVersion.glide}",
 
-            inflaterauto         : "com.yan:inflaterauto:${depsVersion.inflaterauto}",// UI适配库
-            inflaterauto_compiler: "com.yan:inflaterauto-compiler:${depsVersion.inflaterauto}",// UI适配库
-            hyena                : "com.github.KnifeStone:Hyena:${depsVersion.hyena}",//鬣狗快速开发库
-            UtilCode             : "com.blankj:utilcode:${depsVersion.UtilCode}",//工具类 http://www.jianshu.com/p/72494773aace
-            SmartRefreshLayout   : "com.scwang.smartrefresh:SmartRefreshLayout:${depsVersion.SmartRefreshLayout}",//下拉刷新库
+            inflaterauto          : "com.yan:inflaterauto:${depsVersion.inflaterauto}",// UI适配库
+            inflaterauto_compiler : "com.yan:inflaterauto-compiler:${depsVersion.inflaterauto}",// UI适配库
+            hyena                 : "com.github.KnifeStone:Hyena:${depsVersion.hyena}",//鬣狗快速开发库
+            UtilCode              : "com.blankj:utilcode:${depsVersion.UtilCode}",//工具类 http://www.jianshu.com/p/72494773aace
+            SmartRefreshLayout    : "com.scwang.smartrefresh:SmartRefreshLayout:${depsVersion.SmartRefreshLayout}",//下拉刷新库
 
-            calligraphy          : "uk.co.chrisjenx:calligraphy:${depsVersion.calligraphy}",//更改全局字体库
+            calligraphy           : "uk.co.chrisjenx:calligraphy:${depsVersion.calligraphy}",//更改全局字体库
 
-            swipebackhelper      : "com.jude:swipebackhelper:${depsVersion.swipebackhelper}",//滑动返回库
+            swipebackhelper       : "com.jude:swipebackhelper:${depsVersion.swipebackhelper}",//滑动返回库
 
-            circleimageview      : "de.hdodenhof:circleimageview:${depsVersion.circleimageview}",//圆形图片
+            circleimageview       : "de.hdodenhof:circleimageview:${depsVersion.circleimageview}",//圆形图片
+
+            BottomNavigationViewEx: "com.github.ittianyu:BottomNavigationViewEx:${depsVersion.BottomNavigationViewEx}",//圆形图片
 
     ]
 

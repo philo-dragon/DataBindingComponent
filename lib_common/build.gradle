@@ -88,4 +88,6 @@ dependencies {
     api rootProject.ext.deps.swipebackhelper
 
     api rootProject.ext.deps.circleimageview
+
+    api rootProject.ext.deps.BottomNavigationViewEx
 }
