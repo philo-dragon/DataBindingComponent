@@ -14,8 +14,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/colorPrimary"
-            app:itemIconTint="@android:color/holo_blue_dark"
-            app:itemTextColor="@android:color/holo_blue_dark"
+            app:itemIconTint="@color/app_main_bottom_text_color_selector"
+            app:itemTextColor="@color/app_main_bottom_text_color_selector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/menu_navigation_with_view_pager" />
 

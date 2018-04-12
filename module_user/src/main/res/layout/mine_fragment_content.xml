@@ -1,198 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20px"
-        android:background="@color/withe"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_buy_icon"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="88px"
-            android:background="@drawable/common_item_pressed_selector"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/module_user_setting_margin_left"
-            android:text="购买金币"
-            android:textColor="#000000"
-            android:textSize="@dimen/size_30" />
-
-        <include
-            layout="@layout/common_line"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px" />
-
-        <TextView
-            android:id="@+id/tv_icon_details"
-            android:layout_width="match_parent"
-            android:layout_height="88px"
-            android:background="@drawable/common_item_pressed_selector"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/module_user_setting_margin_left"
-            android:text="金币明细"
-            android:textColor="#000000"
-            android:textSize="@dimen/size_30" />
-
-        <include
-            android:id="@+id/line_wallet"
-            layout="@layout/common_line"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px" />
-
-        <TextView
-            android:id="@+id/tv_my_wallet"
-            android:layout_width="match_parent"
-            android:layout_height="88px"
-            android:background="@drawable/common_item_pressed_selector"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/module_user_setting_margin_left"
-            android:text="我的钱包"
-            android:textColor="#000000"
-            android:textSize="@dimen/size_30" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20px"
-        android:background="@color/withe"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_buy_recommend"
-            android:layout_width="match_parent"
-            android:layout_height="88px"
-            android:background="@drawable/common_item_pressed_selector"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/module_user_setting_margin_left"
-            android:text="已购推荐"
-            android:textColor="#000000"
-            android:textSize="@dimen/size_30" />
-
-        <include
-
-            layout="@layout/common_line"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px" />
-
-        <TextView
-            android:id="@+id/tv_my_favorite"
-            android:layout_width="match_parent"
-            android:layout_height="88px"
-            android:background="@drawable/common_item_pressed_selector"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/module_user_setting_margin_left"
-            android:text="我的收藏"
-            android:textColor="#000000"
-            android:textSize="@dimen/size_30" />
-
-        <include
-            layout="@layout/common_line"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px" />
-
-        <RelativeLayout
-            android:id="@+id/rl_my_message"
-            android:layout_width="match_parent"
-            android:layout_height="88px"
-            android:background="@drawable/common_item_pressed_selector">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20px"
+            android:background="@color/withe"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_buy_icon"
+                android:layout_width="match_parent"
                 android:layout_height="88px"
-                android:layout_centerVertical="true"
+                android:background="@drawable/common_item_pressed_selector"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/module_user_setting_margin_left"
-                android:text="我的消息"
+                android:text="购买金币"
                 android:textColor="#000000"
-                android:textSize="30px" />
-
-            <TextView
-                android:id="@+id/tv_total_cache"
-                android:layout_width="wrap_content"
-                android:layout_height="88px"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="30px"
-                android:gravity="center_vertical"
-                android:textColor="#999999"
                 android:textSize="@dimen/size_30" />
 
-        </RelativeLayout>
+            <include
+                layout="@layout/common_line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px" />
+
+            <TextView
+                android:id="@+id/tv_icon_details"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@drawable/common_item_pressed_selector"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/module_user_setting_margin_left"
+                android:text="金币明细"
+                android:textColor="#000000"
+                android:textSize="@dimen/size_30" />
+
+            <include
+                android:id="@+id/line_wallet"
+                layout="@layout/common_line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px" />
+
+            <TextView
+                android:id="@+id/tv_my_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@drawable/common_item_pressed_selector"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/module_user_setting_margin_left"
+                android:text="我的钱包"
+                android:textColor="#000000"
+                android:textSize="@dimen/size_30" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20px"
+            android:background="@color/withe"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_buy_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@drawable/common_item_pressed_selector"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/module_user_setting_margin_left"
+                android:text="已购推荐"
+                android:textColor="#000000"
+                android:textSize="@dimen/size_30" />
+
+            <include
+
+                layout="@layout/common_line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px" />
+
+            <TextView
+                android:id="@+id/tv_my_favorite"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@drawable/common_item_pressed_selector"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/module_user_setting_margin_left"
+                android:text="我的收藏"
+                android:textColor="#000000"
+                android:textSize="@dimen/size_30" />
+
+            <include
+                layout="@layout/common_line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px" />
+
+            <RelativeLayout
+                android:id="@+id/rl_my_message"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@drawable/common_item_pressed_selector">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="88px"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/module_user_setting_margin_left"
+                    android:text="我的消息"
+                    android:textColor="#000000"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:id="@+id/tv_total_cache"
+                    android:layout_width="wrap_content"
+                    android:layout_height="88px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30px"
+                    android:gravity="center_vertical"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/size_30" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20px"
+            android:background="@color/withe"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_apply_sfs"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@drawable/common_item_pressed_selector"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/module_user_setting_margin_left"
+                android:text="申请胜负师"
+                android:textColor="#000000"
+                android:textSize="@dimen/size_30" />
+
+            <include
+                layout="@layout/common_line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px" />
+
+            <TextView
+                android:id="@+id/tv_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@drawable/common_item_pressed_selector"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/module_user_setting_margin_left"
+                android:text="帮助反馈"
+                android:textColor="#000000"
+                android:textSize="@dimen/size_30" />
+
+            <include
+                layout="@layout/common_line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px" />
+
+            <TextView
+                android:id="@+id/tv_more_setting"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@drawable/common_item_pressed_selector"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/module_user_setting_margin_left"
+                android:text="更多设置"
+                android:textColor="#000000"
+                android:textSize="@dimen/size_30" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20px"
-        android:background="@color/withe"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_apply_sfs"
-            android:layout_width="match_parent"
-            android:layout_height="88px"
-            android:background="@drawable/common_item_pressed_selector"
-            android:gravity="center_vertical"
-            android:onClick="onClick"
-            android:paddingLeft="@dimen/module_user_setting_margin_left"
-            android:text="申请胜负师"
-            android:textColor="#000000"
-            android:textSize="@dimen/size_30" />
-
-        <include
-            layout="@layout/common_line"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px" />
-
-        <TextView
-            android:id="@+id/tv_feedback"
-            android:layout_width="match_parent"
-            android:layout_height="88px"
-            android:background="@drawable/common_item_pressed_selector"
-            android:gravity="center_vertical"
-            android:onClick="onClick"
-            android:paddingLeft="@dimen/module_user_setting_margin_left"
-            android:text="帮助反馈"
-            android:textColor="#000000"
-            android:textSize="@dimen/size_30" />
-
-        <include
-            layout="@layout/common_line"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px" />
-
-        <TextView
-            android:id="@+id/tv_more_setting"
-            android:layout_width="match_parent"
-            android:layout_height="88px"
-            android:background="@drawable/common_item_pressed_selector"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/module_user_setting_margin_left"
-            android:text="更多设置"
-            android:textColor="#000000"
-            android:textSize="@dimen/size_30" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</layout>

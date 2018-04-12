@@ -100,7 +100,7 @@ public class AppManager {
      * 退出应用程序
      */
     @SuppressWarnings("deprecation")
-    public void AppExit(Context context) {
+    public void exit(Context context) {
         try {
             finishAllActivity();
             android.os.Process.killProcess(android.os.Process.myPid());

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TOP足球-component</string>
+
+    <string name="app_bottom_navigation_home">房间</string>
+    <string name="app_bottom_navigation_action">动态</string>
+    <string name="app_bottom_navigation_find">发现</string>
+    <string name="app_bottom_navigation_message">消息</string>
+    <string name="app_bottom_navigation_mine">我</string>
+
 </resources>

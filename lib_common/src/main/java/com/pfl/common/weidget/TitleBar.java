@@ -66,7 +66,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
             mStatusBarHeight = getStatusBarHeight();
         }
         mActionPadding = dip2px(5);
-        mOutPadding = dip2px(8);
+        mOutPadding = dip2px(5);
         mHeight = dip2px(DEFAULT_TITLE_BAR_HEIGHT);
         initView(context);
     }

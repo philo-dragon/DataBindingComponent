@@ -2,6 +2,7 @@ package com.pfl.common.base;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,13 +20,15 @@ import com.yan.inflaterauto.InflaterAuto;
  * Created by rocky on 2018/4/2.
  */
 
-public abstract class BaseActivity<T> extends RxAppCompatActivity implements IActivity {
+public abstract class BaseActivity<T extends ViewDataBinding> extends RxAppCompatActivity implements IActivity {
 
     protected T mBinding;
+    protected Context mContext;
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(InflaterAuto.wrap(newBase));
+        this.mContext = newBase;
     }
 
     @Override
@@ -41,7 +44,7 @@ public abstract class BaseActivity<T> extends RxAppCompatActivity implements IAc
 
     private void setContentView() {
         if (isSupportDataBinding()) {
-            mBinding = (T) DataBindingUtil.setContentView(this, getContentView());
+            mBinding = DataBindingUtil.setContentView(this, getContentView());
         } else {
             setContentView(getContentView());
         }

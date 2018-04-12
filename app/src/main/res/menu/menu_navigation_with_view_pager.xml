@@ -3,24 +3,24 @@
     <item
         android:id="@+id/i_music"
         android:checked="true"
-        android:icon="@drawable/ic_face"
-        android:title="主页" />
+        android:icon="@drawable/ic_app_main_bottom_navigation_home"
+        android:title="@string/app_bottom_navigation_home" />
 
     <item
         android:id="@+id/i_backup"
-        android:icon="@drawable/ic_face"
-        android:title="第一页" />
+        android:icon="@drawable/ic_app_main_bottom_navigation_activity"
+        android:title="@string/app_bottom_navigation_action" />
 
     <item
         android:id="@+id/i_friends"
         android:icon="@drawable/ic_face"
-        android:title="第二页" />
+        android:title="@string/app_bottom_navigation_find" />
     <item
         android:id="@+id/i_favor"
-        android:icon="@drawable/ic_face"
-        android:title="第三页" />
+        android:icon="@drawable/ic_app_main_bottom_navigation_message"
+        android:title="@string/app_bottom_navigation_message" />
     <item
         android:id="@+id/i_visibility"
-        android:icon="@drawable/ic_face"
-        android:title="第四页" />
+        android:icon="@drawable/ic_app_main_bottom_navigation_mine"
+        android:title="@string/app_bottom_navigation_mine" />
 </menu>

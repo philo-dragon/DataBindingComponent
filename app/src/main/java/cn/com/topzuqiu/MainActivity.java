@@ -1,15 +1,21 @@
 package cn.com.topzuqiu;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.SparseIntArray;
 import android.view.MenuItem;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
+import com.pfl.common.utils.AppManager;
 import com.pfl.common.utils.RouteUtils;
 
 import java.util.ArrayList;
@@ -24,6 +30,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private List<Fragment> fragments;
     private SparseIntArray items;
+    private long firstTime;
 
     @Override
     public int getContentView() {
@@ -67,10 +74,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         initEvent();
     }
 
-    /**
-     * set listeners
-     */
+
     private void initEvent() {
+
         mBinding.bottomNavigationViewEx.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             private int previousPosition = -1;
 
@@ -79,28 +85,57 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 int position = items.get(item.getItemId());
                 if (previousPosition != position) {
                     previousPosition = position;
-                    mBinding.viewPager.setCurrentItem(position);
+                    startAnimation(previousPosition);
+                    mBinding.viewPager.setCurrentItem(position, false);
                 }
                 return true;
             }
         });
 
-        mBinding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mBinding.bottomNavigationViewEx.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                startAnimation(items.get(item.getItemId()));
+                refreshChildUI(items.get(item.getItemId()));
             }
+        });
 
+        mBinding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 mBinding.bottomNavigationViewEx.setCurrentItem(position);
             }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
         });
+
+
+    }
+
+    /**
+     * 如果已经选中，再次点击刷新界面
+     *
+     * @param position
+     */
+    private void refreshChildUI(int position) {
+
+    }
+
+    /**
+     * 底部图标做缩放动画
+     *
+     * @param position
+     */
+    private void startAnimation(int position) {
+
+        ImageView iconAt = mBinding.bottomNavigationViewEx.getIconAt(position);
+        AnimatorSet animatorSet = new AnimatorSet();//组合动画
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(iconAt, "scaleX", 1f, 0.8f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(iconAt, "scaleY", 1f, 0.8f, 1f);
+
+        animatorSet.setDuration(600);
+        animatorSet.setInterpolator(new DecelerateInterpolator());
+        animatorSet.play(scaleX).with(scaleY);//两个动画同时开始
+        animatorSet.start();
+
     }
 
     @Override
@@ -112,4 +147,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        long secondTime = System.currentTimeMillis();
+        if (secondTime - firstTime > 2000) {
+            Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            firstTime = secondTime;
+        } else {
+            AppManager.getAppManager().exit(this);
+        }
+
+    }
 }
