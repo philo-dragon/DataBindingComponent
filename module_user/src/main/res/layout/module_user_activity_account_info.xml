@@ -4,19 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="com.pfl.module_user.activity.ModuleUserAccountInfoActivity">
 
-        <include
-            android:id="@+id/in_toolbar_layout"
-            layout="@layout/common_databinding_toolbar_layout" />
-
         <com.pfl.common.weidget.ScaleScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/in_toolbar_layout">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -391,5 +388,9 @@
 
         </com.pfl.common.weidget.ScaleScrollView>
 
-    </LinearLayout>
+        <include
+            android:id="@+id/in_toolbar_layout"
+            layout="@layout/common_databinding_toolbar_layout" />
+
+    </RelativeLayout>
 </layout>

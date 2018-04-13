@@ -2,20 +2,15 @@ package com.pfl.common.weidget;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.ScrollView;
 
 /**
  * 实现类似小米页面顶部下拉、底部上拉 沿着Y轴缩放效果
  */
-public class ScaleScrollView extends ScrollView {
+public class ScaleScrollView extends NestedScrollView {
 
     /**
      * action down 产生的x,y坐标
@@ -109,7 +104,6 @@ public class ScaleScrollView extends ScrollView {
 
     private boolean canChildScrollDown() {
         if (android.os.Build.VERSION.SDK_INT < 14) {
-
             return canScrollVertically(1) || getScrollY() < getChildAt(0).getMeasuredHeight() - getMeasuredHeight();
         } else {
             return canScrollVertically(1);
