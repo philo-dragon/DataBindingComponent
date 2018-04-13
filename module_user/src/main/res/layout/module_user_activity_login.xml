@@ -23,7 +23,7 @@
             layout="@layout/common_databinding_toolbar_layout"
             app:layout_constraintTop_toBottomOf="parent" />
 
-        <android.support.v4.widget.NestedScrollView
+        <com.pfl.common.weidget.ScaleScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -95,7 +95,7 @@
 
 
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </com.pfl.common.weidget.ScaleScrollView>
 
     </LinearLayout>
 

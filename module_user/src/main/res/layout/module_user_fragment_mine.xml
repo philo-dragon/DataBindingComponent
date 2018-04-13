@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ScrollView
+    <com.pfl.common.weidget.ScaleScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
 
-        <include
-            android:id="@+id/in_content"
-            layout="@layout/mine_fragment_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </ScrollView>
+
+            <include
+                android:id="@+id/in_header"
+                layout="@layout/mine_fragment_header" />
+
+            <include
+                android:id="@+id/in_content"
+                layout="@layout/mine_fragment_content" />
+
+        </LinearLayout>
+
+
+    </com.pfl.common.weidget.ScaleScrollView>
 
 </layout>
 

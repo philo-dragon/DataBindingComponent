@@ -49,13 +49,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         mBinding.bottomNavigationViewEx.enableShiftingMode(false);
         mBinding.bottomNavigationViewEx.enableItemShiftingMode(false);
 
+        mBinding.bottomNavigationViewEx.setItemHeight(144);
+        mBinding.bottomNavigationViewEx.setIconsMarginTop(20);
+        mBinding.bottomNavigationViewEx.setTextSize(11);
+        mBinding.bottomNavigationViewEx.setIconSize(20, 20);
+
         fragments = new ArrayList(5);
         items = new SparseIntArray(5);
         fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_FRAGMENT_MINE));
         fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_FRAGMENT_MINE));
         fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_FRAGMENT_MINE));
         fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_FRAGMENT_MINE));
-        fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_FRAGMENT_MINE));
+        fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_SCALE_RECYCLER_VIEW_FRAGMENT));
 
         // add to items for change ViewPager item
         items.put(R.id.i_music, 0);
@@ -66,6 +71,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         // set adapter
         MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager(), fragments);
+        mBinding.viewPager.setOffscreenPageLimit(fragments.size());
         mBinding.viewPager.setAdapter(adapter);
 
         // binding with ViewPager

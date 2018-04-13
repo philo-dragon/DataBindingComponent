@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/i_friends"
-        android:icon="@drawable/ic_face"
+        android:icon="@drawable/ic_app_main_bottom_navigation_find"
         android:title="@string/app_bottom_navigation_find" />
     <item
         android:id="@+id/i_favor"

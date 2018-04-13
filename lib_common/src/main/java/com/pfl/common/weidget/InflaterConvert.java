@@ -8,7 +8,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.yan.inflaterauto.AutoConvert;
 import com.yan.inflaterauto.annotation.Convert;
@@ -30,7 +29,7 @@ public class InflaterConvert implements AutoConvert {
     @Override
     public HashMap<String, String> getConvertMap() {
         HashMap<String, String> map = new HashMap<>();
-        map.put(TextView.class.getSimpleName(), SkinTextView.class.getName());
+        //map.put(TextView.class.getSimpleName(), SkinTextView.class.getName());
         return map;
     }
 }
