@@ -33,6 +33,18 @@ public class ModuleUserMineFragment extends BaseFragment<ModuleUserFragmentMineB
                 RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_LOGIN);
             }
         });
+        mBinding.inHeader.layoutFollowers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_FOCUS_AND_FANS);
+            }
+        });
+        mBinding.inHeader.layoutFollowing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_FOCUS_AND_FANS);
+            }
+        });
     }
 
     @Override

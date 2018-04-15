@@ -33,6 +33,10 @@
             android:name=".activity.ModuleUserAccountInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/module_user_account_info" />
+
+        <activity
+            android:name=".activity.ModuleUserFocusAndFansActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
     </application>
 
 </manifest>

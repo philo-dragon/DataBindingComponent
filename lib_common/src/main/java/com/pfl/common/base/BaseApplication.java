@@ -46,11 +46,11 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         CrashHandler.getInstance().init(this);
-        initBaseUrl();
+        initAutoUI();
         initRouter();//初始化Router
+        initBaseUrl();
         registerLifecycleCallbacks();//注册Activity生命周期监听
         initAppComponent();//Dagger2 初始化全局参数
-        initAutoUI();
         Utils.init(App.getInstance());
     }
 

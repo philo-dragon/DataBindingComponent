@@ -27,6 +27,7 @@ public class RouteUtils {
     public static final String MODULE_USER_ACTIVITY_SETTING = "/module_user/activity_setting";
     public static final String MODULE_USER_ACTIVITY_ACCOUNT_INFO = "/module_user/activity_account_info";
     public static final String MODULE_USER_ACTIVITY_UPDATE_PASSWORD = "/module_user/activity_update_password";
+    public static final String MODULE_USER_ACTIVITY_FOCUS_AND_FANS = "/module_user/activity_focus_and_fans";
     public static final String MODULE_USER_ACTIVITY_TEST = "/module_user/activity_test";
 
 

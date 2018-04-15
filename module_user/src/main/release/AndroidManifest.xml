@@ -23,7 +23,13 @@
             android:name=".activity.ModuleUserUpdatePasswordActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/module_user_update_password" />
-        <activity android:name=".activity.ModuleUserTestActivity"></activity>
+        <activity
+            android:name=".activity.ModuleUserTestActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name=".activity.ModuleUserFocusAndFansActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_focus_and_fans" />
     </application>
 
 </manifest>

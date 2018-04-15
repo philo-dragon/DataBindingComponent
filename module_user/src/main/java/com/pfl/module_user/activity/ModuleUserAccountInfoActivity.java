@@ -9,6 +9,9 @@ import com.pfl.common.utils.RouteUtils;
 import com.pfl.module_user.R;
 import com.pfl.module_user.databinding.ModuleUserActivityAccountInfoBinding;
 
+/**
+ * 账户信息
+ */
 @Route(path = RouteUtils.MODULE_USER_ACTIVITY_ACCOUNT_INFO)
 public class ModuleUserAccountInfoActivity extends BaseActivity<ModuleUserActivityAccountInfoBinding> implements View.OnClickListener {
 

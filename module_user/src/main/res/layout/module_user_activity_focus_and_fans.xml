@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.pfl.module_user.activity.ModuleUserFocusAndFansActivity">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/withe">
+
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:drawableLeft="@drawable/common_left_back_arror_selector"
+                android:gravity="center"
+                android:padding="20px"
+                android:textColor="@color/black"
+                android:textSize="32px" />
+
+            <RadioGroup
+                android:id="@+id/r_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbtn_my_focus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="58px"
+                    android:layout_marginBottom="18px"
+                    android:layout_marginTop="18px"
+                    android:background="@drawable/module_user_focus_and_fans_rbtn_left_selector"
+                    android:button="@null"
+                    android:checked="true"
+                    android:paddingLeft="30px"
+                    android:paddingRight="30px"
+                    android:text="我的关注"
+                    android:textColor="@color/module_user_focus_and_fans_rbtn_color_selector"
+                    android:textSize="32px" />
+
+                <RadioButton
+                    android:id="@+id/rbtn_my_fans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="58px"
+                    android:layout_marginBottom="18px"
+                    android:layout_marginTop="18px"
+                    android:background="@drawable/module_user_focus_and_fans_rbtn_right_selector"
+                    android:button="@null"
+                    android:paddingLeft="30px"
+                    android:paddingRight="30px"
+                    android:text="我的粉丝"
+                    android:textColor="@color/module_user_focus_and_fans_rbtn_color_selector"
+                    android:textSize="32px" />
+
+            </RadioGroup>
+        </FrameLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</layout>

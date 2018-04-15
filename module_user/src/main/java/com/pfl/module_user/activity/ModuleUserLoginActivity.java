@@ -22,7 +22,9 @@ import com.pfl.module_user.viewmodel.LoginViewModel;
 
 import javax.inject.Inject;
 
-
+/**
+ * 用户登录
+ */
 @Route(path = RouteUtils.MODULE_USER_ACTIVITY_LOGIN)
 public class ModuleUserLoginActivity extends BaseActivity<ModuleUserActivityLoginBinding> implements LoginView {
 

@@ -18,6 +18,9 @@ import com.pfl.module_user.viewmodel.RegistViewModel;
 
 import javax.inject.Inject;
 
+/**
+ * 用户注册
+ */
 @Route(path = RouteUtils.MODULE_USER_ACTIVITY_REGIST)
 public class ModuleUserRegistActivity extends BaseActivity<ModuleUserActivityRegistBinding> implements RegistView {
 

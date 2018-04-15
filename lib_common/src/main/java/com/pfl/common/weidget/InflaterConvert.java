@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.yan.inflaterauto.AutoConvert;
@@ -16,6 +19,7 @@ import java.util.HashMap;
 
 @Convert({LinearLayout.class
         , FrameLayout.class
+        , RelativeLayout.class
         , NestedScrollView.class
         , RecyclerView.class
         , ListView.class
@@ -24,6 +28,9 @@ import java.util.HashMap;
         , ConstraintLayout.class
         , AutoLayout.class
         , InflaterConvert.class
+        , RadioButton.class
+        , RadioGroup.class
+        , TitleBar.class
 })
 public class InflaterConvert implements AutoConvert {
     @Override

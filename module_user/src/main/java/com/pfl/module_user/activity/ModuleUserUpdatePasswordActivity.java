@@ -7,6 +7,9 @@ import com.pfl.common.utils.RouteUtils;
 import com.pfl.module_user.R;
 import com.pfl.module_user.databinding.ModuleUserActivityUpdatePasswordBinding;
 
+/**
+ * 修改密码
+ */
 @Route(path = RouteUtils.MODULE_USER_ACTIVITY_UPDATE_PASSWORD)
 public class ModuleUserUpdatePasswordActivity extends BaseActivity<ModuleUserActivityUpdatePasswordBinding> {
 

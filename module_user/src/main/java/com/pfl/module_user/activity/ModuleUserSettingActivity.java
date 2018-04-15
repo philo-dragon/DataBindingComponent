@@ -17,6 +17,9 @@ import com.pfl.module_user.viewmodel.SettingViewModel;
 
 import javax.inject.Inject;
 
+/**
+ * 设置界面
+ */
 @Route(path = RouteUtils.MODULE_USER_ACTIVITY_SETTING)
 public class ModuleUserSettingActivity extends BaseActivity<ModuleUserActivitySettingBinding> implements SettingView, View.OnClickListener {
 
