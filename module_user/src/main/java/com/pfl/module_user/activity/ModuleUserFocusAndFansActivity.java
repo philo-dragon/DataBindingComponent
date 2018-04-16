@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
 import com.pfl.common.utils.RouteUtils;
+import com.pfl.common.utils.RxClickUtil;
 import com.pfl.module_user.R;
 import com.pfl.module_user.databinding.ModuleUserActivityFocusAndFansBinding;
 
@@ -34,7 +35,7 @@ public class ModuleUserFocusAndFansActivity extends BaseActivity<ModuleUserActiv
     @Override
     public void setToolBar() {
 
-        mBinding.tvBack.setOnClickListener(new View.OnClickListener() {
+        RxClickUtil.RxClick(mBinding.tvBack, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
