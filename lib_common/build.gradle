@@ -62,6 +62,7 @@ dependencies {
     // RxJava2 Retrofit2 RxLifecycle
     api rootProject.ext.deps.rxjava
     api rootProject.ext.deps.rxandroid
+    api rootProject.ext.deps.rxbinding
     api rootProject.ext.deps.retrofit
     api rootProject.ext.deps.converter_gson
     api rootProject.ext.deps.adapter_rxjava2

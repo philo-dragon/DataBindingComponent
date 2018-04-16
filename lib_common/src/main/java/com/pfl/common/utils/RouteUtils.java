@@ -28,7 +28,16 @@ public class RouteUtils {
     public static final String MODULE_USER_ACTIVITY_ACCOUNT_INFO = "/module_user/activity_account_info";
     public static final String MODULE_USER_ACTIVITY_UPDATE_PASSWORD = "/module_user/activity_update_password";
     public static final String MODULE_USER_ACTIVITY_FOCUS_AND_FANS = "/module_user/activity_focus_and_fans";
-    public static final String MODULE_USER_ACTIVITY_TEST = "/module_user/activity_test";
+    public static final String MODULE_USER_ACTIVITY_BUY_GOLD_COINS = "/module_user/activity_buy_gold_coins";
+    public static final String MODULE_USER_ACTIVITY_GOLD_DETAIL = "/module_user/activity_gold_detail";
+    public static final String MODULE_USER_ACTIVITY_HAS_BUY_RECOMMEND = "/module_user/activity_has_buy_recommend";
+    public static final String MODULE_USER_ACTIVITY_MY_FAVORITE = "/module_user/activity_my_favorite";
+    public static final String MODULE_USER_ACTIVITY_MY_MESSAGE = "/module_user/activity_my_message";
+    public static final String MODULE_USER_ACTIVITY_APPLY_SFS = "/module_user/activity_apply_sfs";
+    public static final String MODULE_USER_ACTIVITY_FEED_BACK = "/module_user/activity_feed_back";
+    public static final String MODULE_USER_ACTIVITY_HOME_PAGE = "/module_user/activity_home_page";
+    public static final String MODULE_USER_ACTIVITY_SFS_LIST = "/module_user/activity_sfs_list";
+    public static final String MODULE_USER_ACTIVITY_MY_WALLET = "/module_user/activity_my_wallet";
 
 
     public static final String MODULE_USER_FRAGMENT_MINE = "/module_user/fragment_mine";

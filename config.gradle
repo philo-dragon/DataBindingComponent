@@ -27,6 +27,7 @@ ext {
 
             rxjava                : "2.1.6",
             rxandroid             : "2.0.1",
+            rxbinding             : "2.0.0",
             retrofit              : "2.3.0",
             converter_gson        : "2.3.0",
             converter_scalars     : "2.3.0",
@@ -78,6 +79,7 @@ ext {
 
             rxjava                : "io.reactivex.rxjava2:rxjava:${depsVersion.rxjava}",
             rxandroid             : "io.reactivex.rxjava2:rxandroid:${depsVersion.rxandroid}",
+            rxbinding             : "com.jakewharton.rxbinding2:rxbinding:${depsVersion.rxbinding}",
             retrofit              : "com.squareup.retrofit2:retrofit:${depsVersion.retrofit}",
             converter_gson        : "com.squareup.retrofit2:converter-gson:${depsVersion.converter_gson}",
             converter_scalars     : "com.squareup.retrofit2:converter-scalars:${depsVersion.converter_scalars}",

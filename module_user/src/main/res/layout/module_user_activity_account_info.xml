@@ -393,4 +393,5 @@
             layout="@layout/common_databinding_toolbar_layout" />
 
     </RelativeLayout>
+
 </layout>

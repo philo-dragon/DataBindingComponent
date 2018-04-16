@@ -9,4 +9,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="module_user_focus_and_fans">我的关注/粉丝</string>
+    <string name="module_user_buy_gold_coins">购买金币</string>
+    <string name="module_user_gold_detail">金币明细</string>
+    <string name="module_user_has_buy_recommend">已购推荐</string>
+    <string name="module_user_my_favorite">我的收藏</string>
+    <string name="module_user_my_message">我的消息</string>
+    <string name="module_user_apply_sfs">申请胜负师</string>
+    <string name="module_user_feed_back">意见反馈</string>
+    <string name="module_user_home_page">用户主页</string>
+    <string name="module_user_sfs_list">胜负师列表</string>
+    <string name="module_user_my_wallet">我的钱包</string>
 </resources>

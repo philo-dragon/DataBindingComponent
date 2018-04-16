@@ -33,10 +33,54 @@
             android:name=".activity.ModuleUserAccountInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/module_user_account_info" />
-
+        <activity
+            android:name=".activity.ModuleUserUpdatePasswordActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_update_password" />
         <activity
             android:name=".activity.ModuleUserFocusAndFansActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_focus_and_fans" />
+        <activity
+            android:name=".activity.ModuleUserBuyGoldCoinsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_buy_gold_coins" />
+        <activity
+            android:name=".activity.ModuleUserGoldDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_gold_detail" />
+        <activity
+            android:name=".activity.ModuleUserHasBuyRecommendActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_has_buy_recommend" />
+        <activity
+            android:name=".activity.ModuleUserMyFavoriteActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_my_favorite" />
+        <activity
+            android:name=".activity.ModuleUserMyMesageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_my_message" />
+        <activity
+            android:name=".activity.ModuleUserApplySFSActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_apply_sfs" />
+        <activity
+            android:name=".activity.ModuleUserFeedBackActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_feed_back" />
+        <activity
+            android:name=".activity.ModuleUserHomePageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_home_page" />
+        <activity
+            android:name=".activity.ModuleUserSFSListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_sfs_list" />
+        <activity
+            android:name=".activity.ModuleUserMyWalletActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_my_wallet" />
     </application>
 
 </manifest>
