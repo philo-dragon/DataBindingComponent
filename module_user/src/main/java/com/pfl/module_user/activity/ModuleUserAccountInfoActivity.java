@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
 import com.pfl.common.utils.RouteUtils;
+import com.pfl.common.utils.RxClickUtil;
 import com.pfl.module_user.R;
 import com.pfl.module_user.databinding.ModuleUserActivityAccountInfoBinding;
 
@@ -26,7 +27,15 @@ public class ModuleUserAccountInfoActivity extends BaseActivity<ModuleUserActivi
 
     @Override
     public void initView() {
-
+        RxClickUtil.RxClick(mBinding.rlPhone, this);
+        RxClickUtil.RxClick(mBinding.rlUserName, this);
+        RxClickUtil.RxClick(mBinding.rlSingnatrue, this);
+        RxClickUtil.RxClick(mBinding.rlLoginPassword, this);
+        RxClickUtil.RxClick(mBinding.rlRechargePassword, this);
+        RxClickUtil.RxClick(mBinding.rlPhone, this);
+        RxClickUtil.RxClick(mBinding.rlWechat, this);
+        RxClickUtil.RxClick(mBinding.rlQq, this);
+        RxClickUtil.RxClick(mBinding.rlSina, this);
     }
 
     @Override
@@ -41,6 +50,17 @@ public class ModuleUserAccountInfoActivity extends BaseActivity<ModuleUserActivi
 
     @Override
     public void onClick(View v) {
-        RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_UPDATE_PASSWORD);
+        int i = v.getId();
+        if (i == R.id.rl_photo) {
+        } else if (i == R.id.rl_user_name) {
+        } else if (i == R.id.rl_singnatrue) {
+        } else if (i == R.id.rl_login_password) {
+            RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_UPDATE_PASSWORD);
+        } else if (i == R.id.rl_recharge_password) {
+        } else if (i == R.id.rl_phone) {
+        } else if (i == R.id.rl_wechat) {
+        } else if (i == R.id.rl_qq) {
+        } else if (i == R.id.rl_sina) {
+        }
     }
 }
