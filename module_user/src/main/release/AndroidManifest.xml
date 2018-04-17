@@ -67,6 +67,14 @@
             android:name=".activity.ModuleUserMyWalletActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/module_user_my_wallet" />
+        <activity
+            android:name=".activity.ModuleUserH5Activity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_h5" />
+        <activity
+            android:name=".activity.ModuleUserChannelManagerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/module_user_channel_manager" />
     </application>
 
 </manifest>

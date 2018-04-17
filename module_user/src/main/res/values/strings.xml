@@ -19,4 +19,6 @@
     <string name="module_user_home_page">用户主页</string>
     <string name="module_user_sfs_list">胜负师列表</string>
     <string name="module_user_my_wallet">我的钱包</string>
+    <string name="module_user_h5">H5界面</string>
+    <string name="module_user_channel_manager">频道管理</string>
 </resources>

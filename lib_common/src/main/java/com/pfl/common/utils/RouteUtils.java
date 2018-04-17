@@ -38,6 +38,8 @@ public class RouteUtils {
     public static final String MODULE_USER_ACTIVITY_HOME_PAGE = "/module_user/activity_home_page";
     public static final String MODULE_USER_ACTIVITY_SFS_LIST = "/module_user/activity_sfs_list";
     public static final String MODULE_USER_ACTIVITY_MY_WALLET = "/module_user/activity_my_wallet";
+    public static final String MODULE_USER_ACTIVITY_H5 = "/module_user/activity_h5";
+    public static final String MODULE_USER_ACTIVITY_CHANNEL_MANAGER = "/module_user/activity_channel_manager";
 
 
     public static final String MODULE_USER_FRAGMENT_MINE = "/module_user/fragment_mine";

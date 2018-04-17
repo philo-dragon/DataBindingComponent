@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.pfl.common.R;
 import com.pfl.common.listener.IActivity;
 import com.pfl.common.utils.App;
@@ -35,6 +36,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends RxAppCompa
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView();
+        ARouter.getInstance().inject(this);
         drakMode();
         componentInject(App.getInstance(BaseApplication.class).getAppComponent());
         initView();

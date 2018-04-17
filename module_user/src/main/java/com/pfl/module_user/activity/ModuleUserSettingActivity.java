@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.CacheUtils;
 import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
 import com.pfl.common.utils.App;
+import com.pfl.common.utils.BaseUrlManager;
 import com.pfl.common.utils.RouteUtils;
 import com.pfl.common.utils.RxClickUtil;
 import com.pfl.module_user.R;
@@ -20,6 +21,8 @@ import com.pfl.module_user.di.module_setting.DaggerSettingComponent;
 import com.pfl.module_user.di.module_setting.SettingModule;
 import com.pfl.module_user.view.SettingView;
 import com.pfl.module_user.viewmodel.SettingViewModel;
+
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -90,8 +93,20 @@ public class ModuleUserSettingActivity extends BaseActivity<ModuleUserActivitySe
         } else if (i == R.id.tv_pf) {
             launchAppDetail();
         } else if (i == R.id.tv_tkys) {
+            HashMap<String, String> parameter = new HashMap<>();
+            parameter.put("title", "使用条款与隐私政策");
+            parameter.put("url", BaseUrlManager.getBaseUrl() + "help/privacy");
+            RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_H5, parameter);
         } else if (i == R.id.tv_mzsm) {
+            HashMap<String, String> parameter = new HashMap<>();
+            parameter.put("title", "免责声明");
+            parameter.put("url", BaseUrlManager.getBaseUrl() + "help/proclaim");
+            RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_H5, parameter);
         } else if (i == R.id.tv_about) {
+            HashMap<String, String> parameter = new HashMap<>();
+            parameter.put("title", "关于我们");
+            parameter.put("url", BaseUrlManager.getBaseUrl() + "help/aboutme");
+            RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_H5, parameter);
         } else if (i == R.id.rl_history_version) {
         } else {
         }
