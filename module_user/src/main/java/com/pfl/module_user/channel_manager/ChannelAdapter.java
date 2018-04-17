@@ -1,8 +1,9 @@
 package com.pfl.module_user.channel_manager;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -12,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -90,10 +92,35 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
     }
 
 
-    public static class ChannelViewHolder extends RecyclerView.ViewHolder {
+    public static class ChannelViewHolder extends RecyclerView.ViewHolder implements ItemDragVHListener {
 
         public ChannelViewHolder(View itemView) {
             super(itemView);
+        }
+
+        @Override
+        public void onItemSelected() {
+            scaleItem(1.0f, 1.2f, 0.5f);
+        }
+
+        @Override
+        public void onItemFinished() {
+            scaleItem(1.2f, 1.0f, 1.0f);
+        }
+
+        public void scaleItem(float start, float end, float alpha) {
+            ObjectAnimator anim1 = ObjectAnimator.ofFloat(itemView, "scaleX",
+                    start, end);
+            ObjectAnimator anim2 = ObjectAnimator.ofFloat(itemView, "scaleY",
+                    start, end);
+            ObjectAnimator anim3 = ObjectAnimator.ofFloat(itemView, "alpha",
+                    alpha);
+
+            AnimatorSet animSet = new AnimatorSet();
+            animSet.setDuration(200);
+            animSet.setInterpolator(new LinearInterpolator());
+            animSet.playTogether(anim1, anim2, anim3);
+            animSet.start();
         }
     }
 
