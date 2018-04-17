@@ -1,5 +1,6 @@
 package com.pfl.module_user.activity;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -7,6 +8,7 @@ import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
 import com.pfl.common.utils.RouteUtils;
 import com.pfl.module_user.R;
+import com.pfl.module_user.channel_manager.ChannelAdapter;
 import com.pfl.module_user.channel_manager.ItemDragHelperCallback;
 import com.pfl.module_user.channel_manager.ItemDragListener;
 import com.pfl.module_user.databinding.ModuleUserActivityChannelManagerBinding;
@@ -30,11 +32,14 @@ public class ModuleUserChannelManagerActivity extends BaseActivity<ModuleUserAct
     @Override
     public void initView() {
 
+        ChannelAdapter adapter = new ChannelAdapter(this);
+        mBinding.recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        mBinding.recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void setToolBar() {
-
+        setToolBarHasBack(mBinding.inToolbarLayout.titleBar);
     }
 
     @Override

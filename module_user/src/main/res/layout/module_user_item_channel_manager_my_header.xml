@@ -12,7 +12,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="30px"
         android:text="我的分类"
-        android:textColor="@color/withe"
+        android:textColor="@color/black"
         android:textSize="16dp" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_marginLeft="30px"
         android:layout_toRightOf="@+id/tv_my_category"
         android:text="长按拖拽可以排序"
-        android:textColor="@color/withe"
+        android:textColor="@color/black"
         android:textSize="12dp" />
 
     <TextView
@@ -34,7 +34,7 @@
         android:layout_centerVertical="true"
         android:padding="30px"
         android:text="完成"
-        android:textColor="@color/withe"
+        android:textColor="@color/black"
         android:textSize="12dp" />
 
 </RelativeLayout>

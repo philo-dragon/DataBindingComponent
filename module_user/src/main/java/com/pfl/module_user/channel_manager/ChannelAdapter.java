@@ -46,10 +46,26 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
 
     public ChannelAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
-        mTypeMap.put(IChannelType.TYPE_MY_CHANNEL_HEADER, new MyChannelHeaderWidget(new EditHandler()));
-        mTypeMap.put(IChannelType.TYPE_MY_CHANNEL, new MyChannelWidget(new EditHandler()));
-        mTypeMap.put(IChannelType.TYPE_REC_CHANNEL_HEADER, new RecChannelHeaderWidget(new EditHandler()));
-        mTypeMap.put(IChannelType.TYPE_REC_CHANNEL, new RecChannelWidget(new EditHandler()));
+
+        for (int i = 0; i < 10; i++) {
+            ChannelBean channelBean = new ChannelBean();
+            channelBean.setTabName("我的" + i);
+            channelBean.setTabType(IChannelType.TYPE_MY_CHANNEL);
+            mMyChannelItems.add(channelBean);
+        }
+
+        for (int i = 0; i < 15; i++) {
+            ChannelBean channelBean = new ChannelBean();
+            channelBean.setTabName("其他" + i);
+            channelBean.setTabType(IChannelType.TYPE_REC_CHANNEL);
+            mOtherChannelItems.add(channelBean);
+        }
+
+        EditHandler editHandler = new EditHandler();
+        mTypeMap.put(IChannelType.TYPE_MY_CHANNEL_HEADER, new MyChannelHeaderWidget(editHandler));
+        mTypeMap.put(IChannelType.TYPE_MY_CHANNEL, new MyChannelWidget(editHandler));
+        mTypeMap.put(IChannelType.TYPE_REC_CHANNEL_HEADER, new RecChannelHeaderWidget(editHandler));
+        mTypeMap.put(IChannelType.TYPE_REC_CHANNEL, new RecChannelWidget(editHandler));
     }
 
 
@@ -77,11 +93,12 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mMyChannelItems.size() + mOtherChannelItems.size() + 2;
     }
 
     @Override
     public int getItemViewType(int position) {
+
         if (position < mMyHeaderCount)
             return IChannelType.TYPE_MY_CHANNEL_HEADER;
         if (position >= mMyHeaderCount && position < mMyChannelItems.size() + mMyHeaderCount)
@@ -131,12 +148,18 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
             View view = parent.getChildAt(i);
             ImageView imgEdit = view.findViewById(R.id.id_delete_icon);
             if (imgEdit != null) {
-                ChannelBean item = mMyChannelItems.get(i - mMyHeaderCount);
-                if (item.getTabType() == 2) {
+                imgEdit.setVisibility(View.VISIBLE);
+               /* ChannelBean item;
+                if (i > mMyChannelItems.size()) {
+                    item = mOtherChannelItems.get(i - mMyChannelItems.size() - 2);
+                } else {
+                    item = mMyChannelItems.get(i - 1);
+                }
+                if (item.getTabType() == IChannelType.TYPE_MY_CHANNEL) {
                     imgEdit.setVisibility(View.VISIBLE);
                 } else {
                     imgEdit.setVisibility(View.INVISIBLE);
-                }
+                }*/
             }
         }
     }
@@ -317,6 +340,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
                 if (currentView.getVisibility() == View.INVISIBLE) {
                     currentView.setVisibility(View.VISIBLE);
                 }
+                notifyDataSetChanged();
             }
 
             @Override
@@ -357,13 +381,6 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
         return position;
     }
 
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        ItemDragHelperCallback itemDragHelperCallback = new ItemDragHelperCallback(this);
-        mItemTouchHelper = new ItemTouchHelper(itemDragHelperCallback);
-        mItemTouchHelper.attachToRecyclerView(recyclerView);
-    }
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
@@ -381,5 +398,32 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
 
     public interface ChannelItemClickListener {
         void onChannelItemClick(List<ChannelBean> mMyChannelItems, int i);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
+        ItemDragHelperCallback itemDragHelperCallback = new ItemDragHelperCallback(this);
+        mItemTouchHelper = new ItemTouchHelper(itemDragHelperCallback);
+        mItemTouchHelper.attachToRecyclerView(recyclerView);
+
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if (manager instanceof GridLayoutManager) {
+            final GridLayoutManager gridLayoutManager = (GridLayoutManager) manager;
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+
+                @Override
+                public int getSpanSize(int position) {
+                    int type = getItemViewType(position);
+                    switch (type) {
+                        case IChannelType.TYPE_REC_CHANNEL_HEADER:
+                        case IChannelType.TYPE_MY_CHANNEL_HEADER:
+                            return 4;
+                    }
+                    return 1;
+                }
+            });
+        }
     }
 }

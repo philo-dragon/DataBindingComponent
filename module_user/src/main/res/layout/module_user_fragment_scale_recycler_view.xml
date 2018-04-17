@@ -3,23 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/s_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.pfl.module_user.activity.ModuleUserChannelManagerActivity">
+        android:orientation="vertical">
 
-        <include
-            android:id="@+id/in_toolbar_layout"
-            layout="@layout/common_databinding_toolbar_layout" />
-
-        <android.support.v7.widget.RecyclerView
+        <com.pfl.common.weidget.ScaleRecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-
-    </LinearLayout>
-
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </layout>

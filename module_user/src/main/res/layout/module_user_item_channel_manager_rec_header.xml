@@ -12,7 +12,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="30px"
         android:text="推荐分类"
-        android:textColor="@color/withe"
+        android:textColor="@color/black"
         android:textSize="16dp" />
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_marginLeft="30px"
         android:layout_toRightOf="@+id/tv_my_category"
         android:text="点击可添加分类"
-        android:textColor="@color/withe"
+        android:textColor="@color/black"
         android:textSize="12dp" />
 
 

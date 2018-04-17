@@ -1,6 +1,7 @@
 package com.pfl.module_user.channel_manager;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,15 +31,27 @@ public class RecChannelWidget implements IChannelType {
 
     @Override
     public void bindViewHolder(final ChannelAdapter.ChannelViewHolder holder, int position, ChannelBean data) {
-        final MyChannelHeaderWidget.MyChannelHeaderViewHolder viewHolder = (MyChannelHeaderWidget.MyChannelHeaderViewHolder) holder;
+        RecChannelWidget.RecChannelWidgetViewHolder viewHolder = (RecChannelWidget.RecChannelWidgetViewHolder) holder;
+        viewHolder.mChannelTitleTv.setText(data.getTabName());
+        int textSize = data.getTabName().length() >= 4 ? 14 : 16;
+        viewHolder.mChannelTitleTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+
+        viewHolder.mChannelTitleTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editModeHandler.clickRecChannel(mRecyclerView, holder);
+            }
+        });
+
 
     }
 
     public class RecChannelWidgetViewHolder extends ChannelAdapter.ChannelViewHolder {
-        private TextView mEditModeTv;
+        TextView mChannelTitleTv;
 
         public RecChannelWidgetViewHolder(View itemView) {
             super(itemView);
+            mChannelTitleTv = itemView.findViewById(R.id.tv_my_category);
         }
     }
 

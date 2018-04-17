@@ -32,7 +32,7 @@ public class RecChannelHeaderWidget implements IChannelType {
 
     @Override
     public void bindViewHolder(final ChannelAdapter.ChannelViewHolder holder, int position, ChannelBean data) {
-        final MyChannelHeaderWidget.MyChannelHeaderViewHolder viewHolder = (MyChannelHeaderWidget.MyChannelHeaderViewHolder) holder;
+        final RecChannelHeaderWidget.RecChannelHeaderViewHolder viewHolder = (RecChannelHeaderWidget.RecChannelHeaderViewHolder) holder;
 
     }
 

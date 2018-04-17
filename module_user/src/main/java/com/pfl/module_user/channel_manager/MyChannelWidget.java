@@ -43,7 +43,7 @@ public class MyChannelWidget implements IChannelType {
         myHolder.mChannelTitleTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (editModeHandler != null && data.getTabType() == 2) {
+                if (editModeHandler != null && data.getTabType() == IChannelType.TYPE_MY_CHANNEL) {
                     editModeHandler.clickMyChannel(mRecyclerView, holder);
                 }
             }
@@ -52,7 +52,7 @@ public class MyChannelWidget implements IChannelType {
         myHolder.mChannelTitleTv.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (editModeHandler != null && data.getTabType() == 2) {
+                if (editModeHandler != null && data.getTabType() == IChannelType.TYPE_MY_CHANNEL) {
                     editModeHandler.touchMyChannel(motionEvent, holder);
                 }
                 return false;
@@ -62,7 +62,7 @@ public class MyChannelWidget implements IChannelType {
         myHolder.mChannelTitleTv.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if (editModeHandler != null && data.getTabType() == 2) {
+                if (editModeHandler != null && data.getTabType() == IChannelType.TYPE_MY_CHANNEL) {
                     editModeHandler.clickLongMyChannel(mRecyclerView, holder);
                 }
                 return true;

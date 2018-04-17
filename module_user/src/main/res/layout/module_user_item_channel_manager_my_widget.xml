@@ -7,8 +7,9 @@
 
     <ImageView
         android:id="@+id/id_delete_icon"
-        android:layout_width="20px"
-        android:layout_height="20px" />
+        android:layout_width="40px"
+        android:layout_height="40px"
+        android:background="#ff00ff" />
 
     <TextView
         android:id="@+id/id_channel_title"

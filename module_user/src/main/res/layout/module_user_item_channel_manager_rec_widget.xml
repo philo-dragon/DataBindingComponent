@@ -7,8 +7,9 @@
 
     <ImageView
         android:id="@+id/id_delete_icon"
-        android:layout_width="20px"
-        android:layout_height="20px" />
+        android:background="#ffff00"
+        android:layout_width="40px"
+        android:layout_height="40px" />
 
     <TextView
         android:id="@+id/tv_my_category"
@@ -16,8 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20px"
-        android:text="我的分类"
-        android:textColor="@color/withe"
+        android:textColor="@color/black"
         android:textSize="16dp" />
 
 </LinearLayout>

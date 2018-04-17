@@ -89,7 +89,7 @@ public class ModuleUserSettingActivity extends BaseActivity<ModuleUserActivitySe
         if (i == R.id.tv_account_info) {
             RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_ACCOUNT_INFO);
         } else if (i == R.id.rl_clear_cache) {
-
+            RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_CHANNEL_MANAGER);
         } else if (i == R.id.tv_pf) {
             launchAppDetail();
         } else if (i == R.id.tv_tkys) {
