@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.pfl.common.R;
 import com.pfl.common.listener.IActivity;
 import com.pfl.common.utils.App;
@@ -46,6 +47,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ARouter.getInstance().inject(this);
         componentInject(App.getInstance(BaseApplication.class).getAppComponent());
         initView();
         initData();

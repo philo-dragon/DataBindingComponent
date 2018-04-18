@@ -53,6 +53,7 @@ ext {
 
             BottomNavigationViewEx: "1.2.4",
 
+            eventBus              : "3.1.1",
 
     ]
 
@@ -106,6 +107,8 @@ ext {
             circleimageview       : "de.hdodenhof:circleimageview:${depsVersion.circleimageview}",//圆形图片
 
             BottomNavigationViewEx: "com.github.ittianyu:BottomNavigationViewEx:${depsVersion.BottomNavigationViewEx}",//圆形图片
+
+            eventBus              : "org.greenrobot:eventbus:${depsVersion.eventBus}"
 
     ]
 

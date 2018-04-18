@@ -13,10 +13,16 @@
             android:id="@+id/in_toolbar_layout"
             layout="@layout/common_databinding_toolbar_layout" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <com.pfl.common.weidget.ScaleRecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
 
 
     </LinearLayout>

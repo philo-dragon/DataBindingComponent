@@ -88,7 +88,12 @@ dependencies {
     // 滑动返回库
     api rootProject.ext.deps.swipebackhelper
 
+    // 圆形图片库
     api rootProject.ext.deps.circleimageview
 
+    // 底部导航栏
     api rootProject.ext.deps.BottomNavigationViewEx
+
+    // EventBus
+    api rootProject.ext.deps.eventBus
 }
