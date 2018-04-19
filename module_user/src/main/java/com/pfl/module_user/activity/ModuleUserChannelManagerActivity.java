@@ -24,6 +24,8 @@ import java.util.List;
 @Route(path = RouteUtils.MODULE_USER_ACTIVITY_CHANNEL_MANAGER)
 public class ModuleUserChannelManagerActivity extends BaseActivity<ModuleUserActivityChannelManagerBinding> {
 
+    public static final int RESULE_TYPE = -1;//判断是点击完成/还是单个频道
+
     @Override
     public int getContentView() {
         return R.layout.module_user_activity_channel_manager;
@@ -72,7 +74,7 @@ public class ModuleUserChannelManagerActivity extends BaseActivity<ModuleUserAct
             @Override
             public void onFinish(boolean update) {
                 BaseMessageEvent<List<ChannelEntity>> messageEvent = new BaseMessageEvent<>();
-                messageEvent.setType(-1);
+                messageEvent.setType(RESULE_TYPE);
                 messageEvent.setData(adapter.getMyChannelItems());
                 messageEvent.setUpdate(update);
                 EventBusUtil.postMessage(messageEvent);

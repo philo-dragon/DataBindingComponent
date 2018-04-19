@@ -3,7 +3,6 @@ package com.pfl.module_user.activity;
 import android.support.v4.view.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.jakewharton.rxbinding2.view.RxView;
 import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
 import com.pfl.common.entity.message_event.BaseMessageEvent;
@@ -19,7 +18,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 
 /**
  * 购买金币
@@ -31,6 +29,7 @@ public class ModuleUserBuyGoldCoinsActivity extends BaseActivity<ModuleUserActiv
     private TitleFragmentAdapter adapter;
     private int needShowPosition = -1;
     private String mCurrentTitle;
+    private int mCurrentPosition;
 
     @Override
     public int getContentView() {
@@ -39,26 +38,15 @@ public class ModuleUserBuyGoldCoinsActivity extends BaseActivity<ModuleUserActiv
 
     @Override
     public void componentInject(AppComponent appComponent) {
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(BaseMessageEvent<List<ChannelEntity>> messageEvent) {
-
-        if (messageEvent.isUpdate()) {
+        if (messageEvent.isUpdate()) {//频道改变了
             needShowPosition = messageEvent.getType();
-            loadData(messageEvent.getData());
-            if (-1 == messageEvent.getType()) {
-                new android.os.Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mBinding.viewPager.setCurrentItem(items.size()-1);
-                    }
-                }, 500);
-            }
-
-        } else {
-            if (-1 != messageEvent.getType()) {
+            loadData(messageEvent.getData(), true);
+        } else {//频道没有改变
+            if (ModuleUserChannelManagerActivity.RESULE_TYPE != messageEvent.getType()) {
                 mBinding.viewPager.setCurrentItem(messageEvent.getType());
             }
         }
@@ -66,9 +54,7 @@ public class ModuleUserBuyGoldCoinsActivity extends BaseActivity<ModuleUserActiv
 
     @Override
     public void initView() {
-
         EventBusUtil.regist(this);
-
         items = new ArrayList<>();
         adapter = new TitleFragmentAdapter(getSupportFragmentManager(), items);
         mBinding.viewPager.setAdapter(adapter);
@@ -79,6 +65,7 @@ public class ModuleUserBuyGoldCoinsActivity extends BaseActivity<ModuleUserActiv
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 mCurrentTitle = items.get(position).getName();
+                mCurrentPosition = position;
             }
         });
 
@@ -90,11 +77,10 @@ public class ModuleUserBuyGoldCoinsActivity extends BaseActivity<ModuleUserActiv
         }
 
         mCurrentTitle = objects.get(0).getName();
-
-        loadData(objects);
+        loadData(objects, false);
     }
 
-    private void loadData(List<ChannelEntity> channelEntities) {
+    private void loadData(List<ChannelEntity> channelEntities, boolean isScrollTab) {
 
         items.clear();
         items.addAll(channelEntities);
@@ -102,7 +88,26 @@ public class ModuleUserBuyGoldCoinsActivity extends BaseActivity<ModuleUserActiv
         if (needShowPosition != -1) {
             mBinding.viewPager.setCurrentItem(needShowPosition);
             needShowPosition = -1;
+        } else {
+            if (!isScrollTab) {
+                return;
+            }
+            mBinding.tabLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    int position = adapter.getPosition(mCurrentTitle);
+                    if (position == -1) {
+                        if (items.size() >= mCurrentPosition) {
+                            position = mCurrentPosition;
+                        } else {
+                            position = items.size() - 1;
+                        }
+                    }
+                    mBinding.tabLayout.getTabAt(position).select();
+                }
+            }, 50);
         }
+
     }
 
     @Override
@@ -120,4 +125,5 @@ public class ModuleUserBuyGoldCoinsActivity extends BaseActivity<ModuleUserActiv
         super.onDestroy();
         EventBusUtil.unregist(this);
     }
+
 }
