@@ -44,7 +44,7 @@ public class ModuleUserBuyGoldCoinsActivity extends BaseActivity<ModuleUserActiv
     public void onMessageEvent(BaseMessageEvent<List<ChannelEntity>> messageEvent) {
         if (messageEvent.isUpdate()) {//频道改变了
             needShowPosition = messageEvent.getType();
-            loadData(messageEvent.getData(), true);
+            setData(messageEvent.getData(), true);
         } else {//频道没有改变
             if (ModuleUserChannelManagerActivity.RESULE_TYPE != messageEvent.getType()) {
                 mBinding.viewPager.setCurrentItem(messageEvent.getType());
@@ -77,10 +77,16 @@ public class ModuleUserBuyGoldCoinsActivity extends BaseActivity<ModuleUserActiv
         }
 
         mCurrentTitle = objects.get(0).getName();
-        loadData(objects, false);
+        setData(objects, false);
     }
 
-    private void loadData(List<ChannelEntity> channelEntities, boolean isScrollTab) {
+    /**
+     * 设置数据
+     *
+     * @param channelEntities 频道列表
+     * @param isScrollTab     是否滚动Tab(矫正tab选中效果)
+     */
+    private void setData(List<ChannelEntity> channelEntities, boolean isScrollTab) {
 
         items.clear();
         items.addAll(channelEntities);

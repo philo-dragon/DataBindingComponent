@@ -23,6 +23,7 @@ import java.util.List;
 
 import cn.com.topzuqiu.adapter.MainViewPagerAdapter;
 import cn.com.topzuqiu.databinding.ActivityMainBinding;
+import cn.jzvd.JZVideoPlayer;
 
 @Route(path = RouteUtils.APP_MAIN_ACTIVITY)
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
@@ -155,6 +156,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public void onBackPressed() {
+
         long secondTime = System.currentTimeMillis();
         if (secondTime - firstTime > 2000) {
             Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
@@ -162,6 +164,5 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         } else {
             AppManager.getAppManager().exit(this);
         }
-
     }
 }

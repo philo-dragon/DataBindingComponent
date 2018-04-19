@@ -96,4 +96,7 @@ dependencies {
 
     // EventBus
     api rootProject.ext.deps.eventBus
+
+    //视屏播放器
+    api rootProject.ext.deps.jiaozivideoplayer
 }

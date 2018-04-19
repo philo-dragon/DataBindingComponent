@@ -4,7 +4,7 @@ ext {
             compileSdkVersion: 27,
             buildToolsVersion: "27",
             applicationId    : "cn.com.topzuqiu",
-            minSdkVersion    : 15,
+            minSdkVersion    : 16,
             targetSdkVersion : 27,
             versionCode      : 1,
             versionName      : "1.0"
@@ -54,6 +54,8 @@ ext {
             BottomNavigationViewEx: "1.2.4",
 
             eventBus              : "3.1.1",
+
+            jiaozivideoplayer     : "6.2.9",
 
     ]
 
@@ -108,7 +110,9 @@ ext {
 
             BottomNavigationViewEx: "com.github.ittianyu:BottomNavigationViewEx:${depsVersion.BottomNavigationViewEx}",//圆形图片
 
-            eventBus              : "org.greenrobot:eventbus:${depsVersion.eventBus}"
+            eventBus              : "org.greenrobot:eventbus:${depsVersion.eventBus}",//事件总线程
+
+            jiaozivideoplayer     : "cn.jzvd:jiaozivideoplayer:${depsVersion.jiaozivideoplayer}",//播放器
 
     ]
 
