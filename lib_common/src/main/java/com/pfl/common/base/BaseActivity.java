@@ -36,8 +36,8 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends RxAppCompa
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView();
-        ARouter.getInstance().inject(this);
         drakMode();
+        ARouter.getInstance().inject(this);
         componentInject(App.getInstance(BaseApplication.class).getAppComponent());
         initView();
         setToolBar();

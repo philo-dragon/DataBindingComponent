@@ -10,7 +10,8 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
         android:text="我的频道"
-        android:textSize="16sp" />
+        android:textColor="#232323"
+        android:textSize="19dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,9 +19,10 @@
         android:layout_alignBottom="@id/tv"
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@id/tv"
-        android:text="长按可以排序"
-        android:textColor="#999999"
-        android:textSize="12sp" />
+        android:paddingBottom="2dp"
+        android:text="长按可拖动排序"
+        android:textColor="#888895"
+        android:textSize="13dp" />
 
     <TextView
         android:id="@+id/tv_btn_edit"
@@ -29,15 +31,10 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="8dp"
-        android:background="@drawable/bg_btn"
         android:gravity="center"
         android:text="编辑"
-        android:textColor="#ef4836"
-        android:textSize="13sp" />
+        android:textColor="#232323"
+        android:textSize="15sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.3dp"
-        android:layout_alignParentBottom="true"
-        android:background="#9c9c9c" />
+
 </RelativeLayout>

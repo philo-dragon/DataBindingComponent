@@ -10,6 +10,7 @@ import com.pfl.common.di.AppComponent;
 import com.pfl.common.utils.RouteUtils;
 import com.pfl.module_user.R;
 import com.pfl.module_user.databinding.ModuleUserFragmentChannelBinding;
+import com.pfl.module_user.channel_manager.ChannelManagerFragment;
 
 /**
  * 频道界面
@@ -37,7 +38,9 @@ public class ModuleUserChannelFragment extends BaseFragment<ModuleUserFragmentCh
         mBinding.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_CHANNEL_MANAGER);
+                ChannelManagerFragment fragment = new ChannelManagerFragment();
+                fragment.show(getChildFragmentManager().beginTransaction(),ChannelManagerFragment.class.getSimpleName());
+                //RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_CHANNEL_MANAGER);
             }
         });
     }
