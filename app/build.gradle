@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+
     compileSdkVersion 26
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
@@ -9,7 +10,7 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        flavorDimensions "versionCode"
         // ARouter 配置
         javaCompileOptions {
             annotationProcessorOptions {
@@ -18,16 +19,34 @@ android {
         }
 
     }
-
     dataBinding {
         enabled = true
+    }
+
+    signingConfigs {
+        release {
+            keyAlias 'topzuqiu'
+            keyPassword 'android'
+            storeFile file('D:/donkor.jks')
+            storePassword 'android'
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 自定义输出配置
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    // 输出apk名称为great_v1.0_wandoujia.apk
+                    def fileName = "great${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+                    outputFileName = fileName
+
+                }
+            }
         }
+
         debug {
             //在编译打包时会给包名加上后缀
             applicationIdSuffix '.component'
@@ -35,6 +54,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        kuan {}
+        xiaomi {}
+        qh360 {}
+        baidu {}
+        wandoujia {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
 }
 
 dependencies {
