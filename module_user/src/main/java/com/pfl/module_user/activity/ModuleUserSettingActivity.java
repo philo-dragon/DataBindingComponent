@@ -1,5 +1,6 @@
 package com.pfl.module_user.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -8,10 +9,14 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.CacheUtils;
+import com.kongzue.dialog.v2.InputDialog;
+import com.kongzue.dialog.v2.SelectDialog;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
 import com.pfl.common.utils.App;
 import com.pfl.common.utils.BaseUrlManager;
+import com.pfl.common.utils.DialogManager;
 import com.pfl.common.utils.RouteUtils;
 import com.pfl.common.utils.RxClickUtil;
 import com.pfl.module_user.R;
@@ -64,6 +69,7 @@ public class ModuleUserSettingActivity extends BaseActivity<ModuleUserActivitySe
         RxClickUtil.RxClick(mBinding.tvPf, this);
         RxClickUtil.RxClick(mBinding.tvTkys, this);
         RxClickUtil.RxClick(mBinding.rlHistoryVersion, this);
+        RxClickUtil.RxClick(mBinding.btnLogin, this);
     }
 
     @Override
@@ -89,7 +95,7 @@ public class ModuleUserSettingActivity extends BaseActivity<ModuleUserActivitySe
         if (i == R.id.tv_account_info) {
             RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_ACCOUNT_INFO);
         } else if (i == R.id.rl_clear_cache) {
-            RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_CHANNEL_MANAGER);
+            DialogManager.showTwoBtnDialog(mContext, "确定要清空缓存吗？");
         } else if (i == R.id.tv_pf) {
             launchAppDetail();
         } else if (i == R.id.tv_tkys) {
@@ -108,7 +114,9 @@ public class ModuleUserSettingActivity extends BaseActivity<ModuleUserActivitySe
             parameter.put("url", BaseUrlManager.getBaseUrl() + "help/aboutme");
             RouteUtils.actionStart(RouteUtils.MODULE_USER_ACTIVITY_H5, parameter);
         } else if (i == R.id.rl_history_version) {
-        } else {
+        } else if (i == R.id.btn_login) {
+
+            DialogManager.showTwoBtnDialog(mContext, "确定要退出登录吗？");
         }
 
     }

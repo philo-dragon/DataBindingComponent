@@ -1,5 +1,6 @@
 package com.pfl.common.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -24,16 +25,16 @@ import com.yan.inflaterauto.InflaterAuto;
 public abstract class BaseActivity<T extends ViewDataBinding> extends RxAppCompatActivity implements IActivity {
 
     protected T mBinding;
-    protected Context mContext;
+    protected Activity mContext;
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(InflaterAuto.wrap(newBase));
-        this.mContext = newBase;
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        this.mContext = this;
         super.onCreate(savedInstanceState);
         setContentView();
         drakMode();

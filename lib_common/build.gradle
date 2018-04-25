@@ -99,4 +99,8 @@ dependencies {
 
     //视屏播放器
     api rootProject.ext.deps.jiaozivideoplayer
+
+    //对话框
+    api rootProject.ext.deps.dialog
+
 }

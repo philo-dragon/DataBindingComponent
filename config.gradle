@@ -57,6 +57,8 @@ ext {
 
             jiaozivideoplayer     : "6.2.9",
 
+            dialog                : "2.0.3",
+
     ]
 
     deps = [
@@ -113,6 +115,8 @@ ext {
             eventBus              : "org.greenrobot:eventbus:${depsVersion.eventBus}",//事件总线程
 
             jiaozivideoplayer     : "cn.jzvd:jiaozivideoplayer:${depsVersion.jiaozivideoplayer}",//播放器
+
+            dialog                : "com.kongzue.dialog:dialog:${depsVersion.dialog}",//对话框
 
     ]
 
