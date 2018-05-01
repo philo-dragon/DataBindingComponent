@@ -1,5 +1,8 @@
 package com.pfl.common.di;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.pfl.common.converter.StringConverter;
 import com.pfl.common.http.ProxyHandler;
 import com.pfl.common.http.RetrofitService;
 import com.pfl.common.http.converter.GsonConverterFactory;
@@ -74,11 +77,12 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit(OkHttpClient okHttpClient) {
+    Retrofit provideRetrofit(OkHttpClient okHttpClient, Gson gson) {
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BaseUrlManager.getBaseUrl())
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return retrofit;

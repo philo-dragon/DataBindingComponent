@@ -21,9 +21,8 @@ import com.pfl.common.utils.RouteUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.com.topzuqiu.adapter.MainViewPagerAdapter;
+import cn.com.topzuqiu.adapter.AppMainNavigationViewPagerAdapter;
 import cn.com.topzuqiu.databinding.ActivityMainBinding;
-import cn.jzvd.JZVideoPlayer;
 
 @Route(path = RouteUtils.APP_MAIN_ACTIVITY)
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
@@ -57,7 +56,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         fragments = new ArrayList(5);
         items = new SparseIntArray(5);
-        fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_FRAGMENT_MINE));
+        fragments.add(RouteUtils.newFragment(RouteUtils.APP_FRAGMENT_FAST_NEWS));
         fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_FRAGMENT_MINE));
         fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_FRAGMENT_MINE));
         fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_FRAGMENT_MINE));
@@ -71,7 +70,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         items.put(R.id.i_visibility, 4);
 
         // set adapter
-        MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager(), fragments);
+        AppMainNavigationViewPagerAdapter adapter = new AppMainNavigationViewPagerAdapter(getSupportFragmentManager(), fragments);
         mBinding.viewPager.setOffscreenPageLimit(fragments.size());
         mBinding.viewPager.setAdapter(adapter);
 

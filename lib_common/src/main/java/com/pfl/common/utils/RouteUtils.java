@@ -19,6 +19,9 @@ public class RouteUtils {
      */
     public static final String APP_MAIN_ACTIVITY = "/app/main";
 
+
+    public static final String APP_FRAGMENT_FAST_NEWS = "/app/fast_news";
+
     /**
      * module_user 模块
      */

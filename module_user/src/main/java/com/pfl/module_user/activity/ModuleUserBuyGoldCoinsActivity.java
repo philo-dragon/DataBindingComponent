@@ -25,11 +25,6 @@ import java.util.List;
 @Route(path = RouteUtils.MODULE_USER_ACTIVITY_BUY_GOLD_COINS)
 public class ModuleUserBuyGoldCoinsActivity extends BaseActivity<ModuleUserActivityBuyGoldCoinsBinding> {
 
-    private List<ChannelEntity> items;
-    private TitleFragmentAdapter adapter;
-    private int needShowPosition = -1;
-    private String mCurrentTitle;
-    private int mCurrentPosition;
 
     @Override
     public int getContentView() {
@@ -40,81 +35,13 @@ public class ModuleUserBuyGoldCoinsActivity extends BaseActivity<ModuleUserActiv
     public void componentInject(AppComponent appComponent) {
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(BaseMessageEvent<List<ChannelEntity>> messageEvent) {
-        if (messageEvent.isUpdate()) {//频道改变了
-            needShowPosition = messageEvent.getType();
-            setData(messageEvent.getData(), true);
-        } else {//频道没有改变
-            if (ModuleUserChannelManagerActivity.RESULE_TYPE != messageEvent.getType()) {
-                mBinding.viewPager.setCurrentItem(messageEvent.getType());
-            }
-        }
-    }
 
     @Override
     public void initView() {
-        EventBusUtil.regist(this);
-        items = new ArrayList<>();
-        adapter = new TitleFragmentAdapter(getSupportFragmentManager(), items);
-        mBinding.viewPager.setAdapter(adapter);
-        mBinding.tabLayout.setupWithViewPager(mBinding.viewPager);//将TabLayout和ViewPager关联起来。
-
-        mBinding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                mCurrentTitle = items.get(position).getName();
-                mCurrentPosition = position;
-            }
-        });
-
-        List<ChannelEntity> objects = new ArrayList<>();
-        for (int i = 0; i < 18; i++) {
-            ChannelEntity entity = new ChannelEntity();
-            entity.setName("频道" + i);
-            objects.add(entity);
-        }
-
-        mCurrentTitle = objects.get(0).getName();
-        setData(objects, false);
-    }
-
-    /**
-     * 设置数据
-     *
-     * @param channelEntities 频道列表
-     * @param isScrollTab     是否滚动Tab(矫正tab选中效果)
-     */
-    private void setData(List<ChannelEntity> channelEntities, boolean isScrollTab) {
-
-        items.clear();
-        items.addAll(channelEntities);
-        adapter.notifyDataSetChanged();
-        if (needShowPosition != -1) {
-            mBinding.viewPager.setCurrentItem(needShowPosition);
-            needShowPosition = -1;
-        } else {
-            if (!isScrollTab) {
-                return;
-            }
-            mBinding.tabLayout.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    int position = adapter.getPosition(mCurrentTitle);
-                    if (position == -1) {
-                        if (items.size() >= mCurrentPosition) {
-                            position = mCurrentPosition;
-                        } else {
-                            position = items.size() - 1;
-                        }
-                    }
-                    mBinding.tabLayout.getTabAt(position).select();
-                }
-            }, 50);
-        }
 
     }
+
+
 
     @Override
     public void setToolBar() {
@@ -124,12 +51,6 @@ public class ModuleUserBuyGoldCoinsActivity extends BaseActivity<ModuleUserActiv
     @Override
     public void initData() {
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBusUtil.unregist(this);
     }
 
 }

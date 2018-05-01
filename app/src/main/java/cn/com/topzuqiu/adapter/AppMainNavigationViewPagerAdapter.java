@@ -6,10 +6,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
-public class MainViewPagerAdapter extends FragmentPagerAdapter {
+public class AppMainNavigationViewPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> data;
 
-    public MainViewPagerAdapter(FragmentManager fm, List<Fragment> data) {
+    public AppMainNavigationViewPagerAdapter(FragmentManager fm, List<Fragment> data) {
         super(fm);
         this.data = data;
     }

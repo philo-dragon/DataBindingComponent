@@ -3,6 +3,8 @@ package com.pfl.common.di;
 import android.app.Application;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.pfl.common.converter.StringConverter;
 import com.pfl.common.imageloader.BaseImageLoaderStrategy;
 import com.pfl.common.imageloader.ImageLoader;
 import com.pfl.common.imageloader.glide.GlideImageLoaderStrategy;
@@ -36,7 +38,9 @@ public class AppModule {
     @Provides
     @Singleton
     Gson provideGson() {
-        return new Gson();
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(String.class, new StringConverter());//把Null转换成""字符串
+        return builder.create();
     }
 
     @Provides
