@@ -124,12 +124,16 @@ public class ClassicsHeader extends LinearLayout implements RefreshHeader {
 
     @Override
     public void onPullingDown(float percent, int offset, int headerHeight, int extendHeight) {
-        mArrowView.setRotation(360 * percent);
+        if (percent < 1.5) {
+            mArrowView.setRotation(360 * percent);
+        }
     }
 
     @Override
     public void onReleasing(float percent, int offset, int headHeight, int maxDragHeight) {
-        mArrowView.setRotation(360 * percent);
+        if (percent < 1.5) {
+            mArrowView.setRotation(360 * percent);
+        }
     }
 
     @Override
