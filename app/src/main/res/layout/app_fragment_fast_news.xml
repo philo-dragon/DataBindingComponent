@@ -11,21 +11,21 @@
         <FrameLayout
             android:id="@+id/app_fl_tab_layout_content"
             android:layout_width="match_parent"
-            android:layout_height="96px"
+            android:layout_height="90px"
             android:background="@color/withe">
 
             <com.pfl.common.tablayout.TabLayout
                 android:id="@+id/app_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingRight="96px"
+                android:paddingRight="90px"
                 app:tabMode="scrollable"
                 app:tabSelectedTextColor="@color/black"
                 app:tabTextColor="#666666" />
 
             <TextView
                 android:id="@+id/tv_more_channels"
-                android:layout_width="96px"
+                android:layout_width="90px"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:gravity="center"
