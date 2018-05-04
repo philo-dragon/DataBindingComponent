@@ -103,4 +103,7 @@ dependencies {
     //对话框
     api rootProject.ext.deps.dialog
 
+    //卡牌翻转动画
+    api rootProject.ext.deps.Rotatable
+
 }

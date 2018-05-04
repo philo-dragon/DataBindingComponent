@@ -58,6 +58,7 @@ ext {
             jiaozivideoplayer     : "6.2.9",
 
             dialog                : "2.0.3",
+            Rotatable             : "1.1.2",
 
     ]
 
@@ -117,6 +118,8 @@ ext {
             jiaozivideoplayer     : "cn.jzvd:jiaozivideoplayer:${depsVersion.jiaozivideoplayer}",//播放器
 
             dialog                : "com.kongzue.dialog:dialog:${depsVersion.dialog}",//对话框
+
+            Rotatable             : "com.yayandroid:Rotatable:${depsVersion.Rotatable}",//卡片翻转动画库
 
     ]
 
