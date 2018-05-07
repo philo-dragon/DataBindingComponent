@@ -11,9 +11,9 @@
 
 
         <com.pfl.common.weidget.ScaleScrollView
-            android:layout_below="@+id/in_toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/in_toolbar_layout">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                         android:id="@+id/tv_account_info"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:gravity="center_vertical"
                         android:onClick="onClick"
                         android:paddingLeft="@dimen/module_user_setting_margin_left"
@@ -51,7 +51,7 @@
                         android:id="@+id/rl_clear_cache"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:onClick="onClick">
 
                         <TextView
@@ -92,7 +92,7 @@
                         android:id="@+id/tv_pf"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:gravity="center_vertical"
                         android:onClick="onClick"
                         android:paddingLeft="@dimen/module_user_setting_margin_left"
@@ -111,7 +111,7 @@
                         android:id="@+id/tv_tkys"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:gravity="center_vertical"
                         android:onClick="onClick"
                         android:paddingLeft="@dimen/module_user_setting_margin_left"
@@ -130,7 +130,7 @@
                         android:id="@+id/tv_mzsm"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:gravity="center_vertical"
                         android:onClick="onClick"
                         android:paddingLeft="@dimen/module_user_setting_margin_left"
@@ -149,7 +149,7 @@
                         android:id="@+id/tv_about"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:gravity="center_vertical"
                         android:onClick="onClick"
                         android:paddingLeft="@dimen/module_user_setting_margin_left"
@@ -168,7 +168,7 @@
                         android:id="@+id/rl_history_version"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:onClick="onClick">
 
                         <TextView

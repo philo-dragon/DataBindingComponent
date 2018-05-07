@@ -31,7 +31,7 @@
                         android:id="@+id/rl_photo"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:onClick="onClick">
 
                         <TextView
@@ -70,7 +70,7 @@
                         android:id="@+id/rl_user_name"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:onClick="onClick">
 
                         <TextView
@@ -109,7 +109,7 @@
                         android:id="@+id/rl_singnatrue"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:onClick="onClick">
 
                         <TextView
@@ -150,7 +150,7 @@
                         android:id="@+id/rl_login_password"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:onClick="onClick">
 
                         <TextView
@@ -189,7 +189,7 @@
                         android:id="@+id/rl_recharge_password"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:onClick="onClick">
 
                         <TextView
@@ -238,7 +238,7 @@
                         android:id="@+id/rl_phone"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:onClick="onClick">
 
                         <TextView
@@ -277,7 +277,7 @@
                         android:id="@+id/rl_wechat"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:onClick="onClick">
 
                         <TextView
@@ -316,7 +316,7 @@
                         android:id="@+id/rl_qq"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:onClick="onClick">
 
                         <TextView
@@ -355,7 +355,7 @@
                         android:id="@+id/rl_sina"
                         android:layout_width="match_parent"
                         android:layout_height="88px"
-                        android:background="@drawable/common_item_pressed_selector"
+                        android:foreground="?attr/selectableItemBackground"
                         android:onClick="onClick">
 
                         <TextView
