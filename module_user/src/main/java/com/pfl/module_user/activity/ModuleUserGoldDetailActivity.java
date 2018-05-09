@@ -1,19 +1,15 @@
 package com.pfl.module_user.activity;
 
-import android.support.design.widget.TabLayout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
+import com.pfl.common.dialog.BaseBottomSheetDialog;
 import com.pfl.common.utils.RouteUtils;
 import com.pfl.module_user.R;
 import com.pfl.module_user.databinding.ModuleUserActivityGoldDetailBinding;
-
-import java.util.Calendar;
-import java.util.Date;
+import com.pfl.module_user.dialog.ModuleUserExitAppDialog;
 
 /**
  * 金币明细
@@ -34,7 +30,12 @@ public class ModuleUserGoldDetailActivity extends BaseActivity<ModuleUserActivit
 
     @Override
     public void initView() {
-
+        mBinding.btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
     }
 
     @Override
@@ -44,6 +45,16 @@ public class ModuleUserGoldDetailActivity extends BaseActivity<ModuleUserActivit
 
     @Override
     public void initData() {
+
+    }
+
+    private void showDialog() {
+        //ModuleUserExitAppDialog dialog = new ModuleUserExitAppDialog();
+        //dialog.show(getSupportFragmentManager(),ModuleUserExitAppDialog.class.getSimpleName());
+
+        BaseBottomSheetDialog dialog = new BaseBottomSheetDialog(this);
+        dialog.setContentView(R.layout.bottom_sheet);
+        dialog.show();
 
     }
 
