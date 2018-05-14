@@ -41,6 +41,8 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
     private static final int TOUCH_MODE_SCALE_ROTATE = 5; // 缩放旋转
     private static final int TOUCH_MODE_LOCK = 6; // 缩放旋转锁定
     private static final int TOUCH_MODE_AUTO_FLING = 7; // 动画中
+    private static final float MIN_SCALE_WEIGHT = 0.25f;
+
     private int mTouchMode = TOUCH_MODE_NONE;
 
     private GlideLoader loader;
@@ -89,7 +91,30 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return true;
+
+        switch (ev.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                downX = ev.getRawX();
+                downY = ev.getRawY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float deltaY = ev.getRawY() - downY;
+                float deltaX = ev.getRawX() - downX;
+
+                if (Math.abs(deltaY) > mTouchSlop// Y轴是有效滑动距离
+                        || Math.abs(deltaX) > mTouchSlop// X轴是有效滑动距离
+                        && (Math.abs(deltaY) > Math.abs(deltaX))// X轴滑动距离大于Y轴滑动距离
+                        ) {
+                    Log.e(TAG, (Math.abs(deltaY) - Math.abs(deltaX) + ""));
+                    return true;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                break;
+        }
+
+        return false;
     }
 
     @Override
@@ -99,26 +124,50 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
             case MotionEvent.ACTION_DOWN:
                 downX = event.getRawX();
                 downY = event.getRawY();
-                Log.e(TAG, "ACTION_DOWN ------ downX = " + downX + " , " + "downY = " + downY);
+                //Log.e(TAG, "ACTION_DOWN ------ downX = " + downX + " , " + "downY = " + downY);
                 break;
             case MotionEvent.ACTION_MOVE:
                 float deltaX = event.getRawX() - downX;
                 float deltaY = event.getRawY() - downY;
-                Log.e(TAG, "ACTION_MOVE ------ deltaX = " + deltaX + " , " + "deltaY = " + deltaY);
+                //Log.e(TAG, "ACTION_MOVE ------ deltaX = " + deltaX + " , " + "deltaY = " + deltaY);
+
+                onDrag(event.getRawX(), event.getRawY());
                 break;
             case MotionEvent.ACTION_UP:
-                Log.e(TAG, "ACTION_UP ------ ");
+                //Log.e(TAG, "ACTION_UP ------ ");
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
-                Log.e(TAG, "ACTION_POINTER_DOWN ------ ");
+                // Log.e(TAG, "ACTION_POINTER_DOWN ------ ");
                 break;
             case MotionEvent.ACTION_POINTER_UP:
-                Log.e(TAG, "ACTION_POINTER_UP ------ ");
+                //Log.e(TAG, "ACTION_POINTER_UP ------ ");
                 break;
         }
 
         return super.onTouchEvent(event);
     }
+
+    private void onDrag(float dx, float dy) {
+        float deltaX = dx - downX;
+        float deltaY = dy - downY;
+        float scale = 1f;
+        if (deltaY > 0) {
+            scale = 1 - Math.abs(deltaY) / mHeight;
+        }
+        //移动
+        mViewPager.setTranslationX(deltaX);
+        mViewPager.setTranslationY(deltaY);
+        //缩放
+        scale = Math.min(Math.max(scale, MIN_SCALE_WEIGHT), 1);
+        mViewPager.setScaleX(scale);
+        mViewPager.setScaleY(scale);
+        //设置背景颜色
+        float alpha = scale * 255;
+        setBackgroundColor(Color.argb((int) alpha, 0, 0, 0));
+        finishDeltaY = deltaY;
+    }
+
+    private float finishDeltaY;
 
     public void showAtlas() {
         setVisibility(View.VISIBLE);
