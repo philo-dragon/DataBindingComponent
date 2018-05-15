@@ -41,7 +41,9 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
     private static final int TOUCH_MODE_SCALE_ROTATE = 5; // 缩放旋转
     private static final int TOUCH_MODE_LOCK = 6; // 缩放旋转锁定
     private static final int TOUCH_MODE_AUTO_FLING = 7; // 动画中
+
     private static final float MIN_SCALE_WEIGHT = 0.25f;
+    private static final int DURATION = 200;
 
     private int mTouchMode = TOUCH_MODE_NONE;
 
@@ -51,17 +53,14 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
     private ViewPager mViewPager;
 
     private final float mTouchSlop;
-    private int mPagerPositionOffsetPixels;
     private int mWidth, mHeight;
-    private int maxTranslateX, maxTranslateY;
-
-    private ValueAnimator animImageTransform;
-    private boolean isInTransformAnimation;
 
     private float downX;
     private float downY;
 
-    private OnPictureLongPressListener mOnPictureLongPressListener;
+    private ValueAnimator animImageTransform;
+
+    private boolean isFling;    //是否正在归位
 
     public AtlasLayout(@NonNull Context context) {
         this(context, null);
@@ -85,13 +84,13 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
         super.onSizeChanged(w, h, oldw, oldh);
         mWidth = w;
         mHeight = h;
-        maxTranslateX = mWidth / 2;
-        maxTranslateY = mHeight / 2;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-
+        if (isFling) {
+            return false;
+        }
         switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 downX = ev.getRawX();
@@ -119,22 +118,25 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
+        if (isFling) {
+            return false;
+        }
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 downX = event.getRawX();
                 downY = event.getRawY();
-                //Log.e(TAG, "ACTION_DOWN ------ downX = " + downX + " , " + "downY = " + downY);
                 break;
             case MotionEvent.ACTION_MOVE:
                 float deltaX = event.getRawX() - downX;
                 float deltaY = event.getRawY() - downY;
-                //Log.e(TAG, "ACTION_MOVE ------ deltaX = " + deltaX + " , " + "deltaY = " + deltaY);
-
                 onDrag(event.getRawX(), event.getRawY());
                 break;
             case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
                 //Log.e(TAG, "ACTION_UP ------ ");
+                final float upX = event.getRawX();
+                final float upY = event.getRawY();
+                onFling(upX, upY);
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
                 // Log.e(TAG, "ACTION_POINTER_DOWN ------ ");
@@ -169,6 +171,69 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
 
     private float finishDeltaY;
 
+
+    /**
+     * 图片归位,移动到原来位置
+     */
+    private void onFling(final float upX, final float upY) {
+        if (upY != downY) {
+            ValueAnimator valueAnimator = ValueAnimator.ofFloat(upY, downY);
+            valueAnimator.setDuration(DURATION);
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float Y = (float) animation.getAnimatedValue();
+                    float percent = (Y - downY) / (upY - downY);
+                    float X = percent * (upX - downX) + downX;
+                    onDrag(X, Y);
+                    if (Y == downY) {
+                        downY = 0;
+                        downX = 0;
+                    }
+                }
+            });
+            valueAnimator.addListener(flingAnimatorListenerAdapter);
+            valueAnimator.start();
+        } else if (upX != downX) {
+            ValueAnimator valueAnimator = ValueAnimator.ofFloat(upX, downX);
+            valueAnimator.setDuration(DURATION);
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float X = (float) animation.getAnimatedValue();
+                    float percent = (X - downX) / (upX - downX);
+                    float Y = percent * (upY - downY) + downY;
+                    onDrag(X, Y);
+                    if (X == downX) {
+                        downY = 0;
+                        downX = 0;
+                    }
+                }
+
+            });
+            valueAnimator.addListener(flingAnimatorListenerAdapter);
+            valueAnimator.start();
+        }
+    }
+
+    private AnimatorListenerAdapter flingAnimatorListenerAdapter = new AnimatorListenerAdapter() {
+        @Override
+        public void onAnimationCancel(Animator animation) {
+            isFling = false;
+        }
+
+        @Override
+        public void onAnimationStart(Animator animation) {
+            isFling = true;
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            isFling = false;
+        }
+    };
+
+
     public void showAtlas() {
         setVisibility(View.VISIBLE);
         ImagePagerAdapter pagerAdapter = new ImagePagerAdapter();
@@ -177,7 +242,6 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        mPagerPositionOffsetPixels = positionOffsetPixels;
     }
 
     @Override
