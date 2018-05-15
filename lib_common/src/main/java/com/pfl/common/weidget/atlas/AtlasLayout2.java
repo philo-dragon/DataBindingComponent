@@ -2,7 +2,6 @@ package com.pfl.common.weidget.atlas;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
@@ -30,11 +29,9 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.pfl.common.R;
 
-import java.util.List;
+public class AtlasLayout2 extends FrameLayout implements ViewPager.OnPageChangeListener {
 
-public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeListener {
-
-    private static final String TAG = AtlasLayout.class.getSimpleName();
+    private static final String TAG = AtlasLayout2.class.getSimpleName();
 
     private static final int TOUCH_MODE_NONE = 0; // 无状态
     private static final int TOUCH_MODE_DOWN = 1; // 按下
@@ -61,25 +58,15 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
     private float downX;
     private float downY;
 
-    private int initPosition;//点击图片的角标
-    private List<ImageView> mImageGroupList;
-    private List<String> mUrlList;
-
-    private ImageView iSource;
-    private ImageView iOrigin;
-
-    private ValueAnimator animBackground;
     private ValueAnimator animImageTransform;
-    private boolean hasPlayBeginAnimation;
 
-    private int mBackgroundColor = 0x00000000;
+    private boolean isFling;    //是否正在归位
 
-
-    public AtlasLayout(@NonNull Context context) {
+    public AtlasLayout2(@NonNull Context context) {
         this(context, null);
     }
 
-    public AtlasLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public AtlasLayout2(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         setBackgroundColor(Color.BLACK);
@@ -91,14 +78,7 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
         mHeight = ScreenUtils.getScreenHeight();
     }
 
-    /**
-     * 确定AtlasLayout宽高
-     *
-     * @param w
-     * @param h
-     * @param oldw
-     * @param oldh
-     */
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -106,20 +86,11 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
         mHeight = h;
     }
 
-    /**
-     * 取消动画 回收对象
-     */
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        if (animImageTransform != null) animImageTransform.cancel();
-        animImageTransform = null;
-        if (animBackground != null) animBackground.cancel();
-        animBackground = null;
-    }
-
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (isFling) {
+            return false;
+        }
         switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 downX = ev.getRawX();
@@ -147,6 +118,9 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (isFling) {
+            return false;
+        }
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 downX = event.getRawX();
@@ -155,58 +129,112 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
             case MotionEvent.ACTION_MOVE:
                 float deltaX = event.getRawX() - downX;
                 float deltaY = event.getRawY() - downY;
+                onDrag(event.getRawX(), event.getRawY());
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                //Log.e(TAG, "ACTION_UP ------ ");
                 final float upX = event.getRawX();
                 final float upY = event.getRawY();
+                onFling(upX, upY);
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
+                // Log.e(TAG, "ACTION_POINTER_DOWN ------ ");
                 break;
             case MotionEvent.ACTION_POINTER_UP:
+                //Log.e(TAG, "ACTION_POINTER_UP ------ ");
                 break;
         }
 
         return super.onTouchEvent(event);
     }
 
-
-    public void showAtlas() {
-        setVisibility(View.VISIBLE);
-        ImagePagerAdapter pagerAdapter = new ImagePagerAdapter();
-        mViewPager.setAdapter(pagerAdapter);
+    private void onDrag(float dx, float dy) {
+        float deltaX = dx - downX;
+        float deltaY = dy - downY;
+        float scale = 1f;
+        if (deltaY > 0) {
+            scale = 1 - Math.abs(deltaY) / mHeight;
+        }
+        //移动
+        mViewPager.setTranslationX(deltaX);
+        mViewPager.setTranslationY(deltaY);
+        //缩放
+        scale = Math.min(Math.max(scale, MIN_SCALE_WEIGHT), 1);
+        mViewPager.setScaleX(scale);
+        mViewPager.setScaleY(scale);
+        //设置背景颜色
+        float alpha = scale * 255;
+        setBackgroundColor(Color.argb((int) alpha, 0, 0, 0));
+        finishDeltaY = deltaY;
     }
 
-    public void showAtlas(ImageView i, List<ImageView> imageGroupList, final List<String> urlList) {
+    private float finishDeltaY;
 
-        if (loader == null) {
-            throw new NullPointerException("GlideLoader is null");
+
+    /**
+     * 图片归位,移动到原来位置
+     */
+    private void onFling(final float upX, final float upY) {
+        if (upY != downY) {
+            ValueAnimator valueAnimator = ValueAnimator.ofFloat(upY, downY);
+            valueAnimator.setDuration(DURATION);
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float Y = (float) animation.getAnimatedValue();
+                    float percent = (Y - downY) / (upY - downY);
+                    float X = percent * (upX - downX) + downX;
+                    onDrag(X, Y);
+                    if (Y == downY) {
+                        downY = 0;
+                        downX = 0;
+                    }
+                }
+            });
+            valueAnimator.addListener(flingAnimatorListenerAdapter);
+            valueAnimator.start();
+        } else if (upX != downX) {
+            ValueAnimator valueAnimator = ValueAnimator.ofFloat(upX, downX);
+            valueAnimator.setDuration(DURATION);
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float X = (float) animation.getAnimatedValue();
+                    float percent = (X - downX) / (upX - downX);
+                    float Y = percent * (upY - downY) + downY;
+                    onDrag(X, Y);
+                    if (X == downX) {
+                        downY = 0;
+                        downX = 0;
+                    }
+                }
+
+            });
+            valueAnimator.addListener(flingAnimatorListenerAdapter);
+            valueAnimator.start();
+        }
+    }
+
+    private AnimatorListenerAdapter flingAnimatorListenerAdapter = new AnimatorListenerAdapter() {
+        @Override
+        public void onAnimationCancel(Animator animation) {
+            isFling = false;
         }
 
-        if (i == null || imageGroupList == null || urlList == null || imageGroupList.size() < 1 ||
-                urlList.size() < imageGroupList.size()) {
-            String info = "i[" + i + "]";
-            info += "#imageGroupList " + (imageGroupList == null ? "null" : "size : " + imageGroupList.size());
-            info += "#urlList " + (urlList == null ? "null" : "size :" + urlList.size());
-            throw new IllegalArgumentException("error params \n" + info);
+        @Override
+        public void onAnimationStart(Animator animation) {
+            isFling = true;
         }
 
-        initPosition = imageGroupList.indexOf(i);
-        if (initPosition < 0) {
-            throw new IllegalArgumentException("param ImageView i must be a member of the List <ImageView> imageGroupList!");
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            isFling = false;
         }
+    };
 
-        if (i.getDrawable() == null) return;
 
-        if (animImageTransform != null) animImageTransform.cancel();
-        animImageTransform = null;
-
-        mImageGroupList = imageGroupList;
-        mUrlList = urlList;
-
-        iOrigin = null;
-        iSource = null;
-
+    public void showAtlas() {
         setVisibility(View.VISIBLE);
         ImagePagerAdapter pagerAdapter = new ImagePagerAdapter();
         mViewPager.setAdapter(pagerAdapter);
@@ -232,7 +260,7 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
      */
     class ImagePagerAdapter extends PagerAdapter {
 
-        private final FrameLayout.LayoutParams lpCenter = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        private final LayoutParams lpCenter = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         private final SparseArray<ImageView> mImageSparseArray = new SparseArray<>();
 
         @Override
@@ -256,7 +284,7 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
             FrameLayout itemView = new FrameLayout(container.getContext());
             container.addView(itemView);
 
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+            LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             layoutParams.gravity = Gravity.CENTER;
 
             // 要显示的ImageView
@@ -278,50 +306,6 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
             errorView.setImageResource(mErrorImageRes);
             itemView.addView(errorView);
             errorView.setVisibility(View.GONE);
-
-
-            boolean isFindEnterImagePicture = false;
-
-            ViewState.write(imageView, ViewState.STATE_ORIGIN).alpha(0).scaleXBy(1.5f).scaleYBy(1.5f);
-
-            if (position < mImageGroupList.size()) {
-                ImageView originRef = mImageGroupList.get(position);
-                if (position == initPosition && !hasPlayBeginAnimation) {
-                    isFindEnterImagePicture = true;
-                    iSource = imageView;
-                    iOrigin = originRef;
-                }
-
-                int[] location = new int[2];
-                originRef.getLocationOnScreen(location);
-                imageView.setTranslationX(location[0]);
-                int locationYOfFullScreen = location[1];
-                //locationYOfFullScreen -= mStatusBarHeight;
-                imageView.setTranslationY(locationYOfFullScreen);
-                imageView.getLayoutParams().width = originRef.getWidth();
-                imageView.getLayoutParams().height = originRef.getHeight();
-
-                ViewState.write(imageView, ViewState.STATE_ORIGIN).width(originRef.getWidth()).height(originRef.getHeight());
-
-                Drawable bmpMirror = originRef.getDrawable();
-                if (bmpMirror != null) {
-                    int bmpMirrorWidth = bmpMirror.getBounds().width();
-                    int bmpMirrorHeight = bmpMirror.getBounds().height();
-                    ViewState vsThumb = ViewState.write(imageView, ViewState.STATE_THUMB).width(bmpMirrorWidth).height(bmpMirrorHeight)
-                            .translationX((mWidth - bmpMirrorWidth) / 2).translationY((mHeight - bmpMirrorHeight) / 2);
-                    imageView.setImageDrawable(bmpMirror);
-
-                    if (isFindEnterImagePicture) {
-                        animSourceViewStateTransform(imageView, vsThumb);
-                    } else {
-                        ViewState.restore(imageView, vsThumb.mTag);
-                    }
-                }
-            }
-
-            final boolean isPlayEnterAnimation = isFindEnterImagePicture;
-            // loadHighDefinitionPicture
-            ViewState.clear(imageView, ViewState.STATE_DEFAULT);
 
             /**
              * 加载图片
@@ -375,11 +359,6 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
                 }
             });
 
-            if (isPlayEnterAnimation) {
-                iOrigin.setVisibility(View.INVISIBLE);
-                animBackgroundTransform(0xFF000000);
-            }
-
             return itemView;
         }
 
@@ -412,25 +391,6 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
 
     }
 
-
-    /**
-     * 执行ImageWatcher自身的背景色渐变至期望值[colorResult]的动画
-     */
-    private void animBackgroundTransform(final int colorResult) {
-        if (colorResult == mBackgroundColor) return;
-        if (animBackground != null) animBackground.cancel();
-        final int mCurrentBackgroundColor = mBackgroundColor;
-        animBackground = ValueAnimator.ofFloat(0, 1).setDuration(300);
-        animBackground.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float p = (float) animation.getAnimatedValue();
-                setBackgroundColor(mColorEvaluator.evaluate(p, mCurrentBackgroundColor, colorResult));
-            }
-        });
-        animBackground.start();
-    }
-
     /**
      * 处理单击的手指事件
      */
@@ -451,6 +411,7 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
         return getVisibility() == View.VISIBLE && onSingleTapConfirmed();
     }
 
+
     /**
      * 将指定的ImageView形态(尺寸大小，缩放，旋转，平移，透明度)逐步转化到期望值
      */
@@ -466,7 +427,7 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         // 如果是退出查看操作，动画执行完后，原始被点击的ImageView恢复可见
-                        if (iOrigin != null) iOrigin.setVisibility(View.VISIBLE);
+                        //if (iOrigin != null) iOrigin.setVisibility(View.VISIBLE);
                         setVisibility(View.GONE);
                     }
                 });
@@ -475,23 +436,7 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
         }
     }
 
-
-    final TypeEvaluator<Integer> mColorEvaluator = new TypeEvaluator<Integer>() {
-        @Override
-        public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
-            int startColor = startValue;
-            int endColor = endValue;
-
-            int alpha = (int) (Color.alpha(startColor) + fraction * (Color.alpha(endColor) - Color.alpha(startColor)));
-            int red = (int) (Color.red(startColor) + fraction * (Color.red(endColor) - Color.red(startColor)));
-            int green = (int) (Color.green(startColor) + fraction * (Color.green(endColor) - Color.green(startColor)));
-            int blue = (int) (Color.blue(startColor) + fraction * (Color.blue(endColor) - Color.blue(startColor)));
-            return Color.argb(alpha, red, green, blue);
-        }
-    };
-
     private boolean isInTransformAnimation;
-
     /**
      * 动画执行时加入这个监听器后会自动记录标记 {@link AtlasLayout2#isInTransformAnimation} 的状态<br/>
      * isInTransformAnimation值为true的时候可以达到在动画执行时屏蔽触摸操作的目的
@@ -513,7 +458,6 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
             isInTransformAnimation = false;
         }
     };
-
 
     public class GlideLoader implements Loader {
 
@@ -567,10 +511,10 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
 
         private static final int ATLAS_LAYOUT = R.id.atlas_layout;
         private final ViewGroup activityDecorView;
-        private final AtlasLayout mAtlasLayout;
+        private final AtlasLayout2 mAtlasLayout;
 
         private Builder(Activity activity) {
-            mAtlasLayout = new AtlasLayout(activity);
+            mAtlasLayout = new AtlasLayout2(activity);
             mAtlasLayout.setId(ATLAS_LAYOUT);
             activityDecorView = (ViewGroup) activity.getWindow().getDecorView();
         }
@@ -579,7 +523,7 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
             return new Builder(activity);
         }
 
-        public AtlasLayout create() {
+        public AtlasLayout2 create() {
             removeExistingOverlayInView(activityDecorView);
             activityDecorView.addView(mAtlasLayout);
             return mAtlasLayout;
