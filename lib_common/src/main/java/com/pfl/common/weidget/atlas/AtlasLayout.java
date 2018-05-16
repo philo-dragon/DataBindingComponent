@@ -47,7 +47,8 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
     private static final int TOUCH_MODE_LOCK = 6; // 缩放旋转锁定
     private static final int TOUCH_MODE_AUTO_FLING = 7; // 动画中
 
-    private static final float MIN_SCALE_WEIGHT = 0.25f;
+    static final float MIN_SCALE = 0.5f;
+    static final float MAX_SCALE = 3.8f;
 
     private int mTouchMode = TOUCH_MODE_NONE;
 
@@ -73,7 +74,7 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
     private ValueAnimator animImageTransform;
 
     private int mBackgroundColor = 0x00000000;
-    private int mExitScalingRef;
+    private float mExitScalingRef;
     private ImagePagerAdapter pagerAdapter;
 
 
@@ -119,7 +120,6 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
                         || Math.abs(deltaX) > mTouchSlop// X轴是有效滑动距离
                         && (Math.abs(deltaY) > Math.abs(deltaX))// X轴滑动距离大于Y轴滑动距离
                         ) {
-                    Log.e(TAG, (Math.abs(deltaY) - Math.abs(deltaX) + ""));
                     return true;
                 }
                 break;
@@ -148,12 +148,9 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
                         || Math.abs(deltaX) > mTouchSlop// X轴是有效滑动距离
                         && (Math.abs(deltaY) > Math.abs(deltaX))// X轴滑动距离大于Y轴滑动距离
                         ) {
-                    // 图片当前为放大状态。宽或高超出了屏幕尺寸
-                    if (mTouchMode != TOUCH_MODE_DRAG) {
-                        ViewState.write(iSource, ViewState.STATE_DRAG);
-                    }
+                    Log.e(TAG, (deltaY) - Math.abs(deltaX) + "");
+                    ViewState.write(iSource, ViewState.STATE_TOUCH_DOWN);
                     handleDragGesture(deltaX, deltaY);
-                    //mViewPager.onTouchEvent(event);
                 }
 
                 break;
@@ -175,27 +172,13 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
     /**
      * 处理响应单手拖拽平移
      */
-    private void handleDragGesture(float deltaY, float deltaX) {
-
+    private void handleDragGesture(float moveX, float moveY) {
         if (iSource == null) return;
-        ViewState vsDefault = ViewState.read(iSource, ViewState.STATE_DEFAULT);
-        if (vsDefault == null) return;
-        ViewState vsTouchDrag = ViewState.read(iSource, ViewState.STATE_DRAG);
-        if (vsTouchDrag == null) return;
+        ViewState vsTouchDown = ViewState.read(iSource, ViewState.STATE_TOUCH_DOWN);
+        if (vsTouchDown == null) return;
 
-        float scale = 1f;
-        if (deltaY > 0) {
-            scale = 1 - Math.abs(deltaY) / mHeight;
-        }
-
-        //移动
-        //iSource.setTranslationX(vsTouchDrag.translationX + deltaX * 0.12f);
-        //iSource.setTranslationX(vsTouchDrag.translationY + deltaY * 0.12f);
-
-        //缩放
-        scale = Math.min(Math.max(scale, MIN_SCALE_WEIGHT), 1);
-        iSource.setScaleX(scale);
-        iSource.setScaleY(scale);
+        iSource.setTranslationX(vsTouchDown.translationX + moveX * 0.1f);
+        iSource.setTranslationY(vsTouchDown.translationY + moveY * 0.1f);
 
     }
 

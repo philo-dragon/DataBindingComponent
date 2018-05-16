@@ -88,12 +88,15 @@ public class ModuleUserMyWalletActivity extends BaseActivity<ModuleUserActivityM
         urlList.add("http://img.my.csdn.net/uploads/201701/06/1483664940_9893.jpg");
         urlList.add("http://img.my.csdn.net/uploads/201701/06/1483664940_9893.jpg");
 
+        atlasLayout = AtlasLayout.Builder.with(this).create();
+        atlasLayout.showAtlas(initImageView, imgList, urlList);
+
         // 不再需要在布局文件中加入<ImageWatcher>标签 减少布局嵌套
         // 一般来讲， ImageWatcher 需要占据全屏的位置
         // 如果是透明状态栏，你需要给ImageWatcher标记 一个偏移值，以修正点击ImageView查看的启动动画的Y轴起点的不正确
         // 配置error图标 如果不介意使用lib自带的图标，并不一定要调用这个API
         //调用show方法前，请先调用setLoader 给ImageWatcher提供加载图片的实现
-        vImageWatcher = ImageWatcher.Helper.with(this) // 一般来讲， ImageWatcher 需要占据全屏的位置
+       /* vImageWatcher = ImageWatcher.Helper.with(this) // 一般来讲， ImageWatcher 需要占据全屏的位置
                 .setTranslucentStatus(0) // 如果是透明状态栏，你需要给ImageWatcher标记 一个偏移值，以修正点击ImageView查看的启动动画的Y轴起点的不正确
                 .setErrorImageRes(R.mipmap.img_error) // 配置error图标 如果不介意使用lib自带的图标，并不一定要调用这个API
                 .setLoader(new ImageWatcher.Loader() {//调用show方法前，请先调用setLoader 给ImageWatcher提供加载图片的实现
@@ -119,12 +122,12 @@ public class ModuleUserMyWalletActivity extends BaseActivity<ModuleUserActivityM
                 })
                 .create();
 
-        vImageWatcher.show(initImageView, imgList, urlList);
+        vImageWatcher.show(initImageView, imgList, urlList);*/
     }
 
     @Override
     public void onBackPressed() {
-        if (!vImageWatcher.handleBackPressed()) {
+        if (!atlasLayout.handleBackPressed()) {
             super.onBackPressed();
         }
     }
