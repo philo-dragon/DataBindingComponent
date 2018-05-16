@@ -30,6 +30,7 @@ import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
@@ -78,29 +79,50 @@ public class ProxyHandler implements InvocationHandler {
                 }
                 return null;
             }
-        }).retryWhen(new Function<Observable<? extends Throwable>, Observable<?>>() {
+        }).retryWhen(new RetryWithDelay(5, 1000));
+    }
 
-            @Override
-            public Observable<?> apply(Observable<? extends Throwable> observable) throws Exception {
-                return observable.flatMap(new Function<Throwable, Observable<?>>() {
 
-                    @Override
-                    public Observable<?> apply(Throwable throwable) throws Exception {
-                        if (throwable instanceof HttpException) {
-                            HttpException httpException = (HttpException) throwable;
-                            int code = httpException.code();
-                            if (code == 401) {
-                                return refreshTokenWhenTokenInvalid();
+    public class RetryWithDelay implements Function<Observable<? extends Throwable>, Observable<?>> {
+
+        private final int maxRetries;
+        private final int retryDelayMillis;
+        private int retryCount;
+
+        public RetryWithDelay(int maxRetries, int retryDelayMillis) {
+            this.maxRetries = maxRetries;
+            this.retryDelayMillis = retryDelayMillis;
+        }
+
+        @Override
+        public Observable<?> apply(Observable<? extends Throwable> observable) throws Exception {
+            return observable
+                    .flatMap(new Function<Throwable, Observable<?>>() {
+
+                        @Override
+                        public Observable<?> apply(Throwable throwable) throws Exception {
+                            if (++retryCount <= maxRetries) {
+
+                                if (throwable instanceof HttpException) {
+                                    HttpException httpException = (HttpException) throwable;
+                                    int code = httpException.code();
+                                    if (code == 401) {
+                                        return refreshTokenWhenTokenInvalid();
+                                    }
+
+                                } else if (throwable instanceof TokenInvalidException) {
+                                    return refreshTokenWhenTokenInvalid();
+                                }
+
+                                return Observable.timer(retryDelayMillis,
+                                        TimeUnit.MILLISECONDS);
                             }
-                        } else if (throwable instanceof TokenInvalidException) {
-                            return refreshTokenWhenTokenInvalid();
+                            return Observable.error(throwable);
                         }
+                    });
+        }
 
-                        return Observable.error(throwable);
-                    }
-                });
-            }
-        });
+
     }
 
     /**

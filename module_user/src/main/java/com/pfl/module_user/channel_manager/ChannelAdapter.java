@@ -43,7 +43,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     // 其他频道之前的header数量  该demo中 即标题部分 为 COUNT_PRE_MY_HEADER + 1
     private static final int COUNT_PRE_OTHER_HEADER = COUNT_PRE_MY_HEADER + 1;
 
-    private static final long ANIM_TIME = 360L;
+    private static final long ANIM_TIME = 500L;
 
     // touch 点击开始时间
     private long startTime;

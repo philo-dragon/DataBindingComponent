@@ -9,8 +9,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -46,7 +48,6 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
     private static final int TOUCH_MODE_AUTO_FLING = 7; // 动画中
 
     private static final float MIN_SCALE_WEIGHT = 0.25f;
-    private static final int DURATION = 200;
 
     private int mTouchMode = TOUCH_MODE_NONE;
 
@@ -70,9 +71,10 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
 
     private ValueAnimator animBackground;
     private ValueAnimator animImageTransform;
-    private boolean hasPlayBeginAnimation;
 
     private int mBackgroundColor = 0x00000000;
+    private int mExitScalingRef;
+    private ImagePagerAdapter pagerAdapter;
 
 
     public AtlasLayout(@NonNull Context context) {
@@ -82,28 +84,12 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
     public AtlasLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
-        setBackgroundColor(Color.BLACK);
         loader = new GlideLoader();
         addView(mViewPager = new ViewPager(getContext()));
         mViewPager.addOnPageChangeListener(this);
         setVisibility(View.INVISIBLE);
         mWidth = ScreenUtils.getScreenWidth();
         mHeight = ScreenUtils.getScreenHeight();
-    }
-
-    /**
-     * 确定AtlasLayout宽高
-     *
-     * @param w
-     * @param h
-     * @param oldw
-     * @param oldh
-     */
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        mWidth = w;
-        mHeight = h;
     }
 
     /**
@@ -151,15 +137,31 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
             case MotionEvent.ACTION_DOWN:
                 downX = event.getRawX();
                 downY = event.getRawY();
+                mTouchMode = TOUCH_MODE_DOWN;
+                ViewState.write(iSource, ViewState.STATE_TOUCH_DOWN);
                 break;
             case MotionEvent.ACTION_MOVE:
                 float deltaX = event.getRawX() - downX;
                 float deltaY = event.getRawY() - downY;
+
+                if (Math.abs(deltaY) > mTouchSlop// Y轴是有效滑动距离
+                        || Math.abs(deltaX) > mTouchSlop// X轴是有效滑动距离
+                        && (Math.abs(deltaY) > Math.abs(deltaX))// X轴滑动距离大于Y轴滑动距离
+                        ) {
+                    // 图片当前为放大状态。宽或高超出了屏幕尺寸
+                    if (mTouchMode != TOUCH_MODE_DRAG) {
+                        ViewState.write(iSource, ViewState.STATE_DRAG);
+                    }
+                    handleDragGesture(deltaX, deltaY);
+                    //mViewPager.onTouchEvent(event);
+                }
+
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 final float upX = event.getRawX();
                 final float upY = event.getRawY();
+
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
                 break;
@@ -170,12 +172,33 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
         return super.onTouchEvent(event);
     }
 
+    /**
+     * 处理响应单手拖拽平移
+     */
+    private void handleDragGesture(float deltaY, float deltaX) {
 
-    public void showAtlas() {
-        setVisibility(View.VISIBLE);
-        ImagePagerAdapter pagerAdapter = new ImagePagerAdapter();
-        mViewPager.setAdapter(pagerAdapter);
+        if (iSource == null) return;
+        ViewState vsDefault = ViewState.read(iSource, ViewState.STATE_DEFAULT);
+        if (vsDefault == null) return;
+        ViewState vsTouchDrag = ViewState.read(iSource, ViewState.STATE_DRAG);
+        if (vsTouchDrag == null) return;
+
+        float scale = 1f;
+        if (deltaY > 0) {
+            scale = 1 - Math.abs(deltaY) / mHeight;
+        }
+
+        //移动
+        //iSource.setTranslationX(vsTouchDrag.translationX + deltaX * 0.12f);
+        //iSource.setTranslationX(vsTouchDrag.translationY + deltaY * 0.12f);
+
+        //缩放
+        scale = Math.min(Math.max(scale, MIN_SCALE_WEIGHT), 1);
+        iSource.setScaleX(scale);
+        iSource.setScaleY(scale);
+
     }
+
 
     public void showAtlas(ImageView i, List<ImageView> imageGroupList, final List<String> urlList) {
 
@@ -208,8 +231,9 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
         iSource = null;
 
         setVisibility(View.VISIBLE);
-        ImagePagerAdapter pagerAdapter = new ImagePagerAdapter();
+        pagerAdapter = new ImagePagerAdapter();
         mViewPager.setAdapter(pagerAdapter);
+        mViewPager.setCurrentItem(initPosition);
     }
 
     @Override
@@ -218,6 +242,24 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
 
     @Override
     public void onPageSelected(int position) {
+
+        iSource = pagerAdapter.mImageSparseArray.get(position);
+        if (iOrigin != null) {
+            iOrigin.setVisibility(View.VISIBLE);
+        }
+        if (position < mImageGroupList.size()) {
+            iOrigin = mImageGroupList.get(position);
+            if (iOrigin.getDrawable() != null) iOrigin.setVisibility(View.INVISIBLE);
+        }
+
+        ImageView mLast = pagerAdapter.mImageSparseArray.get(position - 1);
+        if (ViewState.read(mLast, ViewState.STATE_DEFAULT) != null) {
+            ViewState.restoreByAnim(mLast, ViewState.STATE_DEFAULT).create().start();
+        }
+        ImageView mNext = pagerAdapter.mImageSparseArray.get(position + 1);
+        if (ViewState.read(mNext, ViewState.STATE_DEFAULT) != null) {
+            ViewState.restoreByAnim(mNext, ViewState.STATE_DEFAULT).create().start();
+        }
 
     }
 
@@ -234,10 +276,11 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
 
         private final FrameLayout.LayoutParams lpCenter = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         private final SparseArray<ImageView> mImageSparseArray = new SparseArray<>();
+        private boolean hasPlayBeginAnimation;
 
         @Override
         public int getCount() {
-            return 20;
+            return mUrlList != null ? mUrlList.size() : 0;
         }
 
         @Override
@@ -251,13 +294,11 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
             mImageSparseArray.remove(position);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
             FrameLayout itemView = new FrameLayout(container.getContext());
             container.addView(itemView);
-
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.gravity = Gravity.CENTER;
 
             // 要显示的ImageView
             final ImageView imageView = new ImageView(container.getContext());
@@ -274,19 +315,51 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
             // 错误图片显示
             ImageView errorView = new ImageView(container.getContext());
             errorView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            errorView.setLayoutParams(layoutParams);
             errorView.setImageResource(mErrorImageRes);
             itemView.addView(errorView);
             errorView.setVisibility(View.GONE);
 
+            if (setDefaultDisplayConfigs(imageView, position, hasPlayBeginAnimation)) {
+                hasPlayBeginAnimation = true;
+            }
 
+            return itemView;
+        }
+
+
+        /**
+         * 更新ViewPager中每项的当前状态，比如是否加载，比如是否加载失败
+         *
+         * @param position 当前项的位置
+         * @param loading  是否显示加载中
+         * @param error    是否显示加载失败
+         */
+        void notifyItemChangedState(int position, boolean loading, boolean error) {
+            ImageView imageView = mImageSparseArray.get(position);
+            if (imageView != null) {
+                FrameLayout itemView = (FrameLayout) imageView.getParent();
+                MaterialProgressView loadView = (MaterialProgressView) itemView.getChildAt(1);
+                if (loading) {
+                    loadView.setVisibility(View.VISIBLE);
+                    loadView.start();
+                } else {
+                    loadView.stop();
+                    loadView.setVisibility(View.GONE);
+                }
+
+                ImageView errorView = (ImageView) itemView.getChildAt(2);
+                errorView.setAlpha(1f);
+                errorView.setVisibility(error ? View.VISIBLE : View.GONE);
+            }
+        }
+
+
+        private boolean setDefaultDisplayConfigs(final ImageView imageView, final int pos, boolean hasPlayBeginAnimation) {
             boolean isFindEnterImagePicture = false;
-
             ViewState.write(imageView, ViewState.STATE_ORIGIN).alpha(0).scaleXBy(1.5f).scaleYBy(1.5f);
-
-            if (position < mImageGroupList.size()) {
-                ImageView originRef = mImageGroupList.get(position);
-                if (position == initPosition && !hasPlayBeginAnimation) {
+            if (pos < mImageGroupList.size()) {
+                ImageView originRef = mImageGroupList.get(pos);
+                if (pos == initPosition && !hasPlayBeginAnimation) {
                     isFindEnterImagePicture = true;
                     iSource = imageView;
                     iOrigin = originRef;
@@ -323,14 +396,9 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
             // loadHighDefinitionPicture
             ViewState.clear(imageView, ViewState.STATE_DEFAULT);
 
-            /**
-             * 加载图片
-             */
-            String defUrl = "http://img.my.csdn.net/uploads/201701/06/1483664940_9893.jpg";
-            loader.load(container.getContext(), defUrl, new LoadCallback() {
+            loader.load(imageView.getContext(), mUrlList.get(pos), new LoadCallback() {
                 @Override
                 public void onResourceReady(Bitmap resource) {
-
                     final int sourceDefaultWidth, sourceDefaultHeight, sourceDefaultTranslateX, sourceDefaultTranslateY;
                     int resourceImageWidth = resource.getWidth();
                     int resourceImageHeight = resource.getHeight();
@@ -347,14 +415,11 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
                         sourceDefaultTranslateX = (mWidth - sourceDefaultWidth) / 2;
                         imageView.setTag(R.id.image_orientation, "vertical");
                     }
-
                     imageView.setImageBitmap(resource);
-                    notifyItemChangedState(position, false, false);//更新显示状态
+                    notifyItemChangedState(pos, false, false);
 
                     ViewState vsDefault = ViewState.write(imageView, ViewState.STATE_DEFAULT).width(sourceDefaultWidth).height(sourceDefaultHeight)
                             .translationX(sourceDefaultTranslateX).translationY(sourceDefaultTranslateY);
-                    boolean isPlayEnterAnimation = false;
-
                     if (isPlayEnterAnimation) {
                         animSourceViewStateTransform(imageView, vsDefault);
                     } else {
@@ -366,48 +431,22 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
 
                 @Override
                 public void onLoadStarted(Drawable placeholder) {
-                    notifyItemChangedState(position, true, false);//更新显示状态
+                    notifyItemChangedState(pos, true, false);
                 }
 
                 @Override
                 public void onLoadFailed(Drawable errorDrawable) {
-                    notifyItemChangedState(position, false, imageView.getDrawable() == null);//更新显示状态
+                    notifyItemChangedState(pos, false, imageView.getDrawable() == null);
+
                 }
             });
 
             if (isPlayEnterAnimation) {
-                iOrigin.setVisibility(View.INVISIBLE);
+                //iOrigin.setVisibility(View.INVISIBLE);
                 animBackgroundTransform(0xFF000000);
             }
+            return isPlayEnterAnimation;
 
-            return itemView;
-        }
-
-
-        /**
-         * 更新ViewPager中每项的当前状态，比如是否加载，比如是否加载失败
-         *
-         * @param position 当前项的位置
-         * @param loading  是否显示加载中
-         * @param error    是否显示加载失败
-         */
-        void notifyItemChangedState(int position, boolean loading, boolean error) {
-            ImageView imageView = mImageSparseArray.get(position);
-            if (imageView != null) {
-                FrameLayout itemView = (FrameLayout) imageView.getParent();
-                MaterialProgressView loadView = (MaterialProgressView) itemView.getChildAt(1);
-                if (loading) {
-                    loadView.setVisibility(View.VISIBLE);
-                    loadView.start();
-                } else {
-                    loadView.stop();
-                    loadView.setVisibility(View.GONE);
-                }
-
-                ImageView errorView = (ImageView) itemView.getChildAt(2);
-                errorView.setAlpha(1f);
-                errorView.setVisibility(error ? View.VISIBLE : View.GONE);
-            }
         }
 
     }
@@ -435,8 +474,41 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
      * 处理单击的手指事件
      */
     public boolean onSingleTapConfirmed() {
-        setVisibility(View.GONE);
+        if (iSource == null) return false;
+        ViewState vsCurrent = ViewState.write(iSource, ViewState.STATE_CURRENT);
+        ViewState vsDefault = ViewState.read(iSource, ViewState.STATE_DEFAULT);
+        if (vsDefault == null || (vsCurrent.scaleY <= vsDefault.scaleY && vsCurrent.scaleX <= vsDefault.scaleX)) {
+            mExitScalingRef = 0;
+        } else {
+            mExitScalingRef = 1;
+        }
+        handleExitTouchResult();
         return true;
+    }
+
+    /**
+     * 处理结束下拉退出的手指事件，进行退出图片查看或者恢复到初始状态的收尾动画<br>
+     * 还需要还原背景色
+     */
+    private void handleExitTouchResult() {
+        if (iSource == null) return;
+
+        if (mExitScalingRef > 0.9f) {
+            ViewState vsDefault = ViewState.read(iSource, ViewState.STATE_DEFAULT);
+            if (vsDefault == null) return;
+            animSourceViewStateTransform(iSource, vsDefault);
+            animBackgroundTransform(0xFF000000);
+        } else {
+            ViewState vsOrigin = ViewState.read(iSource, ViewState.STATE_ORIGIN);
+            if (vsOrigin == null) return;
+            if (vsOrigin.alpha == 0)
+                vsOrigin.translationX(iSource.getTranslationX()).translationY(iSource.getTranslationY());
+
+            animSourceViewStateTransform(iSource, vsOrigin);
+            animBackgroundTransform(0x00000000);
+
+            ((FrameLayout) iSource.getParent()).getChildAt(2).animate().alpha(0).start();
+        }
     }
 
     /**
@@ -448,7 +520,7 @@ public class AtlasLayout extends FrameLayout implements ViewPager.OnPageChangeLi
      * 4、其他情况，ImageWatcher并没有展示图片
      */
     public boolean handleBackPressed() {
-        return getVisibility() == View.VISIBLE && onSingleTapConfirmed();
+        return isInTransformAnimation || (iSource != null && getVisibility() == View.VISIBLE && onSingleTapConfirmed());
     }
 
     /**
