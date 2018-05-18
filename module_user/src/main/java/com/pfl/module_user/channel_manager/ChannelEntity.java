@@ -8,7 +8,7 @@ public class ChannelEntity {
 
     private long id;
     private String name;
-    private String title;
+    private boolean fixed = false;
 
     public long getId() {
         return id;
@@ -26,4 +26,11 @@ public class ChannelEntity {
         this.name = name;
     }
 
+    public boolean isFixed() {
+        return fixed;
+    }
+
+    public void setFixed(boolean fixed) {
+        this.fixed = fixed;
+    }
 }

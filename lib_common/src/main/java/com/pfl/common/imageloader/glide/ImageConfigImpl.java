@@ -1,20 +1,22 @@
 /**
-  * Copyright 2017 JessYan
-  *
-  * Licensed under the Apache License, Version 2.0 (the "License");
-  * you may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at
-  *
-  *      http://www.apache.org/licenses/LICENSE-2.0
-  *
-  * Unless required by applicable law or agreed to in writing, software
-  * distributed under the License is distributed on an "AS IS" BASIS,
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  */
+ * Copyright 2017 JessYan
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.pfl.common.imageloader.glide;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
@@ -39,6 +41,7 @@ public class ImageConfigImpl extends ImageConfig {
     private ImageView[] imageViews;
     private boolean isClearMemory;//清理内存缓存
     private boolean isClearDiskCache;//清理本地缓存
+    private LoadCallback loadCallback;//加载图片回调
 
     private ImageConfigImpl(Builder builder) {
         this.url = builder.url;
@@ -51,6 +54,7 @@ public class ImageConfigImpl extends ImageConfig {
         this.imageViews = builder.imageViews;
         this.isClearMemory = builder.isClearMemory;
         this.isClearDiskCache = builder.isClearDiskCache;
+        this.loadCallback = builder.loadCallback;
     }
 
     public int getCacheStrategy() {
@@ -77,10 +81,22 @@ public class ImageConfigImpl extends ImageConfig {
         return fallback;
     }
 
+    public LoadCallback getLoadCallback() {
+        return loadCallback;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
 
+
+    public interface LoadCallback {
+        void onResourceReady(Bitmap resource);
+
+        void onLoadStarted(Drawable placeholder);
+
+        void onLoadFailed(Drawable errorDrawable);
+    }
 
     public static final class Builder {
         private String url;
@@ -93,6 +109,7 @@ public class ImageConfigImpl extends ImageConfig {
         private ImageView[] imageViews;
         private boolean isClearMemory;//清理内存缓存
         private boolean isClearDiskCache;//清理本地缓存
+        private LoadCallback loadCallback;//加载图片回调
 
         private Builder() {
         }
@@ -144,6 +161,11 @@ public class ImageConfigImpl extends ImageConfig {
 
         public Builder isClearDiskCache(boolean isClearDiskCache) {
             this.isClearDiskCache = isClearDiskCache;
+            return this;
+        }
+
+        public Builder loadCallback(LoadCallback loadCallback) {
+            this.loadCallback = loadCallback;
             return this;
         }
 

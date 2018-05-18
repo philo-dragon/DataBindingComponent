@@ -8,14 +8,12 @@ import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.pfl.common.base.BaseActivity;
 import com.pfl.common.di.AppComponent;
 import com.pfl.common.imageloader.ImageLoader;
+import com.pfl.common.imageloader.glide.ImageConfigImpl;
 import com.pfl.common.utils.RouteUtils;
 import com.pfl.common.utils.RxClickUtil;
-import com.pfl.common.weidget.atlas.AtlasLayout;
 import com.pfl.common.weidget.atlas.ImageWatcher;
 import com.pfl.module_user.R;
 import com.pfl.module_user.databinding.ModuleUserActivityMyWalletBinding;
@@ -29,8 +27,8 @@ import java.util.List;
 @Route(path = RouteUtils.MODULE_USER_ACTIVITY_MY_WALLET)
 public class ModuleUserMyWalletActivity extends BaseActivity<ModuleUserActivityMyWalletBinding> implements View.OnClickListener {
 
-    private AtlasLayout atlasLayout;
     private ImageWatcher vImageWatcher;
+    private ImageLoader imageLoader;
 
     @Override
     public int getContentView() {
@@ -39,7 +37,7 @@ public class ModuleUserMyWalletActivity extends BaseActivity<ModuleUserActivityM
 
     @Override
     public void componentInject(AppComponent appComponent) {
-
+        imageLoader = appComponent.getImageLoader();
     }
 
     @Override
@@ -88,46 +86,50 @@ public class ModuleUserMyWalletActivity extends BaseActivity<ModuleUserActivityM
         urlList.add("http://img.my.csdn.net/uploads/201701/06/1483664940_9893.jpg");
         urlList.add("http://img.my.csdn.net/uploads/201701/06/1483664940_9893.jpg");
 
-        atlasLayout = AtlasLayout.Builder.with(this).create();
-        atlasLayout.showAtlas(initImageView, imgList, urlList);
-
         // 不再需要在布局文件中加入<ImageWatcher>标签 减少布局嵌套
         // 一般来讲， ImageWatcher 需要占据全屏的位置
         // 如果是透明状态栏，你需要给ImageWatcher标记 一个偏移值，以修正点击ImageView查看的启动动画的Y轴起点的不正确
         // 配置error图标 如果不介意使用lib自带的图标，并不一定要调用这个API
         //调用show方法前，请先调用setLoader 给ImageWatcher提供加载图片的实现
-       /* vImageWatcher = ImageWatcher.Helper.with(this) // 一般来讲， ImageWatcher 需要占据全屏的位置
+        vImageWatcher = ImageWatcher.Helper.with(this) // 一般来讲， ImageWatcher 需要占据全屏的位置
                 .setTranslucentStatus(0) // 如果是透明状态栏，你需要给ImageWatcher标记 一个偏移值，以修正点击ImageView查看的启动动画的Y轴起点的不正确
                 .setErrorImageRes(R.mipmap.img_error) // 配置error图标 如果不介意使用lib自带的图标，并不一定要调用这个API
                 .setLoader(new ImageWatcher.Loader() {//调用show方法前，请先调用setLoader 给ImageWatcher提供加载图片的实现
                     @Override
                     public void load(Context context, String url, final ImageWatcher.LoadCallback lc) {
-                        Glide.with(context).asBitmap().load(url).into(new SimpleTarget<Bitmap>() {
-                            @Override
-                            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-                                lc.onResourceReady(resource);
-                            }
 
-                            @Override
-                            public void onLoadStarted(Drawable placeholder) {
-                                lc.onLoadStarted(placeholder);
-                            }
+                        imageLoader.loadImage(context, ImageConfigImpl.
+                                builder().
+                                url("http://img.my.csdn.net/uploads/201701/06/1483664940_9893.jpg").
+                                loadCallback(new ImageConfigImpl.LoadCallback() {
+                                    @Override
+                                    public void onResourceReady(Bitmap resource) {
+                                        lc.onResourceReady(resource);
+                                    }
 
-                            @Override
-                            public void onLoadFailed(Drawable errorDrawable) {
-                                lc.onLoadFailed(errorDrawable);
-                            }
-                        });
+                                    @Override
+                                    public void onLoadStarted(Drawable placeholder) {
+                                        lc.onLoadStarted(placeholder);
+                                    }
+
+                                    @Override
+                                    public void onLoadFailed(Drawable errorDrawable) {
+                                        lc.onLoadFailed(errorDrawable);
+                                    }
+                                }).
+                                build());
+
                     }
                 })
                 .create();
 
-        vImageWatcher.show(initImageView, imgList, urlList);*/
+        vImageWatcher.show(initImageView, imgList, urlList);
+
     }
 
     @Override
     public void onBackPressed() {
-        if (!atlasLayout.handleBackPressed()) {
+        if (!vImageWatcher.handleBackPressed()) {
             super.onBackPressed();
         }
     }

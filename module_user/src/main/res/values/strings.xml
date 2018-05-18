@@ -21,4 +21,6 @@
     <string name="module_user_my_wallet">我的钱包</string>
     <string name="module_user_h5">H5界面</string>
     <string name="module_user_channel_manager">频道管理</string>
+    <string name="finish">完成</string>
+    <string name="edit">编辑</string>
 </resources>

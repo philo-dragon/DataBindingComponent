@@ -36,6 +36,8 @@ import java.util.List;
 
 
 /**
+ * 修改 https://github.com/byc4426/ImageWatcher 使其在斜着下滑也会有响应 更像微信
+ * <p>
  * <p>
  * 图片查看器，为各位追求用户体验的daLao提供更优质的服务<br/>
  * <b>它能够</b><br/>
@@ -44,6 +46,7 @@ import java.util.List;
  * 3、下拽退出查看图片的操作，以及效果是本View的最大卖点(仿微信)
  */
 public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestureListener, ViewPager.OnPageChangeListener {
+    private static final String TAG = ImageWatcher.class.getSimpleName();
     private static final int SINGLE_TAP_UP_CONFIRMED = 1;
     private final Handler mHandler;
 
@@ -213,6 +216,7 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
 
     @Override
     public boolean onDown(MotionEvent e) {
+        Log.e(TAG, "onDown()");
         mTouchMode = TOUCH_MODE_DOWN;
         ViewState.write(iSource, ViewState.STATE_TOUCH_DOWN);
         vPager.onTouchEvent(e);
@@ -220,6 +224,7 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
     }
 
     public void onUp(MotionEvent e) {
+        Log.e(TAG, "onUp()");
         if (mTouchMode == TOUCH_MODE_EXIT) {
             handleExitTouchResult();
         } else if (mTouchMode == TOUCH_MODE_SCALE_ROTATE
@@ -236,6 +241,7 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        Log.e(TAG, "onScroll()");
         final float moveX = (e1 != null) ? e2.getX() - e1.getX() : 0;
         final float moveY = (e1 != null) ? e2.getY() - e1.getY() : 0;
         if (mTouchMode == TOUCH_MODE_DOWN) {
@@ -293,10 +299,11 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
             vPager.onTouchEvent(e2);
         } else if (mTouchMode == TOUCH_MODE_SCALE_ROTATE) {
             handleScaleRotateGesture(e2);
-        } else if (mTouchMode == TOUCH_MODE_EXIT) {
-            handleExitGesture(e2, e1);
         } else if (mTouchMode == TOUCH_MODE_DRAG) {
             handleDragGesture(e2, e1);
+        } else if (moveY > moveX || mTouchMode == TOUCH_MODE_EXIT) {
+            mTouchMode = TOUCH_MODE_EXIT;
+            handleExitGesture(e2, e1);
         }
         return false;
     }
@@ -350,6 +357,7 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
      * 处理响应退出图片查看
      */
     private void handleExitGesture(MotionEvent e2, MotionEvent e1) {
+        Log.e(TAG, "handleExitGesture()");
         if (iSource == null) return;
         ViewState vsTouchDown = ViewState.read(iSource, ViewState.STATE_TOUCH_DOWN);
         if (vsTouchDown == null) return;
@@ -373,6 +381,7 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
      * 处理响应双手拖拽缩放旋转
      */
     private void handleScaleRotateGesture(MotionEvent e2) {
+        Log.e(TAG, "handleScaleRotateGesture()");
         if (iSource == null) return;
         final ViewState vsDefault = ViewState.read(iSource, ViewState.STATE_DEFAULT);
         if (vsDefault == null) return;
@@ -431,6 +440,7 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
      * 处理响应单手拖拽平移
      */
     private void handleDragGesture(MotionEvent e2, MotionEvent e1) {
+        Log.e(TAG, "handleDragGesture()");
         if (iSource == null) return;
         final float moveY = e2.getY() - e1.getY();
         final float moveX = e2.getX() - e1.getX();
@@ -473,6 +483,7 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
      * 还需要还原背景色
      */
     private void handleExitTouchResult() {
+        Log.e(TAG, "handleExitTouchResult()");
         if (iSource == null) return;
 
         if (mExitScalingRef > 0.9f) {
@@ -516,6 +527,7 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
      * 如果是从{@link ImageWatcher#TOUCH_MODE_EXIT}半路转化过来的事件 还需要还原背景色
      */
     private void handleScaleRotateTouchResult() {
+        Log.e(TAG, "handleScaleRotateTouchResult()");
         if (iSource == null) return;
         ViewState vsDefault = ViewState.read(iSource, ViewState.STATE_DEFAULT);
         if (vsDefault == null) return;
@@ -536,6 +548,7 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
      * 处理结束拖拽模式的手指事件，进行超过边界则恢复到边界的收尾动画
      */
     private void handleDragTouchResult() {
+        Log.e(TAG, "handleDragTouchResult()");
         if (iSource == null) return;
         ViewState vsDefault = ViewState.read(iSource, ViewState.STATE_DEFAULT);
         if (vsDefault == null) return;
