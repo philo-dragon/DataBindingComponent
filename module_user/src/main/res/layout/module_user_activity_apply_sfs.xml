@@ -13,6 +13,22 @@
             android:id="@+id/in_toolbar_layout"
             layout="@layout/common_databinding_toolbar_layout" />
 
+        <com.pfl.common.weidget.ExpandableTextView
+            android:id="@+id/etv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="32dp"
+            android:background="#22999999"
+            android:lineSpacingExtra="4dp"
+            android:padding="12dp"
+            android:text="@string/str_expandable"
+            android:textSize="16dp"
+            app:etv_EllipsisHint="... "
+            app:etv_Newline="false"
+            app:etv_ToExpandHint="展开"
+            app:etv_ToShrinkHint="收起" />
+
     </RelativeLayout>
 
 </layout>

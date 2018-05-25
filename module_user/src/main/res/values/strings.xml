@@ -23,4 +23,5 @@
     <string name="module_user_channel_manager">频道管理</string>
     <string name="finish">完成</string>
     <string name="edit">编辑</string>
+    <string name="str_expandable">为了保持界面UI的整洁以及将尽可能多的内容显示在有限的空间中，往往需要将长度过长的TextView进行内容截取。本控件满足了TextView可在\"完整内容\"与\"截取内容\"两种模式下进行切换的需求，且可应用在ListView/RecyclerView中并可以动态更新内容</string>
 </resources>

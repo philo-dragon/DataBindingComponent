@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">lib_common</string>
+
+    <string name="to_expand_hint">Expand</string>
+    <string name="to_shrink_hint">Shrink</string>
 </resources>
+
