@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.DynamicLayout;
 import android.text.Layout;
 import android.text.Selection;
@@ -39,7 +40,7 @@ import com.pfl.common.R;
 
 import java.lang.reflect.Field;
 
-public class ExpandableTextView extends android.support.v7.widget.AppCompatTextView {
+public class ExpandableTextView extends AppCompatTextView {
 
     public static final int STATE_SHRINK = 0;
     public static final int STATE_EXPAND = 1;
@@ -266,17 +267,13 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
                 }
                 int indexEnd = getValidLayout().getLineEnd(mMaxLinesOnShrink - 1);
                 int indexStart = getValidLayout().getLineStart(mMaxLinesOnShrink - 1);
-                int indexEndTrimmed = indexEnd
-                        - getLengthOfString(mEllipsisHint)
-                        - (mShowToExpandHint ? getLengthOfString(mGapToExpandHint) + getLengthOfString(mToExpandHint) : getLengthOfString(mToExpandHint));//getLengthOfString(mToExpandHint) +
+                int indexEndTrimmed = indexEnd - getLengthOfString(mEllipsisHint) - (mShowToExpandHint ? getLengthOfString(mGapToExpandHint) : 0);//getLengthOfString(mToExpandHint) +
                 if (indexEndTrimmed <= 0) {
                     return mOrigText.subSequence(0, indexEnd);
                 }
 
-                int remainWidth = getValidLayout().getWidth() -
-                        (int) (mTextPaint.measureText(mOrigText.subSequence(indexStart, indexEndTrimmed).toString()) + 0.5);
-                float widthTailReplaced = mTextPaint.measureText(getContentOfString(mEllipsisHint)
-                        + (mShowToExpandHint ? (getContentOfString(mGapToExpandHint) + getLengthOfString(mToExpandHint)) : getContentOfString(mToExpandHint)));//getContentOfString(mToExpandHint) +
+                int remainWidth = getValidLayout().getWidth() - (int) (mTextPaint.measureText(mOrigText.subSequence(indexStart, indexEndTrimmed).toString()) + 0.5);
+                float widthTailReplaced = mTextPaint.measureText(getContentOfString(mEllipsisHint) + (mShowToExpandHint ? (getContentOfString(mGapToExpandHint)) : ""));//getContentOfString(mToExpandHint) +
 
                 int indexEndTrimmedRevised = indexEndTrimmed;
                 if (remainWidth > widthTailReplaced) {
@@ -306,11 +303,11 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
                     indexEndTrimmedRevised += extraOffset;
                 }
 
-                SpannableStringBuilder ssbShrink = new SpannableStringBuilder(mOrigText, 0, indexEndTrimmedRevised)
-                        .append(mEllipsisHint);
+                SpannableStringBuilder ssbShrink = new SpannableStringBuilder(mOrigText, 0, indexEndTrimmedRevised).append(mEllipsisHint);
+                ssbShrink.delete(ssbShrink.length() - getLengthOfString(mEllipsisHint) - getLengthOfString(mToExpandHint) - getLengthOfString(mGapToExpandHint), ssbShrink.length() - getLengthOfString(mEllipsisHint));
                 if (mShowToExpandHint) {
                     ssbShrink.append(getContentOfString(mGapToExpandHint) + getContentOfString(mToExpandHint));
-                    ssbShrink.setSpan(mTouchableSpan, ssbShrink.length() - getLengthOfString(mToExpandHint + "..."), ssbShrink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    ssbShrink.setSpan(mTouchableSpan, ssbShrink.length() - getLengthOfString(mToExpandHint), ssbShrink.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                     //获取Drawable资源
                     Drawable d = getResources().getDrawable(R.mipmap.more_unfold);
@@ -319,7 +316,6 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
                     ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BASELINE);
                     //用ImageSpan替换文本
                     ssbShrink.setSpan(span, ssbShrink.length() - getLengthOfString(mToExpandHint), ssbShrink.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-
                 }
                 return ssbShrink;
             }
@@ -329,13 +325,11 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
                 }
                 mLayout = new DynamicLayout(mOrigText, mTextPaint, mLayoutWidth, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
                 mTextLineCount = mLayout.getLineCount();
-
                 if (mTextLineCount <= mMaxLinesOnShrink) {
                     return mOrigText;
                 }
 
-                SpannableStringBuilder ssbExpand = new SpannableStringBuilder(mOrigText)
-                        .append(mGapToShrinkHint).append(mToShrinkHint);
+                SpannableStringBuilder ssbExpand = new SpannableStringBuilder(mOrigText).append(mGapToShrinkHint).append(mToShrinkHint);
                 ssbExpand.setSpan(mTouchableSpan, ssbExpand.length() - getLengthOfString(mToShrinkHint), ssbExpand.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 //获取Drawable资源
@@ -408,14 +402,14 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
         void onShrink(ExpandableTextView view);
     }
 
-    private class ExpandableClickListener implements OnClickListener {
+    private class ExpandableClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             toggle();
         }
     }
 
-    public OnClickListener getOnClickListener(View view) {
+    public View.OnClickListener getOnClickListener(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             return getOnClickListenerV14(view);
         } else {
@@ -423,12 +417,12 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
         }
     }
 
-    private OnClickListener getOnClickListenerV(View view) {
-        OnClickListener retrievedListener = null;
+    private View.OnClickListener getOnClickListenerV(View view) {
+        View.OnClickListener retrievedListener = null;
         try {
             Field field = Class.forName(CLASS_NAME_VIEW).getDeclaredField("mOnClickListener");
             field.setAccessible(true);
-            retrievedListener = (OnClickListener) field.get(view);
+            retrievedListener = (View.OnClickListener) field.get(view);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -436,8 +430,8 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
         return retrievedListener;
     }
 
-    private OnClickListener getOnClickListenerV14(View view) {
-        OnClickListener retrievedListener = null;
+    private View.OnClickListener getOnClickListenerV14(View view) {
+        View.OnClickListener retrievedListener = null;
         try {
             Field listenerField = Class.forName(CLASS_NAME_VIEW).getDeclaredField("mListenerInfo");
             Object listenerInfo = null;
@@ -451,7 +445,7 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
 
             if (clickListenerField != null && listenerInfo != null) {
                 clickListenerField.setAccessible(true);
-                retrievedListener = (OnClickListener) clickListenerField.get(listenerInfo);
+                retrievedListener = (View.OnClickListener) clickListenerField.get(listenerInfo);
             }
         } catch (Exception e) {
             e.printStackTrace();
