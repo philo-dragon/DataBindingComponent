@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         fragments.add(RouteUtils.newFragment(RouteUtils.APP_FRAGMENT_FAST_NEWS));
         fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_FRAGMENT_MINE));
         fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_FRAGMENT_MINE));
-        fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_FRAGMENT_MINE));
+        fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_FRAGMENT_FIND));
         fragments.add(RouteUtils.newFragment(RouteUtils.MODULE_USER_SCALE_RECYCLER_VIEW_FRAGMENT));
 
         // add to items for change ViewPager item

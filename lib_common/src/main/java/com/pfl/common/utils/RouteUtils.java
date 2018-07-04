@@ -47,6 +47,7 @@ public class RouteUtils {
 
     public static final String MODULE_USER_FRAGMENT_MINE = "/module_user/fragment_mine";
     public static final String MODULE_USER_FRAGMENT_CHANNEL = "/module_user/fragment_channel";
+    public static final String MODULE_USER_FRAGMENT_FIND = "/module_user/fragment_find";
     public static final String MODULE_USER_SCALE_RECYCLER_VIEW_FRAGMENT = "/module_user/fragment_scale_recycler_view";
 
     public static final String MODULE_USER_LISTENER_USER_INFO = "/module_user/listener_user_info";

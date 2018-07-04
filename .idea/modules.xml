@@ -3,10 +3,15 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DataBindingComponent.iml" filepath="$PROJECT_DIR$/DataBindingComponent.iml" />
+      <module fileurl="file://D:\project\DataBindingComponent\DataBindingComponent.iml" filepath="D:\project\DataBindingComponent\DataBindingComponent.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\project\DataBindingComponent\app\app.iml" filepath="D:\project\DataBindingComponent\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib_common/lib_common.iml" filepath="$PROJECT_DIR$/lib_common/lib_common.iml" />
+      <module fileurl="file://D:\project\DataBindingComponent\lib_common\lib_common.iml" filepath="D:\project\DataBindingComponent\lib_common\lib_common.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib_resource/lib_resource.iml" filepath="$PROJECT_DIR$/lib_resource/lib_resource.iml" />
+      <module fileurl="file://D:\project\DataBindingComponent\lib_resource\lib_resource.iml" filepath="D:\project\DataBindingComponent\lib_resource\lib_resource.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_user/module_user.iml" filepath="$PROJECT_DIR$/module_user/module_user.iml" />
+      <module fileurl="file://D:\project\DataBindingComponent\module_user\module_user.iml" filepath="D:\project\DataBindingComponent\module_user\module_user.iml" />
       <module fileurl="file://D:\workspace\DataBindingComponent\topzuqiu_component.iml" filepath="D:\workspace\DataBindingComponent\topzuqiu_component.iml" />
     </modules>
   </component>
